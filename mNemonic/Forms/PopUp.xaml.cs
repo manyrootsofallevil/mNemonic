@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -19,13 +20,18 @@ namespace mNemonic
     /// </summary>
     public partial class PopUp : Window
     {
-        public PopUp()
-        {
-            InitializeComponent();
+        Timer Timer;
 
-            //ImageSource source = new BitmapImage(new Uri(@"C:\Users\John\Desktop\images.jpg"));
-            ImageSource source = new BitmapImage(new Uri(@"C:\Users\John\Desktop\07.PNG"));
-            Image.Source = source;
+        public PopUp(Timer timer)
+        {
+            this.Timer = timer;
+            Timer.Enabled = false;
+            InitializeComponent();
+        }
+
+        void Window_Closed(object sender, EventArgs e)
+        {
+            Timer.Enabled = true;
         }
     }
 }

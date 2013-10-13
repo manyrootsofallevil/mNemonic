@@ -1,7 +1,7 @@
 ﻿<Window x:Class="mNemonic.PopUp"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="mNemonic" Height="450" Width="450" MinHeight="450" MinWidth="450" Icon="/Resources/Memento.ico">
+        Title="mNemonic" Height="450" Width="450" MinHeight="450" MinWidth="450" Icon="/Resources/Memento.ico" Closed="Window_Closed">
     <Grid MinHeight="390">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10*"/>
@@ -26,7 +26,6 @@
         <Button Content="Vaguely Remember" Grid.Column="3" HorizontalAlignment="Center" Margin="8,9.583,7,14" Grid.Row="3" VerticalAlignment="Center" Width="110" Height="22"/>
         <Button Content="Remember" Grid.Column="5" HorizontalAlignment="Center" Margin="8,9.583,8,14" Grid.Row="3" VerticalAlignment="Center" Width="110" Height="22"/>
         <Rectangle Fill="#FFF4F4F5"  Height="4" Margin="-4,0" Stroke="Black" VerticalAlignment="Top" HorizontalAlignment="Stretch"  Grid.Row="4" Grid.ColumnSpan="7"/>
-        <Image Name="Image" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Bottom" Margin="58,24,67,327" Grid.Column="1" Grid.ColumnSpan="5"/>
     </Grid>
 
 </Window>
