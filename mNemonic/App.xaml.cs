@@ -16,6 +16,7 @@ namespace mNemonic
     {
         private TaskbarIcon tb;
         private System.Windows.Forms.Timer timer;
+        private Worker worker;
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
@@ -24,22 +25,21 @@ namespace mNemonic
             //timer = new System.Windows.Forms.Timer();
 
             timer = (System.Windows.Forms.Timer)FindResource("Timer");
-
-            //Interval is in minutes so ...
 #if DEBUG
             timer.Interval = 4000;
 #else
+            //Interval in the config file is in minutes so ...
             timer.Interval = Int32.Parse(ConfigurationManager.AppSettings["Interval"]) * 1000 * 60;
 #endif
             timer.Tick += DisplayTicker;
+            worker = new Worker(ConfigurationManager.AppSettings["Maindirectory"]);
             timer.Start();
         }
 
         private async void DisplayTicker(object sender, EventArgs e)
         {
-            Worker test = new Worker();
-            string bobr = await test.GetNextItemAsync();
-            PopUp op = new PopUp(timer);
+            mNeme next = await worker.GetNextItemAsync();
+            PopUp op = new PopUp(timer, next);
             op.Show();
         }
     }

@@ -22,11 +22,12 @@ namespace mNemonic
     {
         Timer Timer;
 
-        public PopUp(Timer timer)
+        public PopUp(Timer timer, mNeme mNeme)
         {
             this.Timer = timer;
             Timer.Enabled = false;
             InitializeComponent();
+            System.Windows.Forms.MessageBox.Show(mNeme.Location);
         }
 
         void Window_Closed(object sender, EventArgs e)

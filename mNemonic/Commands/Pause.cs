@@ -13,9 +13,7 @@ namespace mNemonic.Commands
 
         public void Execute(object parameter)
         {
-            //System.Windows.Forms.Timer Timer = (System.Windows.Forms.Timer)parameter;
             Timer = (System.Windows.Forms.Timer)App.Current.FindResource("Timer");
-
             Timer.Enabled = false;
         }
 

@@ -34,8 +34,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Hardcodet.Wpf.TaskbarNotification">
-      <HintPath>NotifyIcon.Wpf\Hardcodet.Wpf.TaskbarNotification.dll</HintPath>
+    <Reference Include="Hardcodet.Wpf.TaskbarNotification, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>External Libraries\Hardcodet.Wpf.TaskbarNotification.dll</HintPath>
+    </Reference>
+    <Reference Include="Ionic.Zip.Reduced">
+      <HintPath>External Libraries\Ionic.Zip.Reduced.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -61,6 +65,8 @@
     </ApplicationDefinition>
     <Compile Include="Commands\Pause.cs" />
     <Compile Include="Commands\Play.cs" />
+    <Compile Include="mNeme.cs" />
+    <Compile Include="mNemeType.cs" />
     <Compile Include="Worker.cs" />
     <Page Include="Forms\Configuration.xaml">
       <SubType>Designer</SubType>
@@ -134,6 +140,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\exit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="collections.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
