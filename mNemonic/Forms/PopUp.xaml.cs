@@ -27,7 +27,16 @@ namespace mNemonic
             this.Timer = timer;
             Timer.Enabled = false;
             InitializeComponent();
-            System.Windows.Forms.MessageBox.Show(mNeme.Location);
+
+            if (mNeme.Type == mNemeType.Image)
+            {
+                ImageToBeDisplayed.Source =
+                    new BitmapImage(new Uri(mNeme.Items.Where(x => x.Item2 == mNemeType.Image).FirstOrDefault().Item1));
+
+                ImageToBeDisplayed.Height = this.Height;
+                ImageToBeDisplayed.Width = this.Width;
+
+            }
         }
 
         void Window_Closed(object sender, EventArgs e)
