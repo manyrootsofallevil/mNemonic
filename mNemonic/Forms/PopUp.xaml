@@ -15,19 +15,17 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="0*"/>
-            <RowDefinition Height="351*"/>
-            <RowDefinition Height="5*"/>
-            <RowDefinition Height="46*"/>
-            <RowDefinition Height="5*"/>
-            <RowDefinition Height="10*"/>
+            <RowDefinition Height="375*"/>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="35*"/>
+            <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
 
-        <Rectangle Fill="#FFF4F4F5"  Height="4" Margin="-4,3,-4,0" Stroke="Black" VerticalAlignment="Top" HorizontalAlignment="Stretch"  Grid.Row="2" Grid.ColumnSpan="7"/>
-        <Button Content="Don't Remember" HorizontalAlignment="Center" Margin="8,9.583,8,14" VerticalAlignment="Center" Width="110" Grid.Row="3" Height="22" Grid.Column="1" />
-        <Button Content="Vaguely Remember" Grid.Column="3" HorizontalAlignment="Center" Margin="8,9.583,7,14" Grid.Row="3" VerticalAlignment="Center" Width="110" Height="22"/>
-        <Button Content="Remember" Grid.Column="5" HorizontalAlignment="Center" Margin="8,9.583,8,14" Grid.Row="3" VerticalAlignment="Center" Width="110" Height="22"/>
-        <Rectangle Fill="#FFF4F4F5"  Height="4" Margin="-4,0" Stroke="Black" VerticalAlignment="Top" HorizontalAlignment="Stretch"  Grid.Row="4" Grid.ColumnSpan="7"/>
-        <Image Name="ImageToBeDisplayed" Grid.ColumnSpan="5" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center"  Margin="37,28,0,0" VerticalAlignment="Top" />
+        <Rectangle Fill="#FFF4F4F5"  Height="4" Margin="-4,2,-4,0" Stroke="Black" VerticalAlignment="Top" HorizontalAlignment="Stretch"  Grid.Row="2" Grid.ColumnSpan="7"/>
+        <Button Content="Don't Remember" HorizontalAlignment="Center" Margin="8,8,8,5" VerticalAlignment="Center" Width="110" Grid.Row="3" Height="22" Grid.Column="1" />
+        <Button Content="Vaguely Remember" Grid.Column="3" HorizontalAlignment="Center" Margin="8,8,7,5" Grid.Row="3" VerticalAlignment="Center" Width="110" Height="22"/>
+        <Button Content="Remember" Grid.Column="5" HorizontalAlignment="Center" Margin="8,8,8,5" Grid.Row="3" VerticalAlignment="Center" Width="110" Height="22"/>
+        <Image Name="ImageToBeDisplayed" Grid.Row="1" HorizontalAlignment="Center"  Margin="76,28,49,0" VerticalAlignment="Top" Grid.Column="1" Grid.ColumnSpan="6" />
     </Grid>
 
 </Window>

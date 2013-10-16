@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,7 @@ namespace mNemonic
         //TODO: this should have a type of file which will be the main file to be displayed, e.g. a picture or a piece of text, etc..
         //as well as the dimensions of the control so that it can be displayed accordingly, which means that we need to get the dimensions
         //of the image here. We should probably store the text here as well or should we?
-        public List<Tuple<string,mNemeType>> Items{get; set;}
+        public List<Tuple<string, mNemeType>> Items { get; set; }
 
         public mNeme(mNemeType type, string location)
         {
@@ -24,7 +25,7 @@ namespace mNemonic
             getItems();
         }
 
-        public mNeme( string location)
+        public mNeme(string location)
         {
             Location = location;
             Items = new List<Tuple<string, mNemeType>>();
@@ -47,9 +48,9 @@ namespace mNemonic
                     Items.Add(new Tuple<string, mNemeType>(file, mNemeType.Image));
                 }
             }
-         
-          
-           
+
+
+
         }
 
     }
