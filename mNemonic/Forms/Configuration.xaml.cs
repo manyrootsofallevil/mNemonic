@@ -24,9 +24,12 @@ namespace mNemonic.Forms
 
         public Configuration()
         {
-            InitializeComponent();
+            Timer = (System.Windows.Forms.Timer)App.Current.FindResource("Timer");
+            Timer.Enabled = false;
 
+            InitializeComponent();
             Interval.Text = ConfigurationManager.AppSettings["Interval"];
+          
         }
 
         private void Window_Closed(object sender, EventArgs e)

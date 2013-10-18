@@ -22,10 +22,11 @@ namespace mNemonic
     {
         Timer Timer;
 
-        public PopUp(Timer timer, mNeme mNeme)
+        public PopUp(mNeme mNeme)
         {
-            this.Timer = timer;
+            Timer = (System.Windows.Forms.Timer)App.Current.FindResource("Timer");
             Timer.Enabled = false;
+
             InitializeComponent();
 
             if (mNeme.Type == mNemeType.Image)

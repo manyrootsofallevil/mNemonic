@@ -26,7 +26,7 @@ namespace mNemonic
 
             timer = (System.Windows.Forms.Timer)FindResource("Timer");
 #if DEBUG
-            timer.Interval = 4000;
+            timer.Interval = 3000;
 #else
             //Interval in the config file is in minutes so ...
             timer.Interval = Int32.Parse(ConfigurationManager.AppSettings["Interval"]) * 1000 * 60;
@@ -39,8 +39,8 @@ namespace mNemonic
         private async void DisplayTicker(object sender, EventArgs e)
         {
             mNeme next = await worker.GetNextItemAsync();
-            PopUp op = new PopUp(timer, next);
-            op.Show();
+            PopUp popUp = new PopUp(next);
+            popUp.Show();
         }
     }
 
