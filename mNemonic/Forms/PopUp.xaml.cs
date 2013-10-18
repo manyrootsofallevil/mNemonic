@@ -31,21 +31,16 @@ namespace mNemonic
 
             if (mNeme.Type == mNemeType.Image)
             {
-               System.Drawing.Image img = System.Drawing.Image.FromFile(mNeme.Items.Where(x => x.Item2 == mNemeType.Image).FirstOrDefault().Item1);
-
-               this.Height = img.Height;
-               this.Width = img.Width;
-
-               
 
                 ImageToBeDisplayed.Source =
-                    new BitmapImage(new Uri(mNeme.Items.Where(x => x.Item2 == mNemeType.Image).FirstOrDefault().Item1));
+                    new BitmapImage(new Uri(mNeme.Items.Where(x => x.Item2 == FileType.Image).FirstOrDefault().Item1));
 
-                ImageToBeDisplayed.Height = this.Height;
-                ImageToBeDisplayed.Width = this.Width;
-                
-                this.Top = 0;
-                this.BringIntoView();
+                using (System.IO.StreamReader sw
+                    = new System.IO.StreamReader(mNeme.Items.Where(x => x.Item2 == FileType.Text).FirstOrDefault().Item1))
+                {
+                    //    Answer.Text = sw.ReadToEnd();
+                }
+
             }
         }
 
