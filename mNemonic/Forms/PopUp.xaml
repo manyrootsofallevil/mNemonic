@@ -26,6 +26,7 @@
         <Button Content="Vaguely Remember" Grid.Column="3" HorizontalAlignment="Center" Margin="8,8,7,5" Grid.Row="3" VerticalAlignment="Center" Width="110" Height="22"/>
         <Button Content="Remember" Grid.Column="5" HorizontalAlignment="Center" Margin="8,8,8,5" Grid.Row="3" VerticalAlignment="Center" Width="110" Height="22"/>
         <Image Name="ImageToBeDisplayed" Grid.Row="1" HorizontalAlignment="Left"  Margin="76,28,49,0" VerticalAlignment="Top" Grid.Column="1" Grid.ColumnSpan="6" />
+        <TextBlock Name="Answer" TextWrapping="Wrap" Grid.Row="1" HorizontalAlignment="Right" Grid.Column="5"></TextBlock>
     </Grid>
 
 </Window>

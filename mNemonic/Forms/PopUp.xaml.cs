@@ -38,7 +38,7 @@ namespace mNemonic
                 using (System.IO.StreamReader sw
                     = new System.IO.StreamReader(mNeme.Items.Where(x => x.Item2 == FileType.Text).FirstOrDefault().Item1))
                 {
-                    //    Answer.Text = sw.ReadToEnd();
+                        Answer.Text = sw.ReadToEnd();
                 }
 
             }

@@ -66,7 +66,7 @@
     <Compile Include="Commands\Pause.cs" />
     <Compile Include="Commands\Play.cs" />
     <Compile Include="mNeme.cs" />
-    <Compile Include="mNemeType.cs" />
+    <Compile Include="Enums.cs" />
     <Compile Include="Worker.cs" />
     <Page Include="Forms\Configuration.xaml">
       <SubType>Designer</SubType>

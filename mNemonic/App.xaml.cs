@@ -40,7 +40,9 @@ namespace mNemonic
         {
             mNeme next = await worker.GetNextItemAsync();
             PopUp popUp = new PopUp(next);
+            popUp.SourceInitialized += (s, a) => popUp.WindowState = WindowState.Maximized;
             popUp.Show();
+    
         }
     }
 
