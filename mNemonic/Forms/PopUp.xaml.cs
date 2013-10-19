@@ -29,17 +29,29 @@ namespace mNemonic
 
             InitializeComponent();
 
-            if (mNeme.Type == mNemeType.Image)
+            switch (mNeme.Type)
             {
 
-                ImageToBeDisplayed.Source =
-                    new BitmapImage(new Uri(mNeme.Items.Where(x => x.Item2 == FileType.Image).FirstOrDefault().Item1));
+                case mNemeType.Image:
 
-                using (System.IO.StreamReader sw
-                    = new System.IO.StreamReader(mNeme.Items.Where(x => x.Item2 == FileType.Text).FirstOrDefault().Item1))
-                {
+                    ImageToBeDisplayed.Source =
+                        new BitmapImage(new Uri(mNeme.Items.Where(x => x.Item2 == FileType.Image).FirstOrDefault().Item1));
+
+                    using (System.IO.StreamReader sw
+                        = new System.IO.StreamReader(mNeme.Items.Where(x => x.Item2 == FileType.Text).FirstOrDefault().Item1))
+                    {
+                        Answer.Text = sw.ReadToEnd(); 
+                        Answer.Visibility = System.Windows.Visibility.Hidden;
+                    }
+                    break;
+                case mNemeType.Text:
+                    using (System.IO.StreamReader sw
+    = new System.IO.StreamReader(mNeme.Items.Where(x => x.Item2 == FileType.Text).FirstOrDefault().Item1))
+                    {
                         Answer.Text = sw.ReadToEnd();
-                }
+                        Answer.Visibility = System.Windows.Visibility.Hidden;
+                    }
+                    break;
 
             }
         }
@@ -48,5 +60,17 @@ namespace mNemonic
         {
             Timer.Enabled = true;
         }
+
+        private void Dont_Click(object sender, RoutedEventArgs e)
+        {
+            Answer.Visibility = System.Windows.Visibility.Visible;
+        }
+
+        private void Remember_Click(object sender, RoutedEventArgs e)
+        {
+            //Write to DB
+            this.Close();
+        }
+
     }
 }

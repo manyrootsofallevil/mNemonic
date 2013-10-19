@@ -22,9 +22,9 @@
         </Grid.RowDefinitions>
 
         <Rectangle Fill="#FFF4F4F5"  Height="4" Margin="-4,2,-4,0" Stroke="Black" VerticalAlignment="Top" HorizontalAlignment="Stretch"  Grid.Row="2" Grid.ColumnSpan="7"/>
-        <Button Content="Don't Remember" HorizontalAlignment="Center" Margin="8,8,8,5" VerticalAlignment="Center" Width="110" Grid.Row="3" Height="22" Grid.Column="1" />
-        <Button Content="Vaguely Remember" Grid.Column="3" HorizontalAlignment="Center" Margin="8,8,7,5" Grid.Row="3" VerticalAlignment="Center" Width="110" Height="22"/>
-        <Button Content="Remember" Grid.Column="5" HorizontalAlignment="Center" Margin="8,8,8,5" Grid.Row="3" VerticalAlignment="Center" Width="110" Height="22"/>
+        <Button Name="Dont" Content="Don't Remember" HorizontalAlignment="Center" Margin="8,8,8,5" VerticalAlignment="Center" Width="110" Grid.Row="3" Height="22" Grid.Column="1" Click="Dont_Click" />
+        <Button Name="Vaguely" Content="Vaguely Remember" Grid.Column="3" HorizontalAlignment="Center" Margin="8,8,7,5" Grid.Row="3" VerticalAlignment="Center" Width="110" Height="22" Click="Dont_Click"/>
+        <Button Name="Remember" Content="Remember" Grid.Column="5" HorizontalAlignment="Center" Margin="8,8,8,5" Grid.Row="3" VerticalAlignment="Center" Width="110" Height="22" Click="Remember_Click"/>
         <Image Name="ImageToBeDisplayed" Grid.Row="1" HorizontalAlignment="Left"  Margin="76,28,49,0" VerticalAlignment="Top" Grid.Column="1" Grid.ColumnSpan="6" />
         <TextBlock Name="Answer" TextWrapping="Wrap" Grid.Row="1" HorizontalAlignment="Right" Grid.Column="5"></TextBlock>
     </Grid>
