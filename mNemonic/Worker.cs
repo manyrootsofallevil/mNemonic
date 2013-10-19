@@ -49,10 +49,11 @@ namespace mNemonic
 
 
             allmNemes = selectedDirectories
-                .Select(x => Directory.GetDirectories(x)) //We get all the sub directories of each selected directories
-                .SelectMany(y => y)                       //We flatten the returned string arrays  
-                .Select(z => new mNeme(z))                //We create a new nNeme for each of these
-                .ToList();                                //Not sure why....
+                .Select(x => Directory.GetDirectories(x))      //We get all the sub directories of each selected directories
+                .SelectMany(y => y)                            //We flatten the returned string arrays  
+                .Select(z => new mNeme(z))                     //We create a new nNeme for each of these
+                .Where(n => !n.Type.Equals(mNemeType.Unknown)) //We filter the unknowns out
+                .ToList();                                     //Not sure why....
         }
 
         /// <summary>

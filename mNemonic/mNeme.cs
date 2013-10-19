@@ -38,20 +38,29 @@ namespace mNemonic
             //TODO: This cleary needs changing to be more robust, but the idea is that if it contains an image file then it should be
             // a mneme of type image. We can do questions and answers with two text files, which raises the question of how to identify it
             //I guess this is for the importer/create new cards.
+
+            var extensions = files.Select(x => x.Split('.').Last());
+
             foreach (var file in files)
             {
-                if (file.Split('.').Last().Equals("txt"))
+                switch (file.Split('.').Last().ToLower())
                 {
-                    Items.Add(new Tuple<string, FileType>(file, FileType.Text));
+                    case "txt":
+                        Items.Add(new Tuple<string, FileType>(file, FileType.Text));
 
+                        if (Type == mNemeType.Unknown)
+                        {
+                            Type = mNemeType.Text;
+                        }
+                        break;
+                    case "png":
+                    case "jpg":
+                        Items.Add(new Tuple<string, FileType>(file, FileType.Image));
+                        Type = mNemeType.Image;
+                        break;
                 }
-                else
-                {
-                    Items.Add(new Tuple<string, FileType>(file, FileType.Image));
-                }
+
             }
-
-
 
         }
 
