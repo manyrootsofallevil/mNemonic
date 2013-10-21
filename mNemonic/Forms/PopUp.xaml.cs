@@ -1,4 +1,6 @@
-﻿using System;
+﻿using mNemonic.Model;
+using mNemonic.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,6 +23,8 @@ namespace mNemonic
     public partial class PopUp : Window
     {
         Timer Timer;
+        PopUpVM vm = new PopUpVM(new PopUpModel());
+        //
 
         public PopUp(mNeme mNeme)
         {
@@ -28,6 +32,10 @@ namespace mNemonic
             Timer.Enabled = false;
 
             InitializeComponent();
+            
+            vm.RequestClose += (s, e) => this.Close();
+            
+            this.DataContext = vm;
 
             switch (mNeme.Type)
             {

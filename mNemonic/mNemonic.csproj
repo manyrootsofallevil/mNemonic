@@ -63,10 +63,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Commands\DelegateCommand.cs" />
     <Compile Include="Commands\Pause.cs" />
     <Compile Include="Commands\Play.cs" />
     <Compile Include="mNeme.cs" />
     <Compile Include="Enums.cs" />
+    <Compile Include="Model\PopUpModel.cs" />
+    <Compile Include="ViewModel\PopUpVM.cs" />
     <Compile Include="Worker.cs" />
     <Page Include="Forms\Configuration.xaml">
       <SubType>Designer</SubType>
