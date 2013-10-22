@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Controls="clr-namespace:mNemonic.Controls" x:Class="mNemonic.PopUp"
         Title="mNemonic" Height="450" Width="450" MinHeight="450" MinWidth="450" Icon="/Resources/Memento.ico" Closed="Window_Closed">
+
     <Grid MinHeight="390" Name="thegrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10*"/>
@@ -26,8 +27,8 @@
         <Button Name="Vaguely" Content="Vaguely Remember" Grid.Column="3" HorizontalAlignment="Center" Margin="8,8,7,5" Grid.Row="3" VerticalAlignment="Center" Width="110" Height="22" Command="{Binding VaguelyRememberCommand}"/>
         <Button Name="Remember" Content="Remember" Grid.Column="5" HorizontalAlignment="Center" Margin="8,8,8,5" Grid.Row="3" VerticalAlignment="Center" Width="110" Height="22" Command="{Binding DoRememberCommand}" />
         <Image Name="ImageToBeDisplayed" Grid.Row="1" HorizontalAlignment="Left"  Margin="76,28,49,0" VerticalAlignment="Top" Grid.Column="1" Grid.ColumnSpan="6" />
-        <TextBlock Name="Question" TextWrapping="Wrap" Grid.Row="1" HorizontalAlignment="Left" Grid.Column="1"></TextBlock>
-        <TextBlock Name="Answer" TextWrapping="Wrap" Grid.Row="1" HorizontalAlignment="Right" Grid.Column="5"></TextBlock>
+        <TextBlock Name="Question" TextWrapping="Wrap" Grid.Row="1" HorizontalAlignment="Left" Grid.Column="1" Text="{Binding Path=Question}"></TextBlock>
+        <TextBlock Name="Answer" TextWrapping="Wrap" Grid.Row="1" HorizontalAlignment="Right" Grid.Column="5" Text="{Binding Path=Answer}" Visibility="{Binding Path=ShowAnswer, Converter={StaticResource visibilityConverter}}"></TextBlock>
     </Grid>
 
 </Window>

@@ -48,8 +48,8 @@ namespace mNemonic
                     using (System.IO.StreamReader sw
                         = new System.IO.StreamReader(mNeme.Items.Where(x => x.Item2 == FileType.Text).FirstOrDefault().Item1))
                     {
-                        Answer.Text = sw.ReadToEnd();
-                        Answer.Visibility = System.Windows.Visibility.Hidden;
+                       // Answer.Text = sw.ReadToEnd();
+                        //Answer.Visibility = System.Windows.Visibility.Hidden;
                     }
                     break;
                 case mNemeType.Text:
@@ -57,14 +57,14 @@ namespace mNemonic
     = new System.IO.StreamReader(mNeme.Items.Where(x => x.Item2 == FileType.Text
         && !x.Item1.ToLower().Contains("question")).FirstOrDefault().Item1))
                     {
-                        Answer.Text = sw.ReadToEnd();
-                        Answer.Visibility = System.Windows.Visibility.Hidden;
+                        //Answer.Text = sw.ReadToEnd();
+                        //Answer.Visibility = System.Windows.Visibility.Hidden;
                     }
                     using (System.IO.StreamReader sw
     = new System.IO.StreamReader(mNeme.Items.Where(x => x.Item2 == FileType.Text
         && x.Item1.ToLower().Contains("question")).FirstOrDefault().Item1))
                     {
-                        Question.Text = sw.ReadToEnd();
+                        //Question.Text = sw.ReadToEnd();
                     }
                     break;
 

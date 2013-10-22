@@ -14,11 +14,41 @@ namespace mNemonic.ViewModel
     public class PopUpVM : INotifyPropertyChanged
     {
         PopUpModel model;
+
+        //public string Answer { get; set; }
+       // public bool ShowAnswer { get; set; }
         public ICommand DontRememberCommand { get; set; }
         public ICommand VaguelyRememberCommand { get; set; }
         public ICommand DoRememberCommand { get; set; }
         public EventHandler RequestClose { get; set; }
 
+        public PopUpVM(PopUpModel model)
+        {
+            this.model = model;
+
+            this.DontRememberCommand = new DelegateCommand((obj) => true, (obj) =>
+            {
+                this.Answer = DateTime.Now.ToString();
+                this.ShowAnswer = true;
+                model.DoTheRemembering();
+                //this.RequestClose(obj, new EventArgs());
+            });
+
+            this.VaguelyRememberCommand = new DelegateCommand((obj) => true, (obj) =>
+            {
+                Answer = "Answer";
+                ShowAnswer = true;
+                model.DoTheRemembering();
+                this.RequestClose(obj, new EventArgs());
+            });
+
+            this.DoRememberCommand = new DelegateCommand((obj) => true, (obj) =>
+            {
+                model.DoTheRemembering();
+                this.RequestClose(obj, new EventArgs());
+            });
+        }
+        
         // boiler-plate
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -36,24 +66,22 @@ namespace mNemonic.ViewModel
             return true;
         }
 
-        //// props
-        //private string name;
-        //public string Name
-        //{
-        //    get { return name; }
-        //    set { SetField(ref name, value, "Name"); }
-        //}
+        private bool showAnswer;
 
-        public PopUpVM(PopUpModel model)
+        public bool ShowAnswer
         {
-            this.model = model;
-
-            this.DontRememberCommand = new DelegateCommand((obj) => true,
-                (obj) =>
-                {
-                    this.RequestClose(obj, new EventArgs());
-                });
+            get { return showAnswer; }
+            set { SetField(ref showAnswer, value, "ShowAnswer"); }
         }
+
+        private string answer;
+
+        public string Answer
+        {
+            get { return answer; }
+            set { SetField(ref answer, value, "Answer"); }
+        }
+       
 
 
     }

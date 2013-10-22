@@ -8,6 +8,9 @@ namespace mNemonic.Model
 {
     public class PopUpModel
     {
+        public void DoTheRemembering()
+        {
 
+        }
     }
 }

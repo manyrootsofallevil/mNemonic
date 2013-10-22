@@ -26,7 +26,7 @@ namespace mNemonic
 
             timer = (System.Windows.Forms.Timer)FindResource("Timer");
 #if DEBUG
-            timer.Interval = 3000;
+            timer.Interval = 2000;
 #else
             //Interval in the config file is in minutes so ...
             timer.Interval = Int32.Parse(ConfigurationManager.AppSettings["Interval"]) * 1000 * 60;
