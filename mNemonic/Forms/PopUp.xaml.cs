@@ -23,8 +23,7 @@ namespace mNemonic
     public partial class PopUp : Window
     {
         Timer Timer;
-        PopUpVM vm = new PopUpVM(new PopUpModel());
-        //
+        PopUpVM vm;
 
         public PopUp(mNeme mNeme)
         {
@@ -32,59 +31,20 @@ namespace mNemonic
             Timer.Enabled = false;
 
             InitializeComponent();
-            
-            vm.RequestClose += (s, e) => this.Close();
-            
-            this.DataContext = vm;
 
-            switch (mNeme.Type)
+            vm = new PopUpVM(new PopUpModel(mNeme));
+            vm.RequestClose += (s, e) =>
             {
+                Timer.Enabled = true;
+                this.Close();
+            };
 
-                case mNemeType.Image:
-
-                    ImageToBeDisplayed.Source =
-                        new BitmapImage(new Uri(mNeme.Items.Where(x => x.Item2 == FileType.Image).FirstOrDefault().Item1));
-
-                    using (System.IO.StreamReader sw
-                        = new System.IO.StreamReader(mNeme.Items.Where(x => x.Item2 == FileType.Text).FirstOrDefault().Item1))
-                    {
-                       // Answer.Text = sw.ReadToEnd();
-                        //Answer.Visibility = System.Windows.Visibility.Hidden;
-                    }
-                    break;
-                case mNemeType.Text:
-                    using (System.IO.StreamReader sw
-    = new System.IO.StreamReader(mNeme.Items.Where(x => x.Item2 == FileType.Text
-        && !x.Item1.ToLower().Contains("question")).FirstOrDefault().Item1))
-                    {
-                        //Answer.Text = sw.ReadToEnd();
-                        //Answer.Visibility = System.Windows.Visibility.Hidden;
-                    }
-                    using (System.IO.StreamReader sw
-    = new System.IO.StreamReader(mNeme.Items.Where(x => x.Item2 == FileType.Text
-        && x.Item1.ToLower().Contains("question")).FirstOrDefault().Item1))
-                    {
-                        //Question.Text = sw.ReadToEnd();
-                    }
-                    break;
-
-            }
+            this.DataContext = vm;
         }
-
-        void Window_Closed(object sender, EventArgs e)
+         //This seems like the simpler solution
+        private void Window_Closed(object sender, EventArgs e)
         {
             Timer.Enabled = true;
-        }
-
-        private void Dont_Click(object sender, RoutedEventArgs e)
-        {
-            Answer.Visibility = System.Windows.Visibility.Visible;
-        }
-
-        private void Remember_Click(object sender, RoutedEventArgs e)
-        {
-            //Write to DB
-            this.Close();
         }
 
     }

@@ -74,8 +74,8 @@ namespace mNemonic
         {
             return Task.Run(() =>
             {
-                return allmNemes.ElementAt(new Random().Next(allmNemes.Count));
-                //return allmNemes.Where(x => x.Type == mNemeType.Text).FirstOrDefault();
+                //return allmNemes.ElementAt(new Random().Next(allmNemes.Count));
+                return allmNemes.Where(x => x.Type == mNemeType.Text).FirstOrDefault();
             });
         }
 

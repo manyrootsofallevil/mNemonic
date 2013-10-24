@@ -26,7 +26,7 @@
         <Button Name="Dont" Content="Don't Remember" HorizontalAlignment="Center" Margin="8,8,8,5" VerticalAlignment="Center" Width="110" Grid.Row="3" Height="22" Grid.Column="1" Command="{Binding DontRememberCommand}" CommandParameter="{Binding ElementName=mNemonic}"/>
         <Button Name="Vaguely" Content="Vaguely Remember" Grid.Column="3" HorizontalAlignment="Center" Margin="8,8,7,5" Grid.Row="3" VerticalAlignment="Center" Width="110" Height="22" Command="{Binding VaguelyRememberCommand}"/>
         <Button Name="Remember" Content="Remember" Grid.Column="5" HorizontalAlignment="Center" Margin="8,8,8,5" Grid.Row="3" VerticalAlignment="Center" Width="110" Height="22" Command="{Binding DoRememberCommand}" />
-        <Image Name="ImageToBeDisplayed" Grid.Row="1" HorizontalAlignment="Left"  Margin="76,28,49,0" VerticalAlignment="Top" Grid.Column="1" Grid.ColumnSpan="6" />
+        <Image Name="ImageToBeDisplayed" Grid.Row="1" HorizontalAlignment="Left"  Margin="76,28,49,0" VerticalAlignment="Top" Grid.Column="1" Grid.ColumnSpan="6" Source="{Binding Path=ImageSource}"/>
         <TextBlock Name="Question" TextWrapping="Wrap" Grid.Row="1" HorizontalAlignment="Left" Grid.Column="1" Text="{Binding Path=Question}"></TextBlock>
         <TextBlock Name="Answer" TextWrapping="Wrap" Grid.Row="1" HorizontalAlignment="Right" Grid.Column="5" Text="{Binding Path=Answer}" Visibility="{Binding Path=ShowAnswer, Converter={StaticResource visibilityConverter}}"></TextBlock>
     </Grid>
