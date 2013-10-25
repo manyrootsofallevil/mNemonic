@@ -38,6 +38,7 @@ namespace mNemonic
 
         private async void DisplayTicker(object sender, EventArgs e)
         {
+            timer.Enabled = false;
             mNeme next = await worker.GetNextItemAsync();
             PopUp popUp = new PopUp(next);
             popUp.SourceInitialized += (s, a) => popUp.WindowState = WindowState.Maximized;

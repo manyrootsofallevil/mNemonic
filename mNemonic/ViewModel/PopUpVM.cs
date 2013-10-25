@@ -31,8 +31,8 @@ namespace mNemonic.ViewModel
             get { return imageSource; }
             set { SetField(ref imageSource, value, "ImageSource"); }
         }
-        private bool showAnswer;
 
+        private bool showAnswer;
         public bool ShowAnswer
         {
             get { return showAnswer; }
@@ -40,7 +40,6 @@ namespace mNemonic.ViewModel
         }
 
         private string answer;
-
         public string Answer
         {
             get { return answer; }
@@ -48,11 +47,17 @@ namespace mNemonic.ViewModel
         }
 
         private string question;
-
         public string Question
         {
             get { return question; }
             set { SetField(ref question, value, "Question"); }
+        }
+
+        private int height;
+        public int Height
+        {
+            get { return height; }
+            set { SetField(ref height, value, "Height"); }
         }
 
         #region movetoabstractclass
@@ -97,6 +102,7 @@ namespace mNemonic.ViewModel
                 }
             };
 
+            Height = (int)(System.Windows.SystemParameters.PrimaryScreenHeight *0.7); //Why 70%, why not?
 
             this.model = model;
 

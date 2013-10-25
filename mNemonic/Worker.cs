@@ -11,17 +11,20 @@ namespace mNemonic
 {
     public class Worker
     {
+        long ticksToSeconds = 10000000;
         string StoragePath { get; set; }
+        string DBFile { get; set; }
+
         IEnumerable<string> selectedDirectories;
-        List<mNeme> allmNemes = new List<mNeme>();
+
+        IEnumerable<mNeme> allmNemes = new List<mNeme>();
 
         public Worker(string storagePath)
         {
             StoragePath = storagePath;
+            DBFile = ConfigurationManager.AppSettings["DBFile"];
 
-            string collectionsFile = ConfigurationManager.AppSettings["CollectionsFile"];
-
-            populatemNemeCollection(collectionsFile);
+            populatemNemeCollection(ConfigurationManager.AppSettings["CollectionsFile"]);
         }
 
         /// <summary>
@@ -30,7 +33,6 @@ namespace mNemonic
         /// <param name="collectionsFile"></param>
         private void populatemNemeCollection(string collectionsFile)
         {
-
             IEnumerable<XAttribute> collectionDirectories = getCollectionDirectories(collectionsFile);
 
             List<string> allDirectories = Directory.GetDirectories(StoragePath).ToList();
@@ -52,8 +54,7 @@ namespace mNemonic
                 .Select(x => Directory.GetDirectories(x))      //We get all the sub directories of each selected directories
                 .SelectMany(y => y)                            //We flatten the returned string arrays  
                 .Select(z => new mNeme(z))                     //We create a new nNeme for each of these
-                .Where(n => !n.Type.Equals(mNemeType.Unknown)) //We filter the unknowns out
-                .ToList();                                     //Not sure why....
+                .Where(n => !n.Type.Equals(mNemeType.Unknown));//We filter the unknowns out
         }
 
         /// <summary>
@@ -74,12 +75,42 @@ namespace mNemonic
         {
             return Task.Run(() =>
             {
-                //return allmNemes.ElementAt(new Random().Next(allmNemes.Count));
-                return allmNemes.Where(x => x.Type == mNemeType.Text).FirstOrDefault();
+                mNeme result = null;
+
+                if (File.Exists(DBFile))
+                {
+                    //1. Load the DB file with all the data regarding when and how well remembered the mNeme was
+                    XDocument xdoc = XDocument.Load(DBFile);
+                    //2. Create a collection of the stored mNemes (This is unlikely to be terribly efficient) 
+                    //TODO: look for a better way.
+                    var storedmNemes = xdoc.Root.Elements()
+                        .Select(x => new
+                        {
+                            Location = x.Attribute("Location").Value,
+                            Coefficient = Int32.Parse(x.Attribute("mNemeCoefficient").Value),
+                            Time = ((DateTime.Now.Ticks - Int64.Parse(x.Attribute("Time").Value)) / ticksToSeconds)
+                        });
+                    //3. Join with the selected mNemes
+                    var availablemNemes = allmNemes.Join(storedmNemes, x => x.Location, y => y.Location, (x, y) => y).Distinct();
+                    //4. Find the mNemes that meet certain criteria
+                    var selection = availablemNemes.Where(x => x.Time * x.Coefficient > 100);
+
+                    if (selection.Count() ==0)
+                    {//5. If we don't find any, we just return one at random.
+                        result = allmNemes.ElementAt(new Random().Next(allmNemes.Count()));
+                    }
+                    else
+                    {//6. If we do, we still return one at random TODO. This needs to be better
+                        result = new mNeme(selection.ElementAt(new Random().Next(selection.Count())).Location);
+                    }
+                }
+                else
+                {
+                    result = allmNemes.ElementAt(new Random().Next(allmNemes.Count()));
+                }
+
+                return result;
             });
         }
-
-        Func<mNeme> bob = () => new mNeme("");
-
     }
 }
