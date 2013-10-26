@@ -5,15 +5,18 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Xml.Linq;
 
 namespace mNemonic
 {
     public class Worker
     {
-        long ticksToSeconds = 10000000;
+        const long ticksToSeconds = 10000000;
+        
         string StoragePath { get; set; }
         string DBFile { get; set; }
+        int TimerInterval { get; set; }
 
         IEnumerable<string> selectedDirectories;
 
@@ -23,6 +26,7 @@ namespace mNemonic
         {
             StoragePath = storagePath;
             DBFile = ConfigurationManager.AppSettings["DBFile"];
+            TimerInterval = ((Timer)App.Current.FindResource("Timer")).Interval * 100 * 60;
 
             populatemNemeCollection(ConfigurationManager.AppSettings["CollectionsFile"]);
         }
@@ -92,15 +96,15 @@ namespace mNemonic
                         });
                     //3. Join with the selected mNemes
                     var availablemNemes = allmNemes.Join(storedmNemes, x => x.Location, y => y.Location, (x, y) => y).Distinct();
-                    //4. Find the mNemes that meet certain criteria
-                    var selection = availablemNemes.Where(x => x.Time * x.Coefficient > 100);
+                    //4. Find the mNemes that meet certain criteria. TODO: Clearly this needs improving
+                    var selection = availablemNemes.Where(x => x.Time * x.Coefficient > TimerInterval + 1);
 
                     if (selection.Count() ==0)
                     {//5. If we don't find any, we just return one at random.
                         result = allmNemes.ElementAt(new Random().Next(allmNemes.Count()));
                     }
                     else
-                    {//6. If we do, we still return one at random TODO. This needs to be better
+                    {//6. If we do, we still return one at random. TODO: This needs to be better
                         result = new mNeme(selection.ElementAt(new Random().Next(selection.Count())).Location);
                     }
                 }

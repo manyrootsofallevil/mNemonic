@@ -14,8 +14,8 @@ namespace mNemonic.Model
 
         public mNeme currentmNeme { get; private set; }
         public const int dontRemember = 1;
-        public const int vaguelyRemember = 2;
-        public const int doRemember = 3;
+        public const int vaguelyRemember = 20;
+        public const int doRemember = 300;
         private string DBFile;
 
 
