@@ -29,21 +29,20 @@ namespace mNemonic.Model
         {
             return await Task.Run(() =>
               {
-                  XDocument doc;
-                  //TODO: need to update entries rather than continuously add them. As otherwise the size of this DB will balloon.
-                  if (File.Exists(this.DBFile))
+                  XDocument doc = XDocument.Load(this.DBFile);
+
+                  var alreadyStored = doc.Root.Elements()
+                      .Where(x => x.Attribute("Location").Value.Equals(this.currentmNeme.Location, StringComparison.InvariantCultureIgnoreCase));
+                  
+                  if (alreadyStored.Count() == 1)
                   {
-                      doc = XDocument.Load(this.DBFile);
-                      doc.Root.Add(new XElement("mNeme",  new XAttribute("Location", this.currentmNeme.Location),
-                      new XAttribute("mNemeCoefficient", mNemeCoefficient), new XAttribute("Time", DateTime.Now.Ticks)));
+                      alreadyStored.FirstOrDefault().Attribute("mNemeCoefficient").Value = mNemeCoefficient.ToString();
+                      alreadyStored.FirstOrDefault().Attribute("Time").Value = DateTime.Now.Ticks.ToString();
                   }
                   else
                   {
-                      doc = new XDocument();
-                      doc.Add(new XElement("mNemes"));
-                      doc.Root.Add(new XElement("mNeme",  new XAttribute("Location", this.currentmNeme.Location),
+                      doc.Root.Add(new XElement("mNeme", new XAttribute("Location", this.currentmNeme.Location),
                       new XAttribute("mNemeCoefficient", mNemeCoefficient), new XAttribute("Time", DateTime.Now.Ticks)));
-                      
                   }
 
                   doc.Save(this.DBFile);
