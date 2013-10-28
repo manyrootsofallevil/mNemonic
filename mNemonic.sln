@@ -5,7 +5,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mNemonic", "mNemonic\mNemon
 EndProject
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "mNemonicInstaller", "mNemonicInstaller\mNemonicInstaller.wixproj", "{2187DED6-9F81-4B24-8FE9-A695D3863558}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Import", "Import\Import.csproj", "{656A8970-67A8-4AEA-BA35-21268A37D929}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImportExportTool", "Import\ImportExportTool.csproj", "{656A8970-67A8-4AEA-BA35-21268A37D929}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mNemonicTests", "mNemonicTests\mNemonicTests.csproj", "{EC331BF2-0C9B-47B6-9C54-91AABD592DA5}"
 EndProject
