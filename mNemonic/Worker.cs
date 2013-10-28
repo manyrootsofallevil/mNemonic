@@ -26,7 +26,7 @@ namespace mNemonic
         {
             StoragePath = storagePath;
             DBFile = ConfigurationManager.AppSettings["DBFile"];
-            TimerInterval = ((Timer)App.Current.FindResource("Timer")).Interval;
+            TimerInterval = (((Timer)App.Current.FindResource("Timer")).Interval+1337)/1000;
 
             populatemNemeCollection(ConfigurationManager.AppSettings["CollectionsFile"]);
         }
@@ -96,10 +96,9 @@ namespace mNemonic
                         });
                     //3. Join with the selected mNemes
                     var availablemNemes = allmNemes.Join(storedmNemes, x => x.Location, y => y.Location, (x, y) => y).Distinct();
-                    //4. Find the mNemes that meet certain criteria. At the moment this is driven by the time interval and the fact
-                    //that a don't remember is marked as having a coefficient of 1. The idea is preventing the possibility of the same
+                    //4. Find the mNemes that meet certain criteria. At the moment this is driven by the time interval. The idea is preventing the possibility of the same
                     //mNeme appearing twice in a row.
-                    var selection = availablemNemes.Where(x => x.Time * x.Coefficient > TimerInterval + 1337)
+                    var selection = availablemNemes.Where(x => x.Time  > TimerInterval)
                         .OrderBy(x => x.Coefficient)
                         .ThenByDescending(x => x.Time);
 

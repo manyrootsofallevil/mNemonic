@@ -66,6 +66,7 @@
     <Compile Include="Commands\DelegateCommand.cs" />
     <Compile Include="Commands\Pause.cs" />
     <Compile Include="Commands\Play.cs" />
+    <Compile Include="Commands\RevisionMode.cs" />
     <Compile Include="mNeme.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Model\PopUpModel.cs" />
@@ -134,7 +135,9 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\memento.ico">

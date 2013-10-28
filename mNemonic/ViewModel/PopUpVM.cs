@@ -21,11 +21,12 @@ namespace mNemonic.ViewModel
         public ICommand DontRememberCommand { get; set; }
         public ICommand VaguelyRememberCommand { get; set; }
         public ICommand DoRememberCommand { get; set; }
+        public ICommand NextCommand { get; set; }
         public EventHandler RequestClose { get; set; }
         private Action<mNeme> DisplayAnswer;
 
+        #region Properties
         private ImageSource imageSource;
-
         public ImageSource ImageSource
         {
             get { return imageSource; }
@@ -59,6 +60,14 @@ namespace mNemonic.ViewModel
             get { return height; }
             set { SetField(ref height, value, "Height"); }
         }
+
+        private bool rankedmNeme;
+        public bool RankedmNeme
+        {
+            get { return rankedmNeme; }
+            set { SetField(ref rankedmNeme, value, "RankedmNeme"); }
+        }
+        #endregion
 
         #region movetoabstractclass
         // boiler-plate
@@ -108,25 +117,32 @@ namespace mNemonic.ViewModel
 
             this.DontRememberCommand = new DelegateCommand((obj) => true, (obj) =>
             {
-                DisplayAnswer.Invoke(this.model.currentmNeme);
-                model.DoTheRemembering(PopUpModel.dontRemember);
-                //this.RequestClose(obj, new EventArgs());
+                RememberCommand(model, PopUpModel.dontRemember);
             });
 
             this.VaguelyRememberCommand = new DelegateCommand((obj) => true, (obj) =>
             {
-                DisplayAnswer.Invoke(this.model.currentmNeme);
-                model.DoTheRemembering(PopUpModel.vaguelyRemember);
-                //this.RequestClose(obj, new EventArgs());
+                RememberCommand(model, PopUpModel.vaguelyRemember);
             });
 
             this.DoRememberCommand = new DelegateCommand((obj) => true, (obj) =>
             {
-                model.DoTheRemembering(PopUpModel.doRemember);
-                this.RequestClose(obj, new EventArgs());
+                RememberCommand(model, PopUpModel.doRemember);
             });
 
+            this.NextCommand = new DelegateCommand((obj) => true, (obj) =>
+                {
+                    this.RequestClose(obj, new EventArgs());
+                });
+
             this.ShowItem();
+        }
+
+        private void RememberCommand(PopUpModel model, int level)
+        {
+            DisplayAnswer.Invoke(this.model.currentmNeme);
+            model.DoTheRemembering(level);
+            this.RankedmNeme = true;
         }
 
         private void ShowItem()
