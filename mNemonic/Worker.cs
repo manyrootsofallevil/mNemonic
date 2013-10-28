@@ -13,7 +13,7 @@ namespace mNemonic
     public class Worker
     {
         const long ticksToSeconds = 10000000;
-        
+
         string StoragePath { get; set; }
         string DBFile { get; set; }
         int TimerInterval { get; set; }
@@ -26,7 +26,7 @@ namespace mNemonic
         {
             StoragePath = storagePath;
             DBFile = ConfigurationManager.AppSettings["DBFile"];
-            TimerInterval = ((Timer)App.Current.FindResource("Timer")).Interval * 100 * 60;
+            TimerInterval = ((Timer)App.Current.FindResource("Timer")).Interval;
 
             populatemNemeCollection(ConfigurationManager.AppSettings["CollectionsFile"]);
         }
@@ -96,16 +96,21 @@ namespace mNemonic
                         });
                     //3. Join with the selected mNemes
                     var availablemNemes = allmNemes.Join(storedmNemes, x => x.Location, y => y.Location, (x, y) => y).Distinct();
-                    //4. Find the mNemes that meet certain criteria. TODO: Clearly this needs improving
-                    var selection = availablemNemes.Where(x => x.Time * x.Coefficient > TimerInterval + 1);
+                    //4. Find the mNemes that meet certain criteria. At the moment this is driven by the time interval and the fact
+                    //that a don't remember is marked as having a coefficient of 1. The idea is preventing the possibility of the same
+                    //mNeme appearing twice in a row.
+                    var selection = availablemNemes.Where(x => x.Time * x.Coefficient > TimerInterval + 1337)
+                        .OrderBy(x => x.Coefficient)
+                        .ThenByDescending(x => x.Time);
 
-                    if (selection.Count() ==0)
-                    {//5. If we don't find any, we just return one at random.
+                    if (selection.Count() == 0)
+                    {//5. If we don't find any, we just return one at random, which should ensure that we are not limited to the ones
+                        // we already have seen.
                         result = allmNemes.ElementAt(new Random().Next(allmNemes.Count()));
                     }
                     else
-                    {//6. If we do, we still return one at random. TODO: This needs to be better
-                        result = new mNeme(selection.ElementAt(new Random().Next(selection.Count())).Location);
+                    {//6. If we do, we return the first one in the selection, on the assumption that the sorting is correct.
+                        result = new mNeme(selection.ElementAt(0).Location);
                     }
                 }
                 else
