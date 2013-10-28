@@ -34,7 +34,8 @@
     <Commands:Pause x:Key="Pause" />
     <Commands:Play x:Key="Play" />
     <Commands:Configure x:Key="Configure" />
-
+    <Commands:RevisionMode x:Key="RevisionMode"/>
+    
     <tb:TaskbarIcon x:Key="MainIcon"
       IconSource="/Resources/memento.ico"
       ToolTipText="mNemonic">
@@ -47,7 +48,10 @@
                 </MenuItem>
                 <MenuItem Header="Pause" Command="{StaticResource Pause}" >
                 </MenuItem>
-                <MenuItem Header="Revision Mode">
+                <Separator />
+                <MenuItem Header="Revision Mode" Command="{StaticResource RevisionMode}" CommandParameter="true">
+                </MenuItem>
+                <MenuItem Header="Regular Mode" Command="{StaticResource RevisionMode}" CommandParameter="false">
                 </MenuItem>
                 <Separator />
                 <MenuItem Header="Exit " Command="{StaticResource Exit}" >
