@@ -70,6 +70,7 @@
     <Compile Include="mNeme.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Model\PopUpModel.cs" />
+    <Compile Include="ViewModel\ConfigurationVM.cs" />
     <Compile Include="ViewModel\PopUpVM.cs" />
     <Compile Include="Worker.cs" />
     <Page Include="Forms\Configuration.xaml">
