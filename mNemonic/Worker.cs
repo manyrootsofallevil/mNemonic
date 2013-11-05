@@ -110,7 +110,7 @@ namespace mNemonic
                     else
                     {//6. If we do, we return the first one in the selection, on the assumption that the sorting is correct.
                         result = new mNeme(selection.ElementAt(0).Location);
-                    }
+                    }                  
                 }
                 else
                 {

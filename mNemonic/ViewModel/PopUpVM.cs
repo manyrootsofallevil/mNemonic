@@ -111,7 +111,7 @@ namespace mNemonic.ViewModel
                 }
             };
 
-            Height = (int)(System.Windows.SystemParameters.PrimaryScreenHeight *0.7); //Why 70%, why not?
+            Height = (int)(System.Windows.SystemParameters.PrimaryScreenHeight *0.097); //Why 70%, why not?
 
             this.model = model;
 
@@ -152,6 +152,7 @@ namespace mNemonic.ViewModel
                 case mNemeType.Image:
                     ImageSource =
                        new BitmapImage(new Uri(this.model.currentmNeme.Items.Where(x => x.Item2 == FileType.Image).FirstOrDefault().Item1));
+                    DisplayQuestion();
                     break;
                 case mNemeType.Text:
                     DisplayQuestion();
@@ -162,10 +163,15 @@ namespace mNemonic.ViewModel
 
         private void DisplayQuestion()
         {
-            using (StreamReader sw = new StreamReader(this.model.currentmNeme.Items.
-                Where(x => x.Item2 == FileType.Text && x.Item1.ToLower().Contains("question")).FirstOrDefault().Item1))
+            var question = this.model.currentmNeme.Items.
+                Where(x => x.Item2 == FileType.Text && x.Item1.ToLower().Contains("question"));
+
+            if (question.Count() >0)
             {
-                Question = sw.ReadToEnd();
+                using (StreamReader sw = new StreamReader(question.First().Item1))
+                {
+                    Question = sw.ReadToEnd();
+                }
             }
         }
 

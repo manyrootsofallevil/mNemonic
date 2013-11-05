@@ -10,5 +10,6 @@ namespace mNemonic.ViewModel
     //TODO: We need a way of selecting the collections to be iterated over (in other words, which directories will be used)
     public class ConfigurationVM : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

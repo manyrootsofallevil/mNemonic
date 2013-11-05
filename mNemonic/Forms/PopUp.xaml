@@ -32,9 +32,9 @@
         <Button Name="Dont" Content="Don't Remember" HorizontalAlignment="Center" Margin="8,3,7,2" VerticalAlignment="Center" Width="110" Grid.Row="2" Height="22" Grid.Column="3" Command="{Binding DontRememberCommand}" CommandParameter="{Binding ElementName=mNemonic}"/>
         <Button Name="Vaguely" Content="Vaguely Remember" Grid.Column="3" HorizontalAlignment="Center" Margin="8,4,7,4" Grid.Row="4" VerticalAlignment="Center" Width="110" Height="22" Command="{Binding VaguelyRememberCommand}"/>
         <Button Name="Remember" Content="Remember" Grid.Column="3" HorizontalAlignment="Center" Margin="8,3,7,3.667" Grid.Row="6" VerticalAlignment="Center" Width="110" Height="22" Command="{Binding DoRememberCommand}" />
-        <Image Name="ImageToBeDisplayed" Grid.Row="2" Grid.RowSpan="7" HorizontalAlignment="Left"  Margin="76,3,0,0" VerticalAlignment="Top" Grid.Column="1" Grid.ColumnSpan="3" Source="{Binding Path=ImageSource}"/>
-        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1" HorizontalAlignment="Left" Grid.Column="1" Height="{Binding Path=Height}" Grid.RowSpan="7" Grid.ColumnSpan="4">
-            <TextBlock Name="Question" TextWrapping="Wrap"  HorizontalAlignment="Left" Grid.Column="1" Text="{Binding Path=Question}"/>
+        <Image Name="ImageToBeDisplayed" Grid.Row="3" Grid.RowSpan="6" HorizontalAlignment="Stretch"  VerticalAlignment="Top" Grid.Column="0" Grid.ColumnSpan="3" Source="{Binding Path=ImageSource}"/>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1" HorizontalAlignment="Stretch" Grid.Column="1" Height="{Binding Path=Height}" Grid.RowSpan="2" Grid.ColumnSpan="2">
+            <TextBlock Name="Question" TextWrapping="Wrap"  Grid.IsSharedSizeScope="True" Text="{Binding Path=Question}"/>
         </ScrollViewer>
         <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1" HorizontalAlignment="Stretch" Grid.Column="4" Height="{Binding Path=Height}" Margin="0,0,11,0" Grid.RowSpan="7" Grid.ColumnSpan="4">
             <TextBlock Name="Answer" TextWrapping="Wrap"    Grid.IsSharedSizeScope="True" Text="{Binding Path=Answer}" Visibility="{Binding Path=ShowAnswer, Converter={StaticResource visibilityConverter}}" />
