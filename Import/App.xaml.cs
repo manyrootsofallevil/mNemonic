@@ -13,5 +13,16 @@ namespace Import
     /// </summary>
     public partial class App : Application
     {
+        public static string[] args;
+
+        private void Application_Startup(object sender, StartupEventArgs e)
+        {
+            string title = string.Empty;
+            
+            if (e.Args.Length >0)
+            {
+                args = e.Args;
+            }
+        }
     }
 }

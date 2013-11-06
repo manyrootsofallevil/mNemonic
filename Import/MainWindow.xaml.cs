@@ -20,9 +20,21 @@ namespace Import
     /// </summary>
     public partial class MainWindow : Window
     {
+        ViewModel vm;
+
         public MainWindow()
         {
             InitializeComponent();
+
+            if (App.args.Length > 0)
+            {
+                switch (App.args[0].ToLower())
+                {
+                    case "-i": vm = new ViewModel(new Model("Import")); break;
+                    case "-e": vm = new ViewModel(new Model("Export")); break;
+                }
+            }
+            this.DataContext = vm;
         }
     }
 }
