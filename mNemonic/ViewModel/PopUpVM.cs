@@ -54,13 +54,19 @@ namespace mNemonic.ViewModel
             set { SetField(ref question, value, "Question"); }
         }
 
-        private int height;
-        public int Height
+        private int answerheight;
+        public int AnswerHeight
         {
-            get { return height; }
-            set { SetField(ref height, value, "Height"); }
+            get { return answerheight; }
+            set { SetField(ref answerheight, value, "AnswerHeight"); }
         }
 
+        private int questionheight;
+        public int QuestionHeight
+        {
+            get { return questionheight; }
+            set { SetField(ref questionheight, value, "QuestionHeight"); }
+        }
         private bool rankedmNeme;
         public bool RankedmNeme
         {
@@ -111,7 +117,7 @@ namespace mNemonic.ViewModel
                 }
             };
 
-            Height = (int)(System.Windows.SystemParameters.PrimaryScreenHeight *0.097); //Why 70%, why not?
+            AnswerHeight = (int)(System.Windows.SystemParameters.PrimaryScreenHeight *0.7); //Why 70%, why not?
 
             this.model = model;
 
@@ -152,16 +158,16 @@ namespace mNemonic.ViewModel
                 case mNemeType.Image:
                     ImageSource =
                        new BitmapImage(new Uri(this.model.currentmNeme.Items.Where(x => x.Item2 == FileType.Image).FirstOrDefault().Item1));
-                    DisplayQuestion();
+                    DisplayQuestion(0.097);//This value might seem arbitrary but it was arrived at via a long process of deliberation                    
                     break;
                 case mNemeType.Text:
-                    DisplayQuestion();
+                    DisplayQuestion(0.7);//same for this one.
                     break;
 
             }
         }
 
-        private void DisplayQuestion()
+        private void DisplayQuestion(double factor)
         {
             var question = this.model.currentmNeme.Items.
                 Where(x => x.Item2 == FileType.Text && x.Item1.ToLower().Contains("question"));
@@ -173,6 +179,8 @@ namespace mNemonic.ViewModel
                     Question = sw.ReadToEnd();
                 }
             }
+
+            QuestionHeight = (int)(System.Windows.SystemParameters.PrimaryScreenHeight * factor); 
         }
 
         private void DisplayImageAnswer(mNeme mNeme)
