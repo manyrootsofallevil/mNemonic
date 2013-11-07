@@ -20,7 +20,7 @@ namespace Import
     /// </summary>
     public partial class MainWindow : Window
     {
-        ViewModel vm;
+        ImportViewModel vm;
 
         public MainWindow()
         {
@@ -30,10 +30,16 @@ namespace Import
             {
                 switch (App.args[0].ToLower())
                 {
-                    case "-i": vm = new ViewModel(new Model("Import")); break;
-                    case "-e": vm = new ViewModel(new Model("Export")); break;
+                    case "-i": vm = new ImportViewModel(new ImportModel("Import")); break;
+                    case "-e": vm = new ImportViewModel(new ImportModel("Export")); break;
                 }
             }
+
+            vm.RequestClose += (s, e) =>
+            {
+                this.Close();
+            };
+
             this.DataContext = vm;
         }
     }
