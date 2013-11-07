@@ -73,11 +73,11 @@
     <Compile Include="ViewModel\ConfigurationVM.cs" />
     <Compile Include="ViewModel\PopUpVM.cs" />
     <Compile Include="Worker.cs" />
-    <Page Include="Forms\Configuration.xaml">
+    <Page Include="Views\Configuration.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Forms\PopUp.xaml">
+    <Page Include="Views\PopUp.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -96,7 +96,7 @@
     <Compile Include="Commands\Configure.cs" />
     <Compile Include="Commands\Exit.cs" />
     <Compile Include="Controls\Feedback.cs" />
-    <Compile Include="Forms\Configuration.xaml.cs">
+    <Compile Include="Views\Configuration.xaml.cs">
       <DependentUpon>Configuration.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
@@ -109,7 +109,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Forms\PopUp.xaml.cs">
+    <Compile Include="Views\PopUp.xaml.cs">
       <DependentUpon>PopUp.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
