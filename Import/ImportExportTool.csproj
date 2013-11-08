@@ -35,6 +35,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -55,7 +56,7 @@
     </ApplicationDefinition>
     <Compile Include="DelegateCommand.cs" />
     <Compile Include="ViewModel\ImportViewModel.cs" />
-    <Compile Include="RealMainWindow.xaml.cs">
+    <Compile Include="View\RealMainWindow.xaml.cs">
       <DependentUpon>RealMainWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="View\MainWindow.xaml">
@@ -70,7 +71,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="RealMainWindow.xaml">
+    <Page Include="View\RealMainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

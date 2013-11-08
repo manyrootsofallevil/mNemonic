@@ -1,7 +1,9 @@
-﻿using mNemonic.Commands;
+﻿using Microsoft.Win32;
+using mNemonic.Commands;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -43,16 +45,19 @@ namespace Import
         ImportModel model;
 
         public ICommand SaveCommand { get; set; }
-        public ICommand Cancel { get; set; }
-        public ICommand Insert { get; set; }
+        public ICommand CancelCommand { get; set; }
+        public ICommand InsertCommand { get; set; }
         public EventHandler RequestClose { get; set; }
+
+        #region Validation
 
         public string Error
         {
             get { throw new NotImplementedException(); }
         }
-        
+
         int validationErrors = 0;
+        bool validDirectory = false;//I don't like this
 
         public string this[string columnName]
         {
@@ -65,14 +70,53 @@ namespace Import
                     case "title": result = ValidateString(Title); break;
                     case "question": result = ValidateString(Question); break;
                     case "answer": result = ValidateString(Answer); break;
-                    case "directory": result = ValidateString(Directory); break;
+                    case "rootdirectory": result = ValidateDirectory(RootDirectory); break;
+                    default: validationErrors++; break;
                 }
 
-                SaveMeNow = validationErrors == 0;
+                SaveMeNow = validationErrors == 0 && validDirectory;
 
                 return result;
             }
         }
+        
+        private string ValidateString(string input)
+        {
+            string result = string.Empty;
+
+            if (string.IsNullOrEmpty(input))
+            {
+                result = "Empty Filed";
+                validationErrors++;
+            }
+            else
+            {
+                validationErrors--;
+            }
+
+            return result;
+        }
+
+        private string ValidateDirectory(string input)
+        {
+            string result = string.Empty;
+
+            //Using this on the basis that attempting to solve a problem with a regular expressions is a sure fire way
+            //of increasing the number of problems by one. will probably end up using regex as this seems extremely ugly.
+            try
+            {
+               Path.GetFullPath(input);
+               validDirectory = true;
+            }
+            catch (Exception)
+            {
+                result = "Empty Filed";
+                validDirectory = false;
+            }
+
+            return result;
+        }
+        #endregion
 
         #region Properties
 
@@ -83,14 +127,14 @@ namespace Import
             set { SetField(ref windowTitle, value, "WindowTitle"); }
         }
 
-        private string directory;
-        public string Directory
+        private string rootdirectory;
+        public string RootDirectory
         {
-            get { return directory; }
+            get { return rootdirectory; }
             set
             {
-                SetField(ref directory, value, "Directory");
-                model.Directory = Directory; 
+                SetField(ref rootdirectory, value, "Directory");
+                model.RootDirectory = RootDirectory; 
             }
         }
         private string title;
@@ -139,6 +183,7 @@ namespace Import
         {
             this.model = model;
             WindowTitle = model.WindowTitle;
+            RootDirectory = model.RootDirectory;
 
             this.SaveCommand = new DelegateCommand((obj) => true, (obj) =>
                 {
@@ -148,28 +193,31 @@ namespace Import
                     }
                     else
                     {
-                        MessageBox.Show("An Error Occurred");
+                        MessageBox.Show("An error occurred while saving files.");
                     }
                 });
 
-
-        }
-
-        private string ValidateString(string input)
-        {
-            string result = string.Empty;
-
-            if (string.IsNullOrEmpty(input))
+            this.CancelCommand = new DelegateCommand((obj) => true, (o) =>
             {
-                result = "Empty Filed";
-                validationErrors++;
-            }
-            else
-            {
-                validationErrors--;
-            }
+                        this.RequestClose(o, new EventArgs());
+            });
 
-            return result;
+            this.InsertCommand = new DelegateCommand((obj) => true, (o) =>
+                {
+                    //Using a openfile dialog as we are only interested in getting the name of the file
+                    //so that it can be saved later.
+                    OpenFileDialog dlg = new OpenFileDialog();
+                    dlg.FileName = "Image"; 
+                    dlg.DefaultExt = ".jpg";
+                    dlg.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.tiff"; 
+
+                    bool? result = dlg.ShowDialog();
+
+                    if (result == true)
+                    {
+                         model.Image = dlg.FileName;
+                    }
+                });
         }
     }
 }

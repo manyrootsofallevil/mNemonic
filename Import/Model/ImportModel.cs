@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -18,12 +19,13 @@ namespace Import
         public string Question { get; set; }
         public string Answer { get; set; }
         public string Title { get; set; }
-        public string Directory { get; set; }
+        public string RootDirectory { get; set; }
         public string Image { get; set; }
 
         public ImportModel(string title)
         {
             WindowTitle = title;
+            RootDirectory = ConfigurationManager.AppSettings["RootDirectory"];
         }
 
         public bool WriteToFile()
@@ -32,6 +34,13 @@ namespace Import
 
             result = WriteToFile(Question, true);
             result &= WriteToFile(Answer);
+
+            if (!string.IsNullOrEmpty(Image))
+            {
+                string filepath = Path.Combine(RootDirectory, Title);
+                //Since we are selecting from somewhere it seems reasonable to assume that the file exists
+                File.Copy(Image, Path.Combine(filepath, Path.GetFileName(Image)));
+            }
 
             return result;
         }
@@ -42,7 +51,7 @@ namespace Import
 
             try
             {
-                string filepath = Path.Combine(Directory, Title);
+                string filepath = Path.Combine(RootDirectory, Title);
 
                 if (isQuestion)
                 {
