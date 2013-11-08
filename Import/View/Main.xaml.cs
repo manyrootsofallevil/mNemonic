@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Import.View;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,19 @@ namespace Import
         public Window2()
         {
             InitializeComponent();
+        }
+
+        //This is not MVVM, probably can incorporate import and export to this form, might do that. hahaha
+        private void Import_Click(object sender, RoutedEventArgs e)
+        {
+            ImportView iv = new ImportView();
+            iv.Show();
+        }
+
+        private void Export_Click(object sender, RoutedEventArgs e)
+        {
+            ExportView ev = new ExportView();
+            ev.Show();
         }
     }
 }

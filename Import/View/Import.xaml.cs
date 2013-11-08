@@ -18,11 +18,11 @@ namespace Import
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class ImportView : Window
     {
         ImportViewModel vm;
 
-        public MainWindow()
+        public ImportView()
         {
             InitializeComponent();
 

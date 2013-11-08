@@ -1,0 +1,8 @@
+﻿<Window x:Class="Import.View.ExportView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="{Binding Path=WindowTitle}" Height="540" Width="545" ResizeMode="NoResize">
+    <Grid>
+        <ListBox Name="List" HorizontalAlignment="Left" Height="235" Margin="10,10,0,0" VerticalAlignment="Top" Width="519" ItemsSource="{Binding Path=mNemes}" />
+    </Grid>
+</Window>
