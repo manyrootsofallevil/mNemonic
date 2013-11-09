@@ -1,6 +1,7 @@
 ﻿using Import.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -39,11 +40,20 @@ namespace Import.ViewModel
         #endregion
 
         ExportModel model;
-        public List<string> mNemes = new List<string>();
+        
+        private ObservableCollection<string> mnemes;
+        public ObservableCollection<string> mNemes
+        {
+            get { return mnemes; }
+            set { SetField(ref mnemes, value, "mNemes"); }
+        }
 
         public ExportViewModel(ExportModel model)
         {
             this.model = model;
+            mNemes = new ObservableCollection<string>();
+            mNemes.Add("uno");
+            mNemes.Add("two");
         }
 
     }
