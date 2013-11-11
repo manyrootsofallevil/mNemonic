@@ -54,8 +54,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CheckedItem.cs" />
     <Compile Include="DelegateCommand.cs" />
+    <Compile Include="mNemeStorage.cs" />
     <Compile Include="Model\ExportModel.cs" />
+    <Compile Include="NotifyPropertyChangedBase.cs" />
     <Compile Include="ViewModel\ExportViewModel.cs" />
     <Compile Include="ViewModel\ImportViewModel.cs" />
     <Compile Include="View\Export.xaml.cs">

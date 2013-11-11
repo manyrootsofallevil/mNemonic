@@ -3,6 +3,24 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="{Binding Path=WindowTitle}" Height="540" Width="545" ResizeMode="NoResize">
     <Grid>
-        <ListBox Name="List" HorizontalAlignment="Left" Height="235" Margin="10,10,0,0" VerticalAlignment="Top" Width="519" ItemsSource="{Binding Path=mNemes}" />
+        <ListBox Name="List" HorizontalAlignment="Left" Height="235" Margin="10,10,0,0" VerticalAlignment="Top" Width="519" ItemsSource="{Binding Path=mNemes}" >
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <CheckBox IsChecked="{Binding IsChecked}" Content="{Binding Path=Item}" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <TreeView HorizontalAlignment="Left" Height="100" Margin="10,270,0,0" VerticalAlignment="Top" Width="184" ItemsSource="{Binding Path=mNemes}">
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate ItemsSource="{Binding Path=SubDirectories}">
+                    <CheckBox IsChecked="{Binding Name.IsChecked}" Content="{Binding Path=Name.Item}" />
+                    <HierarchicalDataTemplate.ItemTemplate>
+                        <DataTemplate>
+                            <CheckBox IsChecked="{Binding IsChecked}" Content="{Binding Path=Item}" />
+                        </DataTemplate>
+                    </HierarchicalDataTemplate.ItemTemplate>
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+        </TreeView>
     </Grid>
 </Window>

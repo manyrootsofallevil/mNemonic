@@ -41,8 +41,8 @@ namespace Import.ViewModel
 
         ExportModel model;
         
-        private ObservableCollection<string> mnemes;
-        public ObservableCollection<string> mNemes
+        private ObservableCollection<mNemeStorage> mnemes;
+        public ObservableCollection<mNemeStorage> mNemes
         {
             get { return mnemes; }
             set { SetField(ref mnemes, value, "mNemes"); }
@@ -51,9 +51,22 @@ namespace Import.ViewModel
         public ExportViewModel(ExportModel model)
         {
             this.model = model;
-            mNemes = new ObservableCollection<string>();
-            mNemes.Add("uno");
-            mNemes.Add("two");
+            mNemes = new ObservableCollection<mNemeStorage>();
+
+            List<CheckedItem<string>> test1 = new List<CheckedItem<string>>();
+            test1.Add(new CheckedItem<string>("1Inner1"));
+            test1.Add(new CheckedItem<string>("1Inner2"));
+
+            List<CheckedItem<string>> test2 = new List<CheckedItem<string>>();
+            test2.Add(new CheckedItem<string>("2Inner1"));
+            test2.Add(new CheckedItem<string>("2Inner2"));
+
+            var tolo = new mNemeStorage(new CheckedItem<string>("Test1",false,true), test1);
+            var tolito = new mNemeStorage(new CheckedItem<string>("Test2",false,true), test2);
+
+            mNemes.Add(tolo);
+            mNemes.Add(tolito);
+            
         }
 
     }
