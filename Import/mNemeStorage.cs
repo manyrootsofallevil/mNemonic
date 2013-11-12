@@ -8,28 +8,54 @@ using System.Threading.Tasks;
 
 namespace Import
 {
-    public class mNemeStorage : INotifyPropertyChanged
+    public class mNemeStorage : NotifyPropertyChangedBase, INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-        //TODO: This will need to change if we want to be able to propagate ticks down the hierachy.
-        //We'll need to create a family
-        private CheckedItem<string> name;
 
-        public mNemeStorage(CheckedItem<string> name, IEnumerable<CheckedItem<string>> subDirectories)
+        private string name;
+        private bool isChecked;
+        private mNemeStorage parent;
+
+        public mNemeStorage(string name)
         {
             Name = name;
-            SubDirectories = new ObservableCollection<CheckedItem<string>>(subDirectories);
         }
 
-        public CheckedItem<string> Name
+        public mNemeStorage(string name, mNemeStorage parent)
+        {
+            Name = name;
+            Parent = parent;
+        }
+
+        public mNemeStorage(string name, mNemeStorage parent, IEnumerable<mNemeStorage> subDirectories)
+        {
+            Name = name;
+            Parent = parent;
+            SubDirectories = new ObservableCollection<mNemeStorage>(subDirectories);
+        }
+
+        public string Name
         {
             get { return name; }
-            set
-            {
-                name = value;
-                if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs("Name"));
+            set { SetField(ref name, value, "Name"); }
+        }
+
+        public bool IsChecked
+        {
+            get { return isChecked; }
+            set {
+                SetField(ref isChecked, value, "IsChecked");
+                
+                //This means that this is a top item
+                if (Parent == null && SubDirectories!=null)
+                {
+                    SubDirectories.ToList().ForEach((x) => x.IsChecked = !x.IsChecked);
+                }
             }
         }
-        public ObservableCollection<CheckedItem<string>> SubDirectories { get; private set; }
+
+        public mNemeStorage Parent { get; set; }
+
+
+        public ObservableCollection<mNemeStorage> SubDirectories { get; set; }
     }
 }

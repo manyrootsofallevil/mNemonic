@@ -51,21 +51,23 @@ namespace Import.ViewModel
         public ExportViewModel(ExportModel model)
         {
             this.model = model;
-            mNemes = new ObservableCollection<mNemeStorage>();
+            //mNemes = new ObservableCollection<mNemeStorage>();
+            mNemes = new ObservableCollection<mNemeStorage>(model.mNemes);
 
-            List<CheckedItem<string>> test1 = new List<CheckedItem<string>>();
-            test1.Add(new CheckedItem<string>("1Inner1"));
-            test1.Add(new CheckedItem<string>("1Inner2"));
+            mNemeStorage tolo = new mNemeStorage("Test1");
 
-            List<CheckedItem<string>> test2 = new List<CheckedItem<string>>();
-            test2.Add(new CheckedItem<string>("2Inner1"));
-            test2.Add(new CheckedItem<string>("2Inner2"));
+            mNemeStorage tolo1 = new mNemeStorage("1-1", tolo);
+            mNemeStorage tolo2 = new mNemeStorage("1-2", tolo);
 
-            var tolo = new mNemeStorage(new CheckedItem<string>("Test1",false,true), test1);
-            var tolito = new mNemeStorage(new CheckedItem<string>("Test2",false,true), test2);
+            List<mNemeStorage> various = new List<mNemeStorage>();
+            various.Add(tolo1);
+            various.Add(tolo2);
+
+            tolo.SubDirectories = new ObservableCollection<mNemeStorage>(various);
+            
 
             mNemes.Add(tolo);
-            mNemes.Add(tolito);
+            //mNemes.Add(tolito);
             
         }
 
