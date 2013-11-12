@@ -27,6 +27,12 @@ namespace Import.View
         {
             InitializeComponent();
             vm = new ExportViewModel(new ExportModel());
+            
+            vm.RequestClose += (s, e) =>
+            {
+                this.Close();
+            };
+
             this.DataContext = vm;
         }
     }

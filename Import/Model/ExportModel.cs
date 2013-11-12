@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO.Compression;
 
 namespace Import.Model
 {
@@ -16,6 +17,21 @@ namespace Import.Model
         public ExportModel()
         {
             GetmNemes();
+        }
+
+        public bool ExportmNemes()
+        {
+            string path = "test.zip";
+
+            using (ZipArchive archive = ZipFile.Open(path, ZipArchiveMode.Update))
+            {
+                archive.CreateEntryFromFile(@"C:\mNemonic\Unusual Words\acersecomic\Question.txt", "question.txt");
+                archive.CreateEntryFromFile(@"C:\mNemonic\Unusual Words\acersecomic\acersecomic.jpg", "acersecomic.jpg");
+
+
+            } 
+
+            return true;
         }
 
         private void GetmNemes()

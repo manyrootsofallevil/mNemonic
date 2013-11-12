@@ -14,6 +14,7 @@ namespace Import
         private string name;
         private bool isChecked;
         private mNemeStorage parent;
+        private string directory;
 
         public mNemeStorage(string name)
         {
@@ -50,6 +51,15 @@ namespace Import
                 {
                     SubDirectories.ToList().ForEach((x) => x.IsChecked = !x.IsChecked);
                 }
+            }
+        }
+
+        public string Directory
+        {
+            get { return directory; }
+            set
+            {
+                SetField(ref directory, value, "Directory");
             }
         }
 

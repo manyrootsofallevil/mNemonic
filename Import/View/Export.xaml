@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="{Binding Path=WindowTitle}" Height="540" Width="545" ResizeMode="NoResize">
     <Grid>
-        <TreeView HorizontalAlignment="Left" Height="360" Margin="10,10,0,0" VerticalAlignment="Top" Width="464" ItemsSource="{Binding Path=mNemes}">
+        <TreeView HorizontalAlignment="Left" Height="442" Margin="10,10,0,0" VerticalAlignment="Top" Width="519" ItemsSource="{Binding Path=mNemes}">
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding Path=SubDirectories}">
                     <CheckBox IsChecked="{Binding IsChecked}" Content="{Binding Path=Name}" />
@@ -15,5 +15,7 @@
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
         </TreeView>
+        <Button Content="Export" HorizontalAlignment="Left" Margin="10,469,0,0" VerticalAlignment="Top" Width="75" Command="{Binding ExportCommand}"/>
+        <Button Content="Cancel" HorizontalAlignment="Left" Margin="454,469,0,0" VerticalAlignment="Top" Width="75" Command="{Binding CancelCommand}"/>
     </Grid>
 </Window>
