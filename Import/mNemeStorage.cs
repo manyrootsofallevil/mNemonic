@@ -16,20 +16,23 @@ namespace Import
         private mNemeStorage parent;
         private string directory;
 
-        public mNemeStorage(string name)
+        public mNemeStorage(string directoryName)
         {
-            Name = name;
+            Directory = directoryName;
+            Name = new System.IO.FileInfo(directoryName).Name;
         }
 
-        public mNemeStorage(string name, mNemeStorage parent)
+        public mNemeStorage(string directoryName, mNemeStorage parent)
         {
-            Name = name;
+            Directory = directoryName;
+            Name = new System.IO.FileInfo(directoryName).Name;
             Parent = parent;
         }
 
-        public mNemeStorage(string name, mNemeStorage parent, IEnumerable<mNemeStorage> subDirectories)
+        public mNemeStorage(string directoryName, mNemeStorage parent, IEnumerable<mNemeStorage> subDirectories)
         {
-            Name = name;
+            Directory = directoryName;
+            Name = new System.IO.FileInfo(directoryName).Name;
             Parent = parent;
             SubDirectories = new ObservableCollection<mNemeStorage>(subDirectories);
         }
@@ -37,17 +40,22 @@ namespace Import
         public string Name
         {
             get { return name; }
-            set { SetField(ref name, value, "Name"); }
+            set
+            {
+                SetField(ref name, value, "Name");
+
+            }
         }
 
         public bool IsChecked
         {
             get { return isChecked; }
-            set {
+            set
+            {
                 SetField(ref isChecked, value, "IsChecked");
-                
+
                 //This means that this is a top item
-                if (Parent == null && SubDirectories!=null)
+                if (Parent == null && SubDirectories != null)
                 {
                     SubDirectories.ToList().ForEach((x) => x.IsChecked = !x.IsChecked);
                 }

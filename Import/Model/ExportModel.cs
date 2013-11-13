@@ -13,6 +13,7 @@ namespace Import.Model
     {
         string rootDirectory = ConfigurationManager.AppSettings["RootDirectory"];
         public List<mNemeStorage> mNemes = new List<mNemeStorage>();
+        public string DestinationFile;
 
         public ExportModel()
         {
@@ -21,15 +22,25 @@ namespace Import.Model
 
         public bool ExportmNemes()
         {
-            string path = "test.zip";
-
-            using (ZipArchive archive = ZipFile.Open(path, ZipArchiveMode.Update))
+            using (ZipArchive archive = ZipFile.Open(DestinationFile, ZipArchiveMode.Update))
             {
-                archive.CreateEntryFromFile(@"C:\mNemonic\Unusual Words\acersecomic\Question.txt", "question.txt");
-                archive.CreateEntryFromFile(@"C:\mNemonic\Unusual Words\acersecomic\acersecomic.jpg", "acersecomic.jpg");
+
+                foreach (var item in mNemes)
+                {
+                    var checkedItems = item.SubDirectories.Where(x => x.IsChecked);
+
+                    foreach (var checkeditem in checkedItems)
+                    {
+                        foreach (string file in Directory.EnumerateFiles(checkeditem.Directory))
+                        {
+                            archive.CreateEntryFromFile(file, string.Format("{0}/{1}",checkeditem.Name , Path.GetFileName(file)), CompressionLevel.Fastest);
+                        }
+                    }
+
+                }
+            }
 
 
-            } 
 
             return true;
         }
@@ -49,7 +60,7 @@ namespace Import.Model
         {
             foreach (mNemeStorage mNeme in mNemes)
             {
-                List<string> subDirectories = Directory.GetDirectories(mNeme.Name).ToList();
+                List<string> subDirectories = Directory.GetDirectories(mNeme.Directory).ToList();
 
                 //There is probably a better way of doing this.
                 List<mNemeStorage> crutch = new List<mNemeStorage>();

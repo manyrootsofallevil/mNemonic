@@ -1,4 +1,5 @@
 ﻿using Import.Model;
+using Microsoft.Win32;
 using mNemonic.Commands;
 using System;
 using System.Collections.Generic;
@@ -38,7 +39,19 @@ namespace Import.ViewModel
 
             this.ExportCommand = new DelegateCommand((o) => true, (o) =>
             {
-                model.mNemes = mNemes.ToList();
+                SaveFileDialog dlg = new SaveFileDialog();
+                dlg.FileName = "Backup";
+                dlg.DefaultExt = ".zip";
+                dlg.Filter = "Zip Files|*.zip";
+
+                bool? result = dlg.ShowDialog();
+
+                if (result == true)
+                {
+                    model.DestinationFile = dlg.FileName;
+                }
+
+                model.mNemes = mNemes.Where(x => x.IsChecked).ToList();
 
                 model.ExportmNemes();
             });
