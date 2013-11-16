@@ -3,7 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Window" Height="300" Width="300">
     <Grid>
-        <Button Content="Import" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="272" Click="Import_Click"/>
-        <Button Content="Export" HorizontalAlignment="Left" Margin="10,51,0,0" VerticalAlignment="Top" Width="272" Click="Export_Click"/>
+        <Button Content="Add" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="272" Click="Import_Click"/>
+        <Button Content="Export" HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top" Width="272" Click="Export_Click"/>
+        <Button Content="Import" HorizontalAlignment="Left" Margin="10,90,0,0" VerticalAlignment="Top" Width="272" Click="Button_Click"/>
     </Grid>
 </Window>

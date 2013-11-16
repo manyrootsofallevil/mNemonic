@@ -1,6 +1,8 @@
 ﻿using Import.View;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +14,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.IO.Compression;
+using ioPath = System.IO.Path;
 
 namespace Import
 {
@@ -23,6 +27,7 @@ namespace Import
         public Window2()
         {
             InitializeComponent();
+
         }
 
         //This is not MVVM, probably can incorporate import and export to this form, might do that. hahaha
@@ -36,6 +41,30 @@ namespace Import
         {
             ExportView ev = new ExportView();
             ev.Show();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog opf = new OpenFileDialog();
+            opf.DefaultExt = ".zip";
+            opf.Filter = "Zip Files|*.zip";
+
+            bool? result = opf.ShowDialog();
+
+            if (result == true)
+            {
+                string root = ConfigurationManager.AppSettings["RootDirectory"];
+
+                try
+                {
+                    ZipFile.ExtractToDirectory(opf.FileName, ioPath.Combine(root, ioPath.GetFileNameWithoutExtension(opf.FileName)));
+                }
+                catch (Exception ex)
+                {
+                    //TODO:
+                }
+            }
+
         }
     }
 }
