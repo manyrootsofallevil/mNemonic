@@ -31,6 +31,9 @@ namespace Import
         }
 
         //This is not MVVM, probably can incorporate import and export to this form, might do that. hahaha
+        //Came to think about it, it might actually be a good idea to add them import, export and add form (which needs renaming) to 
+        //this form, each in a separate tab or something like that.
+        //However, this time i will get everything working as i think it should and then start looking at prettifying it.
         private void Import_Click(object sender, RoutedEventArgs e)
         {
             ImportView iv = new ImportView();

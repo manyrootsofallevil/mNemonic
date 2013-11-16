@@ -15,6 +15,7 @@ namespace Import.ViewModel
     public class ExportViewModel :NotifyPropertyChangedBase, INotifyPropertyChanged
     {        
         ExportModel model;
+        string defaultFileName = "backup";
 
         public ICommand ExportCommand { get; set; }
         public ICommand CancelCommand { get; set; }
@@ -40,7 +41,15 @@ namespace Import.ViewModel
             this.ExportCommand = new DelegateCommand((o) => true, (o) =>
             {
                 SaveFileDialog dlg = new SaveFileDialog();
-                dlg.FileName = "Backup";
+               
+                var mNemeName = this.mNemes.Where(x => x.IsChecked).FirstOrDefault();
+
+                if (mNemeName != null)
+                {
+                    defaultFileName = mNemeName.Name;
+                }
+
+                dlg.FileName = defaultFileName;
                 dlg.DefaultExt = ".zip";
                 dlg.Filter = "Zip Files|*.zip";
 
