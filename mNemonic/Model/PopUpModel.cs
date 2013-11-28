@@ -32,23 +32,31 @@ namespace mNemonic.Model
                   if (alreadyStored.Count() == 1)
                   {
                       alreadyStored.FirstOrDefault().Attribute("mNemeCoefficient").Value = mNemeCoefficient.ToString();
-                      
+
                       //The idea here is that if we do remember it we don't want it showning up until the interval has passed
-                      //This is pretty much a guess at the moment. It would also probably be good idea to lengthen the interval between repetitions
-                      //
+                      //The interval size is pretty much a guess at the moment. 
+                      //Furthermore, the interval increases with each remembered time.
                       if (mNemeCoefficient == Constants.doRemember)
                       {
-                          alreadyStored.FirstOrDefault().Attribute("Time").Value = DateTime.Now.AddDays(Constants.intervalForRememberedmNemes).Ticks.ToString();
+                          int remembered = Convert.ToInt32(alreadyStored.FirstOrDefault().Attribute("Remembered").Value);
+                          alreadyStored.FirstOrDefault().Attribute("Time").Value = DateTime.Now.AddDays(++remembered * Constants.intervalForRememberedmNemes).Ticks.ToString();
+
                       }
                       else
                       {
-                          alreadyStored.FirstOrDefault().Attribute("Time").Value = DateTime.Now.Ticks.ToString();
+                          //If the item has not been fully remembered then the interval is simply the ticking interval times 5
+                          //This means that some might show up again on the same day.
+                          alreadyStored.FirstOrDefault().Attribute("Time").Value =
+                              DateTime.Now.AddSeconds(double.Parse(ConfigurationManager.AppSettings["Interval"]) * 1000 * 60 * 5).Ticks.ToString();
+                          //Reset the interval if the mNeme is forgotten. Not sure if this is correct.
+                          alreadyStored.FirstOrDefault().Attribute("Remembered").Value = "0";
                       }
                   }
                   else
                   {
                       doc.Root.Add(new XElement("mNeme", new XAttribute("Location", this.currentmNeme.Location),
-                      new XAttribute("mNemeCoefficient", mNemeCoefficient), new XAttribute("Time", DateTime.Now.Ticks)));
+                      new XAttribute("mNemeCoefficient", mNemeCoefficient), new XAttribute("Time", DateTime.Now.AddSeconds(double.Parse(ConfigurationManager.AppSettings["Interval"]) * 1000 * 60 * 5).Ticks),
+                      new XAttribute("Remembered", 0)));
                   }
 
                   doc.Save(this.DBFile);

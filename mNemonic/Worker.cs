@@ -92,17 +92,20 @@ namespace mNemonic
                         {
                             Location = x.Attribute("Location").Value,
                             Coefficient = Int32.Parse(x.Attribute("mNemeCoefficient").Value),
-                            Time = ((DateTime.Now.Ticks - Int64.Parse(x.Attribute("Time").Value)) / TimeSpan.TicksPerSecond)
+                            Time = ((DateTime.Now.Ticks - Int64.Parse(x.Attribute("Time").Value)) / TimeSpan.TicksPerSecond),
+                            Remembered = Int32.Parse(x.Attribute("Remembered").Value)
                         });
                     //3. Join with the selected mNemes
                     var availablemNemes = allmNemes.Join(storedmNemes, x => x.Location, y => y.Location, (x, y) => y).Distinct();
                     //4. Find the mNemes that meet certain criteria. At the moment this is driven by the time interval. The idea is preventing the possibility of the same
-                    //mNeme appearing twice in a row.
+                    //mNeme appearing twice in a row. We then sort by coefficient, where the lower the value the less well remembered the mneme is
+                    //then descending on time since the last time it was shown and then on the number of times it was remembered
                     var selection = availablemNemes.Where(x => x.Time  > TimerInterval)
                         .OrderBy(x => x.Coefficient)
-                        .ThenByDescending(x => x.Time);
+                        .ThenByDescending(x => x.Time)
+                        .ThenByDescending(x => x.Remembered);
 
-                    if (selection.Count() == 0)
+                   if (selection.Count() == 0)
                     {//5. If we don't find any, we just return one at random, which should ensure that we are not limited to the ones
                         // we already have seen.
                         result = allmNemes.ElementAt(new Random().Next(allmNemes.Count()));

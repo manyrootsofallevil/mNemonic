@@ -11,6 +11,6 @@ namespace mNemonic
         public const int dontRemember = 1;
         public const int vaguelyRemember = 20;
         public const int doRemember = 300;
-        public const int intervalForRememberedmNemes = 5; //This is in days. Totally arbitrary as limits normally are.
+        public const int intervalForRememberedmNemes = 3; //This is in days. Totally arbitrary as limits normally are.
     }
 }
