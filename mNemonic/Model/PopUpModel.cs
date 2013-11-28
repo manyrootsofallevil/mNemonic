@@ -11,13 +11,8 @@ namespace mNemonic.Model
 {
     public class PopUpModel
     {
-
         public mNeme currentmNeme { get; private set; }
-        public const int dontRemember = 1;
-        public const int vaguelyRemember = 20;
-        public const int doRemember = 300;
         private string DBFile;
-
 
         public PopUpModel(mNeme mNeme)
         {
@@ -33,11 +28,22 @@ namespace mNemonic.Model
 
                   var alreadyStored = doc.Root.Elements()
                       .Where(x => x.Attribute("Location").Value.Equals(this.currentmNeme.Location, StringComparison.InvariantCultureIgnoreCase));
-                  
+
                   if (alreadyStored.Count() == 1)
                   {
                       alreadyStored.FirstOrDefault().Attribute("mNemeCoefficient").Value = mNemeCoefficient.ToString();
-                      alreadyStored.FirstOrDefault().Attribute("Time").Value = DateTime.Now.Ticks.ToString();
+                      
+                      //The idea here is that if we do remember it we don't want it showning up until the interval has passed
+                      //This is pretty much a guess at the moment. It would also probably be good idea to lengthen the interval between repetitions
+                      //
+                      if (mNemeCoefficient == Constants.doRemember)
+                      {
+                          alreadyStored.FirstOrDefault().Attribute("Time").Value = DateTime.Now.AddDays(Constants.intervalForRememberedmNemes).Ticks.ToString();
+                      }
+                      else
+                      {
+                          alreadyStored.FirstOrDefault().Attribute("Time").Value = DateTime.Now.Ticks.ToString();
+                      }
                   }
                   else
                   {

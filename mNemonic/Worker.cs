@@ -92,7 +92,7 @@ namespace mNemonic
                         {
                             Location = x.Attribute("Location").Value,
                             Coefficient = Int32.Parse(x.Attribute("mNemeCoefficient").Value),
-                            Time = ((DateTime.Now.Ticks - Int64.Parse(x.Attribute("Time").Value)) / ticksToSeconds)
+                            Time = ((DateTime.Now.Ticks - Int64.Parse(x.Attribute("Time").Value)) / TimeSpan.TicksPerSecond)
                         });
                     //3. Join with the selected mNemes
                     var availablemNemes = allmNemes.Join(storedmNemes, x => x.Location, y => y.Location, (x, y) => y).Distinct();

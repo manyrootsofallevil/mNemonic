@@ -67,6 +67,7 @@
     <Compile Include="Commands\Pause.cs" />
     <Compile Include="Commands\Play.cs" />
     <Compile Include="Commands\RevisionMode.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="mNeme.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Model\PopUpModel.cs" />

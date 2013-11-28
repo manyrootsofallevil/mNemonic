@@ -123,17 +123,18 @@ namespace mNemonic.ViewModel
 
             this.DontRememberCommand = new DelegateCommand((obj) => true, (obj) =>
             {
-                RememberCommand(model, PopUpModel.dontRemember);
+                RememberCommand(model, Constants.dontRemember);
+                
             });
 
             this.VaguelyRememberCommand = new DelegateCommand((obj) => true, (obj) =>
             {
-                RememberCommand(model, PopUpModel.vaguelyRemember);
+                RememberCommand(model, Constants.vaguelyRemember);
             });
 
             this.DoRememberCommand = new DelegateCommand((obj) => true, (obj) =>
             {
-                RememberCommand(model, PopUpModel.doRemember);
+                RememberCommand(model, Constants.doRemember);
             });
 
             this.NextCommand = new DelegateCommand((obj) => true, (obj) =>
