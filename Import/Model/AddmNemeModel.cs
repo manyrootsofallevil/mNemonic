@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace Import
 {
 
-    public class ImportModel
+    public class AddmNemeModel
     {
         private const string questionFileName = @"\Question.txt";
         private const string answerFileName = @"\Answer.txt";
@@ -22,7 +22,7 @@ namespace Import
         public string RootDirectory { get; set; }
         public string Image { get; set; }
 
-        public ImportModel(string title)
+        public AddmNemeModel(string title)
         {
             WindowTitle = title;
             RootDirectory = ConfigurationManager.AppSettings["RootDirectory"];

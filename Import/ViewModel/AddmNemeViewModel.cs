@@ -12,9 +12,14 @@ using System.Windows.Input;
 
 namespace Import
 {
-    public class ImportViewModel : NotifyPropertyChangedBase,INotifyPropertyChanged, IDataErrorInfo
+    public class AddmNemeViewModel : NotifyPropertyChangedBase,INotifyPropertyChanged, IDataErrorInfo
     {
-        ImportModel model;
+        //TODO: At the moment there is no way to add a new collection
+        //What we want is to be able to do :
+        //1. Create a new collection and add a mNeme to it
+        //2. Add a mNeme to an existing collection
+        //At the moment, need to select the right directory manually.
+        AddmNemeModel model;
 
         public ICommand SaveCommand { get; set; }
         public ICommand CancelCommand { get; set; }
@@ -151,7 +156,7 @@ namespace Import
 
         #endregion
 
-        public ImportViewModel(ImportModel model)
+        public AddmNemeViewModel(AddmNemeModel model)
         {
             this.model = model;
             WindowTitle = model.WindowTitle;

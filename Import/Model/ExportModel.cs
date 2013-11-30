@@ -15,6 +15,10 @@ namespace Import.Model
         public List<mNemeStorage> mNemes = new List<mNemeStorage>();
         public string DestinationFile;
 
+        //TODO: sort a couple of issues out.
+        //1.Unselecting from a child item will not unselect the parent. 
+        //2. Selecting all child items will not select parent item.
+
         public ExportModel()
         {
             GetmNemes();

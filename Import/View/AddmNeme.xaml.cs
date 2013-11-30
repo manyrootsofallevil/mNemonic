@@ -20,7 +20,7 @@ namespace Import
     /// </summary>
     public partial class ImportView : Window
     {
-        ImportViewModel vm;
+        AddmNemeViewModel vm;
 
         public ImportView()
         {
@@ -30,8 +30,8 @@ namespace Import
             {
                 switch (App.args[0].ToLower())
                 {
-                    case "-i": vm = new ImportViewModel(new ImportModel("Import")); break;
-                    case "-e": vm = new ImportViewModel(new ImportModel("Export")); break;
+                    case "-i": vm = new AddmNemeViewModel(new AddmNemeModel("Import")); break;
+                    case "-e": vm = new AddmNemeViewModel(new AddmNemeModel("Export")); break;
                 }
             }
 
