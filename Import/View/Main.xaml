@@ -14,5 +14,6 @@
         <Button Content="Add" HorizontalAlignment="Left" Margin="6,10,0,0" VerticalAlignment="Top" Width="250" Click="Import_Click" Grid.Column="1"/>
         <Button Content="Export" HorizontalAlignment="Left" Margin="6,50,0,0" VerticalAlignment="Top" Width="250" Click="Export_Click" Grid.Column="1"/>
         <Button Content="Import" HorizontalAlignment="Left" Margin="6,90,0,0" VerticalAlignment="Top" Width="250" Click="Button_Click" Grid.Column="1"/>
+        <Button Content="Configure" HorizontalAlignment="Left" Margin="6,130,0,0" VerticalAlignment="Top" Width="250" Click="Configure_Click" Grid.Column="1"/>
     </Grid>
 </Window>

@@ -18,6 +18,7 @@ namespace Import.Model
         //TODO: sort a couple of issues out.
         //1.Unselecting from a child item will not unselect the parent. 
         //2. Selecting all child items will not select parent item.
+        //Have a look at this http://www.codeproject.com/Articles/28306/Working-with-Checkboxes-in-the-WPF-TreeView
 
         public ExportModel()
         {

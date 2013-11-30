@@ -69,5 +69,11 @@ namespace Import
             }
 
         }
+
+        private void Configure_Click(object sender, RoutedEventArgs e)
+        {
+            ConfigurationView cv = new ConfigurationView();
+            cv.Show();
+        }
     }
 }
