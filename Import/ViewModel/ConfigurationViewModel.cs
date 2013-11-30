@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Import.ViewModel
@@ -38,8 +39,15 @@ namespace Import.ViewModel
 
             this.SaveCommand = new DelegateCommand((o) => true, (o) =>
             {
-                model.mNemesCollection = mNemes.Where(x => x.IsChecked).ToList();
-                model.Save();
+                model.mNemesCollection = mNemes.ToList();
+                if (model.Save())
+                {
+                    this.RequestClose(o, new EventArgs());
+                }
+                else
+                {
+                    MessageBox.Show("An error occurred");
+                }
             });
         }
     }

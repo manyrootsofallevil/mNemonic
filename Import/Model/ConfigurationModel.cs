@@ -15,40 +15,63 @@ namespace Import.Model
         string rootDirectory = ConfigurationManager.AppSettings["RootDirectory"];
         string collectionsFile = ConfigurationManager.AppSettings["CollectionsFile"];
         public List<mNemeStorage> mNemesCollection = new List<mNemeStorage>();
-        
+
         public ConfigurationModel()
         {
-            foreach (string dir in Directory.GetDirectories(rootDirectory))
-            {
-                mNemesCollection.Add(new mNemeStorage(dir));
-            }
+            LoadConfigurationFile();
         }
 
         public bool Save()
         {
             bool result = false;
 
-            XDocument xdoc = XDocument.Load(this.collectionsFile);
-
-            foreach (mNemeStorage record in mNemesCollection)
+            try
             {
-                var alreadyStored = xdoc.Root.Elements()
-                    .Where(x => x.Attribute("Name").Value.Equals(record.Name, StringComparison.InvariantCultureIgnoreCase));
+                XDocument xdoc = XDocument.Load(this.collectionsFile);
+                //I bet this can be done better.
+                foreach (mNemeStorage record in mNemesCollection)
+                {
+                    var alreadyStored = xdoc.Root.Elements()
+                        .Where(x => x.Attribute("Name").Value.Equals(record.Name, StringComparison.InvariantCultureIgnoreCase));
 
-                if (alreadyStored.Count() == 1)
-                {
-                    alreadyStored.FirstOrDefault().Attribute("Enabled").Value = "true";
+                    if (alreadyStored.Count() == 1)
+                    {
+                        alreadyStored.FirstOrDefault().Attribute("Enabled").Value = record.IsChecked.ToString();
+                    }
+                    else
+                    {
+                        xdoc.Root.Add(new XElement("collection", new XAttribute("Name", record.Name),
+                        new XAttribute("relativePath", new DirectoryInfo(record.Directory).Name), new XAttribute("Enabled", true)));
+                    }
                 }
-                else
-                {
-                    xdoc.Root.Add(new XElement("collection", new XAttribute("Name", record.Name),
-                    new XAttribute("relativePath", new DirectoryInfo(record.Directory).Name), new XAttribute("Enabled", true)));
-                }
+
+                xdoc.Save(this.collectionsFile);
+                result = true;
+            }
+            catch (Exception ex)
+            {
+                //TODO:
+
             }
 
-            xdoc.Save(this.collectionsFile);
-
             return result;
+        }
+
+        private void LoadConfigurationFile()
+        {
+            try
+            {
+                XDocument xdoc = XDocument.Load(this.collectionsFile);
+
+                mNemesCollection.AddRange(xdoc.Root.Elements()
+                    //.Where(x => x.Attribute("Enabled").Value.Equals("true", StringComparison.InvariantCultureIgnoreCase))
+                    .Select(x => new mNemeStorage(Path.Combine(rootDirectory, x.Attribute("relativePath").Value), 
+                        Boolean.Parse(x.Attribute("Enabled").Value))));
+            }
+            catch (Exception ex)
+            {
+                //TODO:
+            }
         }
     }
 }

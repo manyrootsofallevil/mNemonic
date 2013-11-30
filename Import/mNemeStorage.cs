@@ -22,6 +22,14 @@ namespace Import
             Name = new System.IO.FileInfo(directoryName).Name;
         }
 
+        public mNemeStorage(string directoryName, bool isChecked)
+        {
+            Directory = directoryName;
+            Name = new System.IO.FileInfo(directoryName).Name;
+            this.isChecked = isChecked;
+        }
+
+
         public mNemeStorage(string directoryName, mNemeStorage parent)
         {
             Directory = directoryName;

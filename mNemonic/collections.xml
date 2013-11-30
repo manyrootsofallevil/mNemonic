@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Collections>
-  <collection  Name="Unusual Words" relativePath="Unusual Words"></collection>
-  <collection  Name="Really Unusual Words" relativePath="Really Unusual Words"></collection>
+  <collection Name="Unusual Words" relativePath="Unusual Words" Enabled="true" />
+  <collection Name="Usual Words" relativePath="Usual Words" Enabled="false" />
 </Collections>

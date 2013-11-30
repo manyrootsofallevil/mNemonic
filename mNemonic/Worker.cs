@@ -70,7 +70,9 @@ namespace mNemonic
         {
             XDocument xdoc = XDocument.Load(setsFile);
 
-            IEnumerable<XAttribute> collectionDirectories = xdoc.Root.Descendants().Select(x => x.Attribute("relativePath"));
+            IEnumerable<XAttribute> collectionDirectories = xdoc.Root.Descendants()
+                .Where(x => Boolean.Parse(x.Attribute("Enabled").Value))
+                .Select(x => x.Attribute("relativePath"));
 
             return collectionDirectories;
         }

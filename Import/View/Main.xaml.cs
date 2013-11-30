@@ -16,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.IO.Compression;
 using ioPath = System.IO.Path;
+using System.Xml.Linq;
 
 namespace Import
 {
@@ -57,10 +58,19 @@ namespace Import
             if (result == true)
             {
                 string root = ConfigurationManager.AppSettings["RootDirectory"];
+                string collections = ConfigurationManager.AppSettings["CollectionsFile"];
 
                 try
                 {
                     ZipFile.ExtractToDirectory(opf.FileName, ioPath.Combine(root, ioPath.GetFileNameWithoutExtension(opf.FileName)));
+
+                    XDocument xdoc = XDocument.Load(collections);
+
+                    xdoc.Root.Add(new XElement("collection", new XAttribute("Name", ioPath.GetFileNameWithoutExtension(opf.FileName)),
+                   new XAttribute("relativePath", ioPath.GetFileNameWithoutExtension(opf.FileName)), new XAttribute("Enabled", false)));
+
+                    xdoc.Save(collections);
+
                 }
                 catch (Exception ex)
                 {
