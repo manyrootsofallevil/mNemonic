@@ -31,6 +31,7 @@ namespace mNemonic.Forms
             Interval.Text = ConfigurationManager.AppSettings["Interval"];
             CollectStats.IsChecked = Boolean.Parse(ConfigurationManager.AppSettings["CollectStats"]);
 
+            CloseOpenPopUp();
         }
 
         private void Window_Closed(object sender, EventArgs e)
@@ -57,16 +58,34 @@ namespace mNemonic.Forms
 
                 config.AppSettings.Settings["Interval"].Value = result.ToString();
                 config.AppSettings.Settings["CollectStats"].Value = CollectStats.IsChecked.ToString();
+                //May as well update the time here.
+                Timer = (System.Windows.Forms.Timer)App.Current.FindResource("Timer");
+                Timer.Interval = result * 60 * 1000;
 
                 config.Save(ConfigurationSaveMode.Full);
                 ConfigurationManager.RefreshSection("appSettings");
 
                 this.Close();
+
             }
             else
             {
                 //Meaningful error message let your user become lazy. don't use them. keep then on their toes
                 MessageBox.Show("An Error occurred. Try Again");
+            }
+        }
+
+        /// <summary>
+        /// This should hopefully be self explanatory
+        /// </summary>
+        private static void CloseOpenPopUp()
+        {
+            foreach (var window in App.Current.Windows)
+            {
+                if (window.GetType().Name.Equals("PopUp", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    ((PopUp)window).Close();
+                }
             }
         }
     }
