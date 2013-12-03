@@ -28,7 +28,7 @@ namespace Import.Model
             try
             {
                 XDocument xdoc = XDocument.Load(this.collectionsFile);
-                //I bet this can be done better.
+                //TODO:I bet this can be done better.
                 foreach (mNemeStorage record in mNemesCollection)
                 {
                     var alreadyStored = xdoc.Root.Elements()
