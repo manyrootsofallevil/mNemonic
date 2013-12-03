@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Fragment>
+    <DirectoryRef Id="INSTALLFOLDER">
+      <Directory Id="dir99DE416F55C8960850D5A4FCA3758AD4" Name="mNemonic" />
+    </DirectoryRef>
+  </Fragment>
+  <Fragment>
+
+
+    <ComponentGroup Id="mNemonic">
+      <Component Id="cmp8C8ADADC6E719EE21A430AC61EE9C06E" Guid="{EF373E2E-FB0E-41AC-81C8-E5BC864D4BD0}" Directory="dir99DE416F55C8960850D5A4FCA3758AD4">
+        <File Id="fil748BA47765AAF961FBE6960F9C3D01DF" KeyPath="yes" Source="$(var.mNemonic.TargetDir)\mNemonic.exe.config" />
+      </Component>
+      <Component Id="cmpE444652993AD164EBBE4DD561F21DEEB" Guid="{E2FA6EA4-8B2B-4714-A67F-AE3DADD6C1F6}" Directory="dir99DE416F55C8960850D5A4FCA3758AD4">
+        <File Id="fil2F10B7D2D9C6B8587A818B9A818AF1C6" KeyPath="yes" Source="$(var.mNemonic.TargetDir)\Hardcodet.Wpf.TaskbarNotification.dll" />
+      </Component>
+      <Component Id="cmpF457035487C74E6DB50DB8F633A25D4C" Guid="{FA2C503B-7FA9-474B-84B5-E4E37720434D}" Directory="dir99DE416F55C8960850D5A4FCA3758AD4">
+        <File Id="fil3068213C7EAE8EF57741661645987E8E" KeyPath="yes" Source="$(var.mNemonic.TargetDir)\collections.xml" />
+      </Component>
+      <Component Id="cmpFC5E0C6FCB05AF936D9A0F5943AC5E75" Guid="{A854811B-A10A-4956-B6E3-51F6981FEB93}" Directory="dir99DE416F55C8960850D5A4FCA3758AD4">
+        <File Id="fil5351C02905CDE574D5D7F23F3FE868A3" KeyPath="yes" Source="$(var.mNemonic.TargetDir)\mNemonic.exe" />
+      </Component>
+      <Component Id="cmpFC5E0C6FCB05AF936D940F5943AC5E75" Guid="{4444811B-A10A-4956-B6E3-51F6981FEB93}" Directory="dir99DE416F55C8960850D5A4FCA3758AD4">
+        <File Id="fil5351C029054DE574D5D7F23F3FE868A3" KeyPath="yes" Source="Sample\Unusual Words.zip" />
+      </Component>
+    </ComponentGroup>
+
+
+  </Fragment>
+</Wix>
