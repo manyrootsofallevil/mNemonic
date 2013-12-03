@@ -29,7 +29,8 @@ namespace mNemonic.Forms
 
             InitializeComponent();
             Interval.Text = ConfigurationManager.AppSettings["Interval"];
-          
+            CollectStats.IsChecked = Boolean.Parse(ConfigurationManager.AppSettings["CollectStats"]);
+
         }
 
         private void Window_Closed(object sender, EventArgs e)
@@ -41,6 +42,32 @@ namespace mNemonic.Forms
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            int result;
+
+            if (Int32.TryParse(Interval.Text.Trim(), out result))
+            {
+                // Get the current configuration file.
+                System.Configuration.Configuration config =
+                        ConfigurationManager.OpenExeConfiguration(System.Reflection.Assembly.GetExecutingAssembly().Location);
+
+
+                config.AppSettings.Settings["Interval"].Value = result.ToString();
+                config.AppSettings.Settings["CollectStats"].Value = CollectStats.IsChecked.ToString();
+
+                config.Save(ConfigurationSaveMode.Full);
+                ConfigurationManager.RefreshSection("appSettings");
+
+                this.Close();
+            }
+            else
+            {
+                //Meaningful error message let your user become lazy. don't use them. keep then on their toes
+                MessageBox.Show("An Error occurred. Try Again");
+            }
         }
     }
 }
