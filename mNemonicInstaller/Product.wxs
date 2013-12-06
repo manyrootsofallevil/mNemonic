@@ -1,37 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Id="*" Name="mNemonic" Language="1033" Version="1.0.0.0" Manufacturer="ManyRootsOfAllEvil Inc." UpgradeCode="0dbe4cf3-abb9-46b2-9cf7-75f4a2f85d4e">
-		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+  <Product Id="*" Name="mNemonic" Language="1033" Version="1.0.0.0" Manufacturer="ManyRootsOfAllEvil Inc." UpgradeCode="0dbe4cf3-abb9-46b2-9cf7-75f4a2f85d4e">
+    <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
-		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
     <MediaTemplate EmbedCab="yes" CompressionLevel="high"/>
 
-		<Feature Id="ProductFeature" Title="mNemonic" Level="1" ConfigurableDirectory="INSTALLFOLDER">
-			<ComponentGroupRef Id="ProductComponents" />
-		</Feature>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLFOLDER" Name="mNemonic" />
+      </Directory>
+      <Directory Id="ProgramMenuFolder"  Name="PMenu" >
+        <Directory Id="ProgramMenuDir" Name="mNemonic"/>
+      </Directory>
+    </Directory>
+
+    <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+      <ComponentGroupRef Id="mNemonic"/>
+      <ComponentGroupRef Id="ImportExportTool"/>
+    </ComponentGroup>
+
+    <Feature Id="ProductFeature" Title="mNemonic" Level="1" ConfigurableDirectory="INSTALLFOLDER">
+      <ComponentGroupRef Id="ProductComponents" />
+    </Feature>
+
     <UI>
       <UIRef Id="GUI"/>
       <UIRef Id="WixUI_ErrorProgressText" />
     </UI>
-	</Product>
+  </Product>
 
-	<Fragment>
-		<Directory Id="TARGETDIR" Name="SourceDir">
-			<Directory Id="ProgramFilesFolder">
-				<Directory Id="INSTALLFOLDER" Name="mNemonic" />
-			</Directory>
-		</Directory>
-	</Fragment>
 
-	<Fragment>
-		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
-      <ComponentGroupRef Id="mNemonic"/>
-      <ComponentGroupRef Id="ImportExportTool"/>
-		</ComponentGroup>
-	</Fragment>
   <!--TODO: 
   Need to a make it start on windows start up 
-  Need Folder in Program Files
   Think about where the DB files should be stored
   -->
 
