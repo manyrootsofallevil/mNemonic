@@ -8,7 +8,10 @@
   <Fragment>
     <ComponentGroup Id="ImportExportTool">
     <Component Id="cmp9E6F9DF6EB11BD3B383A0075ED4F775B" Guid="{AD66AB48-D89B-4EBB-9E6F-6ABA8D4CEA1F}" Directory="dir99DE416F55C8960850D5A4FCC3355BE5">
-      <File Id="fil9F331CCE3F1A964C4EDFF1603C6A2198" KeyPath="yes" Source="$(var.ImportExportTool.TargetDir)\Import.exe" />
+      <File Id="fil9F331CCE3F1A964C4EDFF1603C6A2198" KeyPath="yes" Source="$(var.ImportExportTool.TargetDir)\Import.exe" >
+        <Shortcut Id="mNemonicManager"  WorkingDirectory="dir99DE416F55C8960850D5A4FCC3355BE5" Name="mNemonic Manager" Directory="ProgramMenuDir" Advertise="yes"
+                     Icon="mNemonicManager.exe"/>
+      </File>
     </Component>
     <Component Id="cmpEA3D0BD3ABD07BAA08B34BAE4C8999B2" Guid="{504B9F39-4168-4D49-8A2D-0372C9EF01E0}" Directory="dir99DE416F55C8960850D5A4FCC3355BE5">
       <File Id="fil4DC765239B0391B7BF8B2146B7551520" KeyPath="yes" Source="$(var.ImportExportTool.TargetDir)\Import.exe.config" />

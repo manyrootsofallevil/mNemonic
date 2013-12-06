@@ -27,9 +27,12 @@
     <Compile Include="Product.wxs" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Images" />
     <Folder Include="Sample" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Images\Manager.ico" />
+    <Content Include="Images\memento.ico" />
     <Content Include="Sample\Unusual Words.zip" />
   </ItemGroup>
   <ItemGroup>

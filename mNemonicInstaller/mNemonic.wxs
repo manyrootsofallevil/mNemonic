@@ -19,7 +19,11 @@
         <File Id="fil3068213C7EAE8EF57741661645987E8E" KeyPath="yes" Source="$(var.mNemonic.TargetDir)\collections.xml" />
       </Component>
       <Component Id="cmpFC5E0C6FCB05AF936D9A0F5943AC5E75" Guid="{A854811B-A10A-4956-B6E3-51F6981FEB93}" Directory="dir99DE416F55C8960850D5A4FCA3758AD4">
-        <File Id="fil5351C02905CDE574D5D7F23F3FE868A3" KeyPath="yes" Source="$(var.mNemonic.TargetDir)\mNemonic.exe" />
+        <File Id="fil5351C02905CDE574D5D7F23F3FE868A3" KeyPath="yes" Source="$(var.mNemonic.TargetDir)\mNemonic.exe" >
+          <Shortcut Id="mNemonic"  WorkingDirectory="dir99DE416F55C8960850D5A4FCA3758AD4" Name="mNemonic" Directory="ProgramMenuDir" Advertise="yes"
+                    Icon="mNemonic.exe" />
+        </File>
+        <RemoveFolder Id="ICE64" Directory="ProgramMenuDir" On="uninstall"/>
       </Component>
       <Component Id="cmpFC5E0C6FCB05AF936D940F5943AC5E75" Guid="{4444811B-A10A-4956-B6E3-51F6981FEB93}" Directory="dir99DE416F55C8960850D5A4FCA3758AD4">
         <File Id="fil5351C029054DE574D5D7F23F3FE868A3" KeyPath="yes" Source="Sample\Unusual Words.zip" />
