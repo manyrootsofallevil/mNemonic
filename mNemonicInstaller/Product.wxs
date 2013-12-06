@@ -16,6 +16,7 @@
       <Directory Id="ProgramMenuFolder"  Name="PMenu" >
         <Directory Id="ProgramMenuDir" Name="mNemonic"/>
       </Directory>
+      <Directory Id="StartupFolder" Name="StartUp" />
     </Directory>
 
     <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">

@@ -22,6 +22,8 @@
         <File Id="fil5351C02905CDE574D5D7F23F3FE868A3" KeyPath="yes" Source="$(var.mNemonic.TargetDir)\mNemonic.exe" >
           <Shortcut Id="mNemonic"  WorkingDirectory="dir99DE416F55C8960850D5A4FCA3758AD4" Name="mNemonic" Directory="ProgramMenuDir" Advertise="yes"
                     Icon="mNemonic.exe" />
+          <Shortcut Id="mNemonicStartUp"  WorkingDirectory="dir99DE416F55C8960850D5A4FCA3758AD4" Name="mNemonic" Directory="StartupFolder" Advertise="yes"
+                    Icon="mNemonic.exe" />
         </File>
         <RemoveFolder Id="ICE64" Directory="ProgramMenuDir" On="uninstall"/>
       </Component>
