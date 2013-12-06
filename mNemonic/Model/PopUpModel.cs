@@ -83,7 +83,7 @@ namespace mNemonic.Model
             else
             {
                 doc = new XDocument();
-                doc.Add(new XElement("Root"));
+                doc.Add(new XElement("mNemes"));
 
                 doc.Root.Add(new XElement("mNeme", new XAttribute("Location", this.currentmNeme.Location),
                    new XAttribute("mNemeCoefficient", mNemeCoefficient), new XAttribute("Time", DateTime.Now.AddSeconds(double.Parse(ConfigurationManager.AppSettings["Interval"]) * 1000 * 60 * 5).Ticks),
@@ -114,7 +114,7 @@ namespace mNemonic.Model
             else
             {
                 doc = new XDocument();
-                doc.Add(new XElement("Root"));
+                doc.Add(new XElement("mNemes"));
             }
 
             doc.Root.Add(new XElement("mNeme", new XAttribute("Location", this.currentmNeme.Location),
