@@ -30,7 +30,7 @@ namespace mNemonic.Forms
             InitializeComponent();
             Interval.Text = ConfigurationManager.AppSettings["Interval"];
             CollectStats.IsChecked = Boolean.Parse(ConfigurationManager.AppSettings["CollectStats"]);
-
+            InitialInterval.Text = ConfigurationManager.AppSettings["InitialInterval"];
             CloseOpenPopUp();
         }
 
@@ -47,20 +47,22 @@ namespace mNemonic.Forms
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            int result;
+            int interval, initialInterval;
 
-            if (Int32.TryParse(Interval.Text.Trim(), out result))
+            if (Int32.TryParse(Interval.Text.Trim(), out interval) &&
+                Int32.TryParse(InitialInterval.Text.Trim(), out initialInterval))
             {
                 // Get the current configuration file.
                 System.Configuration.Configuration config =
                         ConfigurationManager.OpenExeConfiguration(System.Reflection.Assembly.GetExecutingAssembly().Location);
 
-
-                config.AppSettings.Settings["Interval"].Value = result.ToString();
+                config.AppSettings.Settings["Interval"].Value = interval.ToString();
                 config.AppSettings.Settings["CollectStats"].Value = CollectStats.IsChecked.ToString();
+                config.AppSettings.Settings["InitialInterval"].Value = initialInterval.ToString();
+
                 //May as well update the time here.
                 Timer = (System.Windows.Forms.Timer)App.Current.FindResource("Timer");
-                Timer.Interval = result * 60 * 1000;
+                Timer.Interval = interval * 60 * 1000;
 
                 config.Save(ConfigurationSaveMode.Full);
                 ConfigurationManager.RefreshSection("appSettings");

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -22,7 +23,6 @@ namespace mNemonic
         {
             //initialize NotifyIcon
             tb = (TaskbarIcon)FindResource("MainIcon");
-            //timer = new System.Windows.Forms.Timer();
 
             timer = (System.Windows.Forms.Timer)FindResource("Timer");
 #if DEBUG
@@ -30,10 +30,19 @@ namespace mNemonic
 #else
             //Interval in the config file is in minutes so ...
             timer.Interval = Int32.Parse(ConfigurationManager.AppSettings["Interval"]) * 1000 * 60;
+            
+            //We wait for a configurable amount of time and then we display the first item, after that
+            //it's the regular time. This is to prevent it from say taking 1 hour to show the first item.
+            //Probably not the most elegant solution but ......
+            Thread.Sleep(Int32.Parse(ConfigurationManager.AppSettings["InitialInterval"]) * 1000 * 60);
+
+            DisplayTicker(null, null);
 #endif
             timer.Tick += DisplayTicker;
             worker = new Worker(ConfigurationManager.AppSettings["Maindirectory"]);
+
             timer.Start();
+
         }
 
         private async void DisplayTicker(object sender, EventArgs e)

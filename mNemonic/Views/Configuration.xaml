@@ -8,12 +8,14 @@
             <ColumnDefinition Width="184*"/>
             <ColumnDefinition Width="11*"/>
         </Grid.ColumnDefinitions>
-        <TextBox Name="Interval" HorizontalAlignment="Left" Height="23" Margin="296,20,0,0" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Top" Width="54" Grid.Column="1"/>
-        <Label Content="Interval between Cards (in minutes)" HorizontalAlignment="Left" Margin="6,20,0,0" VerticalAlignment="Top" Width="248" Height="41" Grid.Column="1" />
-        <CheckBox Name="CollectStats" Content="Collect Statistics" Margin="3,66,243,0" VerticalAlignment="Top" HorizontalAlignment="Center" IsChecked="True" FlowDirection="RightToLeft" Grid.Column="1" />
+        <TextBox Name="Interval" HorizontalAlignment="Left" Height="23" Margin="296,12,0,0" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Top" Width="54" Grid.Column="1"/>
+        <Label Content="Interval between Cards (in minutes)" HorizontalAlignment="Left" Margin="6,12,0,0" VerticalAlignment="Top" Width="248" Height="41" Grid.Column="1" />
+        <CheckBox Name="CollectStats" Content="    Collect Statistics     " Margin="109,83,18,62" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" IsChecked="True" FlowDirection="RightToLeft" Grid.Column="1"  />
 
         <Button Content="Apply" HorizontalAlignment="Left" Margin="6,129,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click" Grid.Column="1"/>
         <Button Content="Cancel" HorizontalAlignment="Left" Margin="275,129,0,0" VerticalAlignment="Top" Width="75" Click="Cancel_Click" Grid.Column="1"/>
+        <Label Content="Initial Interval (in minutes)" HorizontalAlignment="Left" Margin="6,42,0,0" VerticalAlignment="Top" Width="248" Height="41" Grid.Column="1" />
+        <TextBox x:Name="InitialInterval" HorizontalAlignment="Left" Height="23" Margin="296,42,0,0" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Top" Width="54" Grid.Column="1"/>
 
     </Grid>
 </Window>
