@@ -17,7 +17,7 @@ namespace mNemonic
         //of the image here. We should probably store the text here as well or should we?
         public List<Tuple<string, FileType>> Items { get; set; }
 
-        public mNeme(mNemeType type, string location)
+        public mNeme(string location, mNemeType type)
         {
             Type = type;
             Location = location;
