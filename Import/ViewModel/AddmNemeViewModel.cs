@@ -12,7 +12,7 @@ using System.Windows.Input;
 
 namespace Import
 {
-    public class AddmNemeViewModel : NotifyPropertyChangedBase,INotifyPropertyChanged, IDataErrorInfo
+    public class AddmNemeViewModel : NotifyPropertyChangedBase, INotifyPropertyChanged, IDataErrorInfo
     {
         //TODO: At the moment there is no way to add a new collection
         //What we want is to be able to do :
@@ -56,7 +56,7 @@ namespace Import
                 return result;
             }
         }
-        
+
         private string ValidateString(string input)
         {
             string result = string.Empty;
@@ -66,7 +66,7 @@ namespace Import
                 result = "Empty Filed";
                 validationErrors++;
             }
-            else
+            else if (validationErrors > 0)
             {
                 validationErrors--;
             }
@@ -82,8 +82,8 @@ namespace Import
             //of increasing the number of problems by one. will probably end up using regex as this seems extremely ugly.
             try
             {
-               Path.GetFullPath(input);
-               validDirectory = true;
+                Path.GetFullPath(input);
+                validDirectory = true;
             }
             catch (Exception)
             {
@@ -111,7 +111,7 @@ namespace Import
             set
             {
                 SetField(ref rootdirectory, value, "Directory");
-                model.RootDirectory = RootDirectory; 
+                model.RootDirectory = RootDirectory;
             }
         }
         private string title;
@@ -121,7 +121,7 @@ namespace Import
             set
             {
                 SetField(ref title, value, "Title");
-                model.Title = Title; 
+                model.Title = Title;
             }
         }
         private string answer;
@@ -131,7 +131,7 @@ namespace Import
             set
             {
                 SetField(ref answer, value, "Answer");
-                model.Answer = Answer; 
+                model.Answer = Answer;
             }
         }
 
@@ -176,7 +176,7 @@ namespace Import
 
             this.CancelCommand = new DelegateCommand((obj) => true, (o) =>
             {
-                        this.RequestClose(o, new EventArgs());
+                this.RequestClose(o, new EventArgs());
             });
 
             this.InsertCommand = new DelegateCommand((obj) => true, (o) =>
@@ -184,15 +184,15 @@ namespace Import
                     //Using a openfile dialog as we are only interested in getting the name of the file
                     //so that it can be saved later.
                     OpenFileDialog dlg = new OpenFileDialog();
-                    dlg.FileName = "Image"; 
+                    dlg.FileName = "Image";
                     dlg.DefaultExt = ".jpg";
-                    dlg.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.tiff"; 
+                    dlg.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.tiff";
 
                     bool? result = dlg.ShowDialog();
 
                     if (result == true)
                     {
-                         model.Image = dlg.FileName;
+                        model.Image = dlg.FileName;
                     }
                 });
         }
