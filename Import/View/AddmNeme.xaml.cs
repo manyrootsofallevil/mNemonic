@@ -25,16 +25,9 @@ namespace Import
         public ImportView()
         {
             InitializeComponent();
-
-            if (App.args.Length > 0)
-            {
-                switch (App.args[0].ToLower())
-                {
-                    case "-i": vm = new AddmNemeViewModel(new AddmNemeModel("Import")); break;
-                    case "-e": vm = new AddmNemeViewModel(new AddmNemeModel("Export")); break;
-                }
-            }
-
+            //The title is no longer used, leaving it here in case i change my mind
+            vm = new AddmNemeViewModel(new AddmNemeModel(string.Empty));
+            
             vm.RequestClose += (s, e) =>
             {
                 this.Close();
