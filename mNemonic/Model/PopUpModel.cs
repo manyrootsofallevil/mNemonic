@@ -61,6 +61,7 @@ namespace mNemonic.Model
                     {
                         int remembered = Convert.ToInt32(alreadyStored.FirstOrDefault().Attribute("Remembered").Value);
                         alreadyStored.FirstOrDefault().Attribute("Time").Value = DateTime.Now.AddDays(++remembered * Constants.intervalForRememberedmNemes).Ticks.ToString();
+                        alreadyStored.FirstOrDefault().Attribute("Remembered").Value = (++remembered).ToString();
 
                     }
                     else
@@ -77,7 +78,7 @@ namespace mNemonic.Model
                 {
                     doc.Root.Add(new XElement("mNeme", new XAttribute("Location", this.currentmNeme.Location),
                     new XAttribute("mNemeCoefficient", mNemeCoefficient), new XAttribute("Time", DateTime.Now.AddSeconds(double.Parse(ConfigurationManager.AppSettings["Interval"]) * 1000 * 60 * 5).Ticks),
-                    new XAttribute("Remembered", 0)));
+                    new XAttribute("Remembered", mNemeCoefficient == Constants.doRemember ? 1 : 0)));
                 }
             }
             else
@@ -87,7 +88,7 @@ namespace mNemonic.Model
 
                 doc.Root.Add(new XElement("mNeme", new XAttribute("Location", this.currentmNeme.Location),
                    new XAttribute("mNemeCoefficient", mNemeCoefficient), new XAttribute("Time", DateTime.Now.AddSeconds(double.Parse(ConfigurationManager.AppSettings["Interval"]) * 1000 * 60 * 5).Ticks),
-                   new XAttribute("Remembered", 0)));
+                   new XAttribute("Remembered", mNemeCoefficient == Constants.doRemember ? 1 : 0)));
             }
             doc.Save(storeFile);
         }
@@ -119,7 +120,7 @@ namespace mNemonic.Model
 
             doc.Root.Add(new XElement("mNeme", new XAttribute("Location", this.currentmNeme.Location),
             new XAttribute("mNemeCoefficient", mNemeCoefficient), new XAttribute("Time", DateTime.Now.ToString("o")),
-            new XAttribute("NumberoftimesDisplayed", count),
+            new XAttribute("NumberoftimesDisplayed", ++count),
             new XAttribute("IntervalSinceLastDisplayinMinutes", interval)));
 
             doc.Save(storeFile);
