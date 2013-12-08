@@ -17,11 +17,23 @@
         <Directory Id="ProgramMenuDir" Name="mNemonic"/>
       </Directory>
       <Directory Id="StartupFolder" Name="StartUp" />
+      <Directory Id="AppDataFolder" Name="AppDataFolder">
+        <Directory Id="mNemonicAppFolder" Name="mNemonic">
+          <Component Id="mNemonicAppFolderComponent" Guid="DEAFBEEF-DEAD-C0DE-BEEF-C0DEBEEFC0DE">
+            <RegistryKey Root="HKCU" Id="AgainstICE1" Key="mNemonic" Action="createAndRemoveOnUninstall">
+              <RegistryValue Id="AgainstICE2" KeyPath="yes" Type="string" Value="mNemonic"/>
+            </RegistryKey>
+            <CreateFolder/>
+            <RemoveFolder Id="ICE3864" On="uninstall"/>
+          </Component>
+        </Directory>
+      </Directory>
     </Directory>
 
     <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
       <ComponentGroupRef Id="mNemonic"/>
       <ComponentGroupRef Id="ImportExportTool"/>
+      <ComponentRef Id="mNemonicAppFolderComponent"/>
     </ComponentGroup>
 
     <Feature Id="ProductFeature" Title="mNemonic" Level="1" ConfigurableDirectory="INSTALLFOLDER">

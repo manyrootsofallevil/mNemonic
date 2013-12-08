@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:util="http://schemas.microsoft.com/wix/UtilExtension"
+     >
   <Fragment>
     <DirectoryRef Id="INSTALLFOLDER">
       <Directory Id="dir99DE416F55C8960850D5A4FCA3758AD4" Name="mNemonic" />
@@ -11,6 +13,10 @@
     <ComponentGroup Id="mNemonic">
       <Component Id="cmp8C8ADADC6E719EE21A430AC61EE9C06E" Guid="{EF373E2E-FB0E-41AC-81C8-E5BC864D4BD0}" Directory="dir99DE416F55C8960850D5A4FCA3758AD4">
         <File Id="fil748BA47765AAF961FBE6960F9C3D01DF" KeyPath="yes" Source="$(var.mNemonic.TargetDir)\mNemonic.exe.config" />
+        <util:XmlFile Id="DB"  File="[dir99DE416F55C8960850D5A4FCA3758AD4]mNemonic.exe.config" Action="setValue" ElementPath="/configuration/appSettings/add[\[]@key='DBFile'[\]]/@value"
+                 Value="[mNemonicAppFolder]DB.xml" Permanent="yes"  />
+        <util:XmlFile Id="Stats"  File="[dir99DE416F55C8960850D5A4FCA3758AD4]mNemonic.exe.config" Action="setValue" ElementPath="/configuration/appSettings/add[\[]@key='StatsFile'[\]]/@value"
+                 Value="[mNemonicAppFolder]Stats.xml" Permanent="yes"  />
       </Component>
       <Component Id="cmpE444652993AD164EBBE4DD561F21DEEB" Guid="{E2FA6EA4-8B2B-4714-A67F-AE3DADD6C1F6}" Directory="dir99DE416F55C8960850D5A4FCA3758AD4">
         <File Id="fil2F10B7D2D9C6B8587A818B9A818AF1C6" KeyPath="yes" Source="$(var.mNemonic.TargetDir)\Hardcodet.Wpf.TaskbarNotification.dll" />
@@ -25,6 +31,7 @@
           <Shortcut Id="mNemonicStartUp"  WorkingDirectory="dir99DE416F55C8960850D5A4FCA3758AD4" Name="mNemonic" Directory="StartupFolder" Advertise="yes"
                     Icon="mNemonic.exe" />
         </File>
+
         <RemoveFolder Id="ICE64" Directory="ProgramMenuDir" On="uninstall"/>
       </Component>
       <Component Id="cmpFC5E0C6FCB05AF936D940F5943AC5E75" Guid="{4444811B-A10A-4956-B6E3-51F6981FEB93}" Directory="dir99DE416F55C8960850D5A4FCA3758AD4">
