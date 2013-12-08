@@ -36,8 +36,8 @@
 
 
   <!--TODO: 
-  Need to a make it start on windows start up 
   Think about where the DB files should be stored
+  Configuration Files will need to be edited.
   -->
 
 </Wix>
