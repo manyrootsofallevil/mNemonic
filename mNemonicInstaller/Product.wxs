@@ -8,6 +8,9 @@
 
     <Icon Id="mNemonic.exe" SourceFile="Images\memento.ico"/>
     <Icon Id="mNemonicManager.exe" SourceFile="Images\manager.ico"/>
+    
+    <!--This is the add/remove product icon-->
+    <Property Id="ARPPRODUCTICON" Value="mNemonic.exe" />
 
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="ProgramFilesFolder">
