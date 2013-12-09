@@ -14,11 +14,7 @@ namespace Import
 {
     public class AddmNemeViewModel : NotifyPropertyChangedBase, INotifyPropertyChanged, IDataErrorInfo
     {
-        //TODO: At the moment there is no way to add a new collection
-        //What we want is to be able to do :
-        //1. Create a new collection and add a mNeme to it
-        //2. Add a mNeme to an existing collection
-        //At the moment, need to select the right directory manually.
+
         AddmNemeModel model;
 
         public ICommand SaveCommand { get; set; }

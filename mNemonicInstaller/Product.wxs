@@ -45,11 +45,4 @@
       <UIRef Id="WixUI_ErrorProgressText" />
     </UI>
   </Product>
-
-
-  <!--TODO: 
-  Think about where the DB files should be stored
-  Configuration Files will need to be edited.
-  -->
-
 </Wix>

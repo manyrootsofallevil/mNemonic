@@ -38,7 +38,7 @@
     
     <tb:TaskbarIcon x:Key="MainIcon"
       IconSource="/Resources/memento.ico"
-      ToolTipText="mNemonic">  <!--TODO:it would be nice if it gave the time until next mNeme here-->
+      ToolTipText="mNemonic">  
         <tb:TaskbarIcon.ContextMenu>
             <ContextMenu>
                 <MenuItem Header="Configuration" Command="{StaticResource Configure}" >

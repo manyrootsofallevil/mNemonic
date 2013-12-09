@@ -79,7 +79,7 @@ namespace mNemonic.Forms
                 }
             }
             catch (Exception ex)
-            {//TODO: Why is this failing? Permissions? 
+            {
                 System.Diagnostics.EventLog.WriteEntry(Constants.source, "An error ocurred saving configuration settings. Exception: {0}", System.Diagnostics.EventLogEntryType.Error);
             }
         }

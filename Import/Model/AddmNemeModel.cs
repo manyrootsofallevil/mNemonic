@@ -72,7 +72,7 @@ namespace Import
             }
             catch (Exception ex)
             {
-                //TODO: log error here.
+                
             }
 
             return result;

@@ -31,7 +31,7 @@ namespace mNemonic.Model
                   StoreInFile(mNemeCoefficient, this.DBFile);
 
                   if (collectStats)
-                  {//TODO: This needs thinking about more carefully. What do you want to store here?
+                  {
                       CollectStats(mNemeCoefficient, this.StatsFile);
                   }
 

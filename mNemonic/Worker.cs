@@ -88,7 +88,6 @@ namespace mNemonic
                     //1. Load the DB file with all the data regarding when and how well remembered the mNeme was
                     XDocument xdoc = XDocument.Load(DBFile);
                     //2. Create a collection of the stored mNemes (This is unlikely to be terribly efficient) 
-                    //TODO: look for a better way.
                     var storedmNemes = xdoc.Root.Elements()
                         .Select(x => new
                         {

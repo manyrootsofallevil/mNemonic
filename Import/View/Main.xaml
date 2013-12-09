@@ -3,8 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="mNeme Manager" Height="300" Width="300" ResizeMode="CanMinimize" Icon="/resources/Manager.ico">
     <!--Icon from here http://bogo-d.deviantart.com/-->
-    <!--TODO: Icons should be stored in resources file.
-    http://stackoverflow.com/questions/8062221/images-bound-to-images-added-to-resx-files-using-xaml-->
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5*"/>

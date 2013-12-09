@@ -10,8 +10,7 @@ using System.Xml.Linq;
 namespace Import.Model
 {
     public class ConfigurationModel
-    {//TODO: I think i'm going to change this so that when we import something it's added to the collections file
-        //then we just read the collections file and toggle them on or off.
+    {
         string rootDirectory = ConfigurationManager.AppSettings["RootDirectory"];
         string collectionsFile = ConfigurationManager.AppSettings["CollectionsFile"];
         public List<mNemeStorage> mNemesCollection = new List<mNemeStorage>();
@@ -28,7 +27,7 @@ namespace Import.Model
             try
             {
                 XDocument xdoc = XDocument.Load(this.collectionsFile);
-                //TODO:I bet this can be done better.
+               
                 foreach (mNemeStorage record in mNemesCollection)
                 {
                     var alreadyStored = xdoc.Root.Elements()
@@ -50,7 +49,6 @@ namespace Import.Model
             }
             catch (Exception ex)
             {
-                //TODO:
 
             }
 
@@ -70,7 +68,6 @@ namespace Import.Model
             }
             catch (Exception ex)
             {
-                //TODO:
             }
         }
     }
