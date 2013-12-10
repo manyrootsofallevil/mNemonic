@@ -12,13 +12,8 @@
         </Grid.ColumnDefinitions>
         <TreeView HorizontalAlignment="Left" Height="442" Margin="14,10,0,0" VerticalAlignment="Top" Width="505" ItemsSource="{Binding Path=mNemes}" Grid.Column="1" Grid.ColumnSpan="3">
             <TreeView.ItemTemplate>
-                <HierarchicalDataTemplate ItemsSource="{Binding Path=SubDirectories}">
+                <HierarchicalDataTemplate ItemsSource="{Binding Path=Parent}">
                     <CheckBox IsChecked="{Binding IsChecked}" Content="{Binding Path=Name}" />
-                    <HierarchicalDataTemplate.ItemTemplate>
-                        <DataTemplate>
-                            <CheckBox IsChecked="{Binding IsChecked}" Content="{Binding Path=Name}" />
-                        </DataTemplate>
-                    </HierarchicalDataTemplate.ItemTemplate>
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
         </TreeView>
