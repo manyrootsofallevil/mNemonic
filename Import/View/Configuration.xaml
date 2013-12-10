@@ -12,12 +12,14 @@
         </Grid.ColumnDefinitions>
         <TreeView HorizontalAlignment="Left" Height="442" Margin="14,10,0,0" VerticalAlignment="Top" Width="505" ItemsSource="{Binding Path=mNemes}" Grid.Column="1" Grid.ColumnSpan="3">
             <TreeView.ItemTemplate>
-                <HierarchicalDataTemplate ItemsSource="{Binding Path=Parent}">
+                <DataTemplate>
                     <CheckBox IsChecked="{Binding IsChecked}" Content="{Binding Path=Name}" />
-                </HierarchicalDataTemplate>
+                </DataTemplate>
             </TreeView.ItemTemplate>
         </TreeView>
         <Button Content="Save" HorizontalAlignment="Left" Margin="4,469,0,0" VerticalAlignment="Top" Width="75" Command="{Binding SaveCommand}" Grid.Column="1"/>
-        <Button Content="Cancel" HorizontalAlignment="Left" Margin="7.5,469,0,0" VerticalAlignment="Top" Width="74" Command="{Binding CancelCommand}" Grid.Column="3"/>
+        <Button Content="Cancel" HorizontalAlignment="Left" Margin="7.5,469,0,0" VerticalAlignment="Top" Width="75" Command="{Binding CancelCommand}" Grid.Column="3"/>
+        <Button Content="Add New Collection" Grid.Column="2"  VerticalAlignment="Top" Width="140" Margin="21,469,178,0" Command="{Binding AddNewCollectionCommand}"/>
+        <Button Content="Remove Collection" Grid.Column="2"  VerticalAlignment="Top" Width="140" Margin="189,469,10,0" Command="{Binding RemoveCollectionCommand}"/>
     </Grid>
 </Window>
