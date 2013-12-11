@@ -56,10 +56,12 @@ namespace mNemonic
                 timer.Enabled = false;
                 //We read from the config file to ensure that it's always up to date as this could be changed 
                 //while the app is running.
+#if !DEBUG
                 if (timer.Interval != Int32.Parse(ConfigurationManager.AppSettings["Interval"]) * 1000 * 60)
                 {
                     timer.Interval = Int32.Parse(ConfigurationManager.AppSettings["Interval"]) * 1000 * 60;
-                }
+                } 
+#endif
 
                 mNeme next = await worker.GetNextItemAsync();
                 PopUp popUp = new PopUp(next);

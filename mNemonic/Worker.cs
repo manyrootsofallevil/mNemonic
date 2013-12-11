@@ -26,7 +26,7 @@ namespace mNemonic
         {
             StoragePath = storagePath;
             DBFile = ConfigurationManager.AppSettings["DBFile"];
-            TimerInterval = (((Timer)App.Current.FindResource("Timer")).Interval+1337)/1000;
+            TimerInterval = (((Timer)App.Current.FindResource("Timer")).Interval + 1337) / 1000;
 
             populatemNemeCollection(ConfigurationManager.AppSettings["CollectionsFile"]);
         }
@@ -88,33 +88,44 @@ namespace mNemonic
                     //1. Load the DB file with all the data regarding when and how well remembered the mNeme was
                     XDocument xdoc = XDocument.Load(DBFile);
                     //2. Create a collection of the stored mNemes (This is unlikely to be terribly efficient) 
+                    //var storedmNemes = xdoc.Root.Elements()
+                    //    .Select(x => new
+                    //    {
+                    //        Location = x.Attribute("Location").Value,
+                    //        Coefficient = Int32.Parse(x.Attribute("mNemeCoefficient").Value),
+                    //        Time = ((DateTime.Now.Ticks - Int64.Parse(x.Attribute("Time").Value)) / TimeSpan.TicksPerSecond),
+                    //        Remembered = Int32.Parse(x.Attribute("Remembered").Value)
+                    //    });
                     var storedmNemes = xdoc.Root.Elements()
-                        .Select(x => new
-                        {
-                            Location = x.Attribute("Location").Value,
-                            Coefficient = Int32.Parse(x.Attribute("mNemeCoefficient").Value),
-                            Time = ((DateTime.Now.Ticks - Int64.Parse(x.Attribute("Time").Value)) / TimeSpan.TicksPerSecond),
-                            Remembered = Int32.Parse(x.Attribute("Remembered").Value)
-                        });
+                        .Select(x => new StoredmNeme(x.Attribute("Location").Value.ToLowerInvariant(), Int32.Parse(x.Attribute("mNemeCoefficient").Value)
+                        , ((DateTime.Now.Ticks - Int64.Parse(x.Attribute("Time").Value)) / TimeSpan.TicksPerSecond),
+                         Int32.Parse(x.Attribute("Remembered").Value)));
+
                     //3. Join with the selected mNemes
-                    var availablemNemes = allmNemes.Join(storedmNemes, x => x.Location, y => y.Location, (x, y) => y).Distinct();
+                    var availablemNemes = allmNemes.Join(storedmNemes, 
+                        x => x.Location.ToLowerInvariant(), y => y.Location.ToLowerInvariant(), (x, y) => y).Distinct();
                     //4. Find the mNemes that meet certain criteria. At the moment this is driven by the time interval. The idea is preventing the possibility of the same
                     //mNeme appearing twice in a row. We then sort by coefficient, where the lower the value the less well remembered the mneme is
                     //then descending on time since the last time it was shown and then on the number of times it was remembered
-                    var selection = availablemNemes.Where(x => x.Time  > TimerInterval)
+                    var selection = availablemNemes.Where(x => x.Time > TimerInterval)
                         .OrderBy(x => x.Coefficient)
                         .ThenByDescending(x => x.Time)
                         .ThenByDescending(x => x.Remembered);
 
-                   if (selection.Count() == 0)
+                    if (selection.Count() == 0)
                     {//5. If we don't find any, we just return one at random, which should ensure that we are not limited to the ones
                         // we already have seen.
-                        result = allmNemes.ElementAt(new Random().Next(allmNemes.Count()));
+                        do
+                        {
+                            result = allmNemes.ElementAt(new Random().Next(allmNemes.Count()));
+                        } while (availablemNemes.Contains(new StoredmNeme(result.Location))
+                            && allmNemes.Count() != availablemNemes.Count());
+
                     }
                     else
                     {//6. If we do, we return the first one in the selection, on the assumption that the sorting is correct.
                         result = new mNeme(selection.ElementAt(0).Location);
-                    }                  
+                    }
                 }
                 else
                 {

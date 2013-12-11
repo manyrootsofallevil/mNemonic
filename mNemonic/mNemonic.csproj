@@ -72,6 +72,7 @@
     <Compile Include="Enums.cs" />
     <Compile Include="Model\PopUpModel.cs" />
     <Compile Include="NotifyPropertyChangedBase.cs" />
+    <Compile Include="StoredmNeme.cs" />
     <Compile Include="ViewModel\PopUpVM.cs" />
     <Compile Include="Worker.cs" />
     <Page Include="Views\Configuration.xaml">
