@@ -38,7 +38,7 @@ namespace mNemonic
 #endif
                 timer.Tick += DisplayTicker;
                 worker = new Worker(ConfigurationManager.AppSettings["Maindirectory"]);
-                tb.ToolTipText = string.Format("Next mNeme to be displayed @ {0:HH:mm:ss}", DateTime.Now.AddMilliseconds(timer.Interval));
+                Helper.UpdateToolTip(tb, timer.Interval);
                 timer.Start();
             }
             catch (Exception ex)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Hardcodet.Wpf.TaskbarNotification;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -21,6 +22,7 @@ namespace mNemonic.Forms
     public partial class Configuration : Window
     {
         System.Windows.Forms.Timer Timer;
+        private TaskbarIcon tb;
 
         public Configuration()
         {
@@ -34,8 +36,11 @@ namespace mNemonic.Forms
 
         private void Window_Closed(object sender, EventArgs e)
         {
+            tb = (TaskbarIcon)FindResource("MainIcon");
             Timer = (System.Windows.Forms.Timer)App.Current.FindResource("Timer");
+            Helper.UpdateToolTip(tb, Timer.Interval);
             Timer.Enabled = true;
+            
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
