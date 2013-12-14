@@ -9,7 +9,7 @@
     <LinearGradientBrush x:Key="MenuBackground" EndPoint="0.5,1" StartPoint="0.5,0">
         <GradientStop Color="#FFFFD892" Offset="1"/>
         <GradientStop Color="#FFFFF3DD" Offset="0.259"/>
-</LinearGradientBrush>
+    </LinearGradientBrush>
 
     <Style TargetType="{x:Type ContextMenu}">
         <Setter Property="BorderThickness" Value="1,1,1,1"/>
@@ -27,18 +27,23 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
     <syst:Timer x:Key="Timer"></syst:Timer>
-    
+
     <Commands:Exit x:Key="Exit" />
     <Commands:Pause x:Key="Pause" />
     <Commands:Play x:Key="Play" />
     <Commands:Configure x:Key="Configure" />
     <Commands:RevisionMode x:Key="RevisionMode"/>
-    
+
     <tb:TaskbarIcon x:Key="MainIcon"
       IconSource="/Resources/memento.ico"
-      ToolTipText="mNemonic">  
+      ToolTipText="mNemonic">
+        <tb:TaskbarIcon.TrayToolTip>
+            <Border Background="White" BorderBrush="Black" BorderThickness="2" CornerRadius="5" Opacity="0.9" Width="232" Height="40">
+                <TextBlock Text="{Binding ToolTipText}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            </Border>
+        </tb:TaskbarIcon.TrayToolTip>
         <tb:TaskbarIcon.ContextMenu>
             <ContextMenu>
                 <MenuItem Header="Set mNeme Interval" Command="{StaticResource Configure}" >

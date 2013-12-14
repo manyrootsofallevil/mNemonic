@@ -1,4 +1,5 @@
-﻿using mNemonic.Model;
+﻿using Hardcodet.Wpf.TaskbarNotification;
+using mNemonic.Model;
 using mNemonic.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,7 @@ namespace mNemonic
     {
         Timer Timer;
         PopUpVM vm;
+        private TaskbarIcon tb;
 
         public PopUp(mNeme mNeme)
         {
@@ -45,6 +47,9 @@ namespace mNemonic
         private void Window_Closed(object sender, EventArgs e)
         {
             Timer.Enabled = true;
+            //This is not exactly the way I envisioned it in my mind but it should do the trick;
+            tb = (TaskbarIcon)FindResource("MainIcon");
+            tb.ToolTipText = string.Format("Next mNeme to be displayed @ {0:HH:mm:ss}", DateTime.Now.AddMilliseconds(Timer.Interval));
         }
 
     }

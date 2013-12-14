@@ -29,7 +29,7 @@ namespace mNemonic
 
                 timer = (System.Windows.Forms.Timer)FindResource("Timer");
 #if DEBUG
-                timer.Interval = 2000;
+                timer.Interval = 20000;
 #else
             //Interval in the config file is in minutes so ...            
             //We set the timer interval to the initial one here so it displays the first item reasonably quickly
@@ -38,6 +38,7 @@ namespace mNemonic
 #endif
                 timer.Tick += DisplayTicker;
                 worker = new Worker(ConfigurationManager.AppSettings["Maindirectory"]);
+                tb.ToolTipText = string.Format("Next mNeme to be displayed @ {0:HH:mm:ss}", DateTime.Now.AddMilliseconds(timer.Interval));
                 timer.Start();
             }
             catch (Exception ex)
