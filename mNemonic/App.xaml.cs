@@ -29,7 +29,7 @@ namespace mNemonic
 
                 timer = (System.Windows.Forms.Timer)FindResource("Timer");
 #if DEBUG
-                timer.Interval = 20000;
+                timer.Interval = 2000;
 #else
             //Interval in the config file is in minutes so ...            
             //We set the timer interval to the initial one here so it displays the first item reasonably quickly
