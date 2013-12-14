@@ -70,7 +70,6 @@ namespace mNemonic
             }
             catch (Exception ex)
             {
-                EventLog.WriteEntry(Constants.source, string.Format("An error occurred on getting the next mNeme.\nException: {0}", ex), EventLogEntryType.Error);
             }
 
         }
