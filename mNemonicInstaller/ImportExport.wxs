@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:util="http://schemas.microsoft.com/wix/UtilExtension"
+     >
   <Fragment>
     <DirectoryRef Id="INSTALLFOLDER">
       <Directory Id="dir99DE416F55C8960850D5A4FCC3355BE5" Name="mNemonic Manager" />
@@ -15,6 +17,8 @@
     </Component>
     <Component Id="cmpEA3D0BD3ABD07BAA08B34BAE4C8999B2" Guid="{504B9F39-4168-4D49-8A2D-0372C9EF01E0}" Directory="dir99DE416F55C8960850D5A4FCC3355BE5">
       <File Id="fil4DC765239B0391B7BF8B2146B7551520" KeyPath="yes" Source="$(var.ImportExportTool.TargetDir)mNemonic Manager.exe.config" />
+      <util:XmlFile Id="mNemonicConfig"  File="[dir99DE416F55C8960850D5A4FCC3355BE5]mNemonic Manager.exe.config" Action="setValue" ElementPath="/configuration/appSettings/add[\[]@key='mNemonicConfigFile'[\]]/@value"
+                Value="[dir99DE416F55C8960850D5A4FCA3758AD4]" Permanent="yes"  />
     </Component>
     </ComponentGroup>
   </Fragment>

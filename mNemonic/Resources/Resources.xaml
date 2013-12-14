@@ -41,7 +41,7 @@
       ToolTipText="mNemonic">  
         <tb:TaskbarIcon.ContextMenu>
             <ContextMenu>
-                <MenuItem Header="Configuration" Command="{StaticResource Configure}" >
+                <MenuItem Header="Set mNeme Interval" Command="{StaticResource Configure}" >
                 </MenuItem>
                 <Separator />
                 <MenuItem Header="Play" Command="{StaticResource Play}" >

@@ -85,5 +85,11 @@ namespace Import
             ConfigurationView cv = new ConfigurationView();
             cv.Show();
         }
+
+        private void ConfiguremNemonic_Click(object sender, RoutedEventArgs e)
+        {
+            ConfigurationmNemonicView cv = new ConfigurationmNemonicView();
+            cv.Show();
+        }
     }
 }
