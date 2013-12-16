@@ -101,7 +101,8 @@ namespace mNemonic
                     //3.5 if the sequences are different in lenght then, get the first one of those that are not currently stored
                     if (availablemNemes.Count() != allmNemes.Count())
                     {
-                        result = allmNemes.Except(storedmNemes.Select(x => new mNeme(x.Location))).First();
+                        var notShownmNemes = allmNemes.Except(storedmNemes.Select(x => new mNeme(x.Location)));
+                        result = notShownmNemes.ElementAt(new Random().Next(notShownmNemes.Count()));
                     }
                     else
                     {
