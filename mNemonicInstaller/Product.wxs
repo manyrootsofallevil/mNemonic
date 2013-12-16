@@ -11,6 +11,7 @@
     
     <!--This is the add/remove product icon-->
     <Property Id="ARPPRODUCTICON" Value="mNemonic.exe" />
+    <Property Id ="MNEMONICPATH" Value="C:\mNemonic" />
 
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="ProgramFilesFolder">

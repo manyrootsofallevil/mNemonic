@@ -19,6 +19,8 @@
       <File Id="fil4DC765239B0391B7BF8B2146B7551520" KeyPath="yes" Source="$(var.ImportExportTool.TargetDir)mNemonic Manager.exe.config" />
       <util:XmlFile Id="mNemonicConfig"  File="[dir99DE416F55C8960850D5A4FCC3355BE5]mNemonic Manager.exe.config" Action="setValue" ElementPath="/configuration/appSettings/add[\[]@key='mNemonicConfigFile'[\]]/@value"
                 Value="[dir99DE416F55C8960850D5A4FCA3758AD4]" Permanent="yes"  />
+      <util:XmlFile Id="mNemonicConfig2"  File="[dir99DE416F55C8960850D5A4FCC3355BE5]mNemonic Manager.exe.config" Action="setValue" ElementPath="/configuration/appSettings/add[\[]@key='CollectionsFile'[\]]/@value"
+                Value="[mNemonicAppFolder]collections.xml" Permanent="yes"  />
     </Component>
     </ComponentGroup>
   </Fragment>
