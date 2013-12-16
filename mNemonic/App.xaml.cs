@@ -1,4 +1,6 @@
 ﻿using Hardcodet.Wpf.TaskbarNotification;
+using mNemonic.Model;
+using mNemonic.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -39,6 +41,7 @@ namespace mNemonic
                 timer.Tick += DisplayTicker;
                 worker = new Worker(ConfigurationManager.AppSettings["Maindirectory"]);
                 Helper.UpdateToolTip(tb, timer.Interval);
+                //tb.DataContext = new TaskBarIconVM(new TaskBarIconModel( "Initializing" ,timer.Interval));
                 timer.Start();
             }
             catch (Exception ex)

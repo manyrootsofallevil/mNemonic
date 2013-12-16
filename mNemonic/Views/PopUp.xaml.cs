@@ -50,7 +50,6 @@ namespace mNemonic
             //This is not exactly the way I envisioned it in my mind but it should do the trick;
             tb = (TaskbarIcon)FindResource("MainIcon");
             Helper.UpdateToolTip(tb, Timer.Interval);
-            //tb.ToolTipText = string.Format("Next mNeme to be displayed @ {0:HH:mm:ss}", DateTime.Now.AddMilliseconds(Timer.Interval));
         }
 
     }

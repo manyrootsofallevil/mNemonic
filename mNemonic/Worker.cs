@@ -87,15 +87,8 @@ namespace mNemonic
                 {
                     //1. Load the DB file with all the data regarding when and how well remembered the mNeme was
                     XDocument xdoc = XDocument.Load(DBFile);
+
                     //2. Create a collection of the stored mNemes (This is unlikely to be terribly efficient) 
-                    //var storedmNemes = xdoc.Root.Elements()
-                    //    .Select(x => new
-                    //    {
-                    //        Location = x.Attribute("Location").Value,
-                    //        Coefficient = Int32.Parse(x.Attribute("mNemeCoefficient").Value),
-                    //        Time = ((DateTime.Now.Ticks - Int64.Parse(x.Attribute("Time").Value)) / TimeSpan.TicksPerSecond),
-                    //        Remembered = Int32.Parse(x.Attribute("Remembered").Value)
-                    //    });
                     var storedmNemes = xdoc.Root.Elements()
                         .Select(x => new StoredmNeme(x.Attribute("Location").Value.ToLowerInvariant(), Int32.Parse(x.Attribute("mNemeCoefficient").Value)
                         , ((DateTime.Now.Ticks - Int64.Parse(x.Attribute("Time").Value)) / TimeSpan.TicksPerSecond),

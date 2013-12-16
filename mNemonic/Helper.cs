@@ -10,9 +10,16 @@ namespace mNemonic
     public static class Helper
     {
 
-        public static void UpdateToolTip(TaskbarIcon tb, int interval)
+        public static void UpdateToolTip(TaskbarIcon tb, int interval, bool stopped = false)
         {
-            tb.ToolTipText = string.Format("Next mNeme to be displayed @ {0:HH:mm:ss}", DateTime.Now.AddMilliseconds(interval));
+            string tooltiptext = string.Format("Next mNeme to be displayed @ {0:HH:mm:ss}", DateTime.Now.AddMilliseconds(interval));
+
+            if (stopped)
+            {
+                tooltiptext = "Stopped";
+            }
+
+            tb.ToolTipText = tooltiptext;
         }
     }
 }

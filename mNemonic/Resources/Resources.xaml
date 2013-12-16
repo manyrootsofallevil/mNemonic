@@ -39,8 +39,10 @@
     <tb:TaskbarIcon x:Key="MainIcon"
       IconSource="/Resources/memento.ico"
       ToolTipText="mNemonic">
+                    
         <tb:TaskbarIcon.TrayToolTip>
             <Border Background="White" BorderBrush="Black" BorderThickness="2" CornerRadius="5" Opacity="0.9" Width="232" Height="40">
+                <!--<TextBlock Text="{Binding ToolTipText}" HorizontalAlignment="Center" VerticalAlignment="Center" />-->
                 <TextBlock Text="{Binding ToolTipText}" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Border>
         </tb:TaskbarIcon.TrayToolTip>

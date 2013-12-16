@@ -27,7 +27,13 @@ namespace mNemonic
         {
             Location = location;
             Items = new List<Tuple<string, FileType>>();
-            getItems();
+            try
+            {
+                getItems();
+            }
+            catch (Exception ex)
+            {
+            }
         }
 
         public bool Equals(mNeme other)

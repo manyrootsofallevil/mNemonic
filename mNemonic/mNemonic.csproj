@@ -72,9 +72,11 @@
     <Compile Include="mNeme.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Model\PopUpModel.cs" />
+    <Compile Include="Model\TaskBarIconModel.cs" />
     <Compile Include="NotifyPropertyChangedBase.cs" />
     <Compile Include="StoredmNeme.cs" />
     <Compile Include="ViewModel\PopUpVM.cs" />
+    <Compile Include="ViewModel\TaskBarIconVM.cs" />
     <Compile Include="Worker.cs" />
     <Page Include="Views\Configuration.xaml">
       <SubType>Designer</SubType>
