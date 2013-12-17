@@ -5,6 +5,7 @@
     xmlns:Commands="clr-namespace:mNemonic.Commands"
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:syst="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
+    xmlns:mNeme="clr-namespace:mNemonic"
   >
     <LinearGradientBrush x:Key="MenuBackground" EndPoint="0.5,1" StartPoint="0.5,0">
         <GradientStop Color="#FFFFD892" Offset="1"/>
@@ -29,6 +30,8 @@
     </Style>
 
     <syst:Timer x:Key="Timer"></syst:Timer>
+    <mNeme:State x:Key="CurrentState"></mNeme:State>
+   
 
     <Commands:Exit x:Key="Exit" />
     <Commands:Pause x:Key="Pause" />

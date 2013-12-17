@@ -26,10 +26,12 @@ namespace mNemonic
         Timer Timer;
         PopUpVM vm;
         private TaskbarIcon tb;
+        private State currentState;
 
         public PopUp(mNeme mNeme)
         {
             Timer = (System.Windows.Forms.Timer)App.Current.FindResource("Timer");
+            currentState = (State)App.Current.FindResource("CurrentState");
             Timer.Enabled = false;
 
             InitializeComponent();
@@ -37,19 +39,25 @@ namespace mNemonic
             vm = new PopUpVM(new PopUpModel(mNeme));
             vm.RequestClose += (s, e) =>
             {
-                Timer.Enabled = true;
+                if (!currentState.Paused)
+                {
+                    Timer.Enabled = true;
+                }
                 this.Close();
             };
 
             this.DataContext = vm;
         }
-         //This seems like the simpler solution
+        //This seems like the simpler solution
         private void Window_Closed(object sender, EventArgs e)
         {
-            Timer.Enabled = true;
-            //This is not exactly the way I envisioned it in my mind but it should do the trick;
-            tb = (TaskbarIcon)FindResource("MainIcon");
-            Helper.UpdateToolTip(tb, Timer.Interval);
+            if (!currentState.Paused)
+            {
+                Timer.Enabled = true;
+                //This is not exactly the way I envisioned it in my mind but it should do the trick;
+                tb = (TaskbarIcon)FindResource("MainIcon");
+                Helper.UpdateToolTip(tb, Timer.Interval);
+            }
         }
 
     }

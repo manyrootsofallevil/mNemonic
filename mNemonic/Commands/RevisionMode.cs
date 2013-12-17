@@ -11,18 +11,22 @@ namespace mNemonic.Commands
     public class RevisionMode : ICommand
     {
         System.Windows.Forms.Timer Timer;
+        private State currentState;
 
         public void Execute(object parameter)
         {
             Timer = (System.Windows.Forms.Timer)App.Current.FindResource("Timer");
+            currentState = (State)App.Current.FindResource("CurrentState");
 
             if (Boolean.Parse(parameter.ToString()))
             {
-                Timer.Interval = 250;
+                currentState.IntervalTimer = 250;
+                Timer.Interval = currentState.IntervalTimer;
             }
             else
             {
-                Timer.Interval = Int32.Parse(ConfigurationManager.AppSettings["Interval"]) * 1000 * 60;
+                currentState.IntervalTimer = Int32.Parse(ConfigurationManager.AppSettings["Interval"]) * 1000 * 60;
+                Timer.Interval = currentState.IntervalTimer;
             }
         }
 

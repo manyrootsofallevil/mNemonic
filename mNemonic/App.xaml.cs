@@ -21,6 +21,9 @@ namespace mNemonic
         private TaskbarIcon tb;
         private System.Windows.Forms.Timer timer;
         private Worker worker;
+        private int initialTimerInterval;
+        private int timerInterval;
+        private State currentState;
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
@@ -28,20 +31,26 @@ namespace mNemonic
             {
                 //initialize NotifyIcon
                 tb = (TaskbarIcon)FindResource("MainIcon");
-
                 timer = (System.Windows.Forms.Timer)FindResource("Timer");
+                currentState = (State)FindResource("CurrentState");
+
 #if DEBUG
-                timer.Interval = 2000;
+                currentState.IntervalTimer = 2000;
+                timer.Interval = currentState.IntervalTimer;
 #else
-            //Interval in the config file is in minutes so ...            
-            //We set the timer interval to the initial one here so it displays the first item reasonably quickly
-            //the displayticker event then ensures that the Interval is used instead.
-            timer.Interval = Int32.Parse(ConfigurationManager.AppSettings["InitialInterval"]) * 1000 * 60;
+                //Interval in the config file is in minutes so ...            
+                //We set the timer interval to the initial one here so it displays the first item reasonably quickly
+                //the displayticker event then ensures that the Interval is used instead.
+                initialTimerInterval = Int32.Parse(ConfigurationManager.AppSettings["InitialInterval"]) * 1000 * 60;
+                currentState.IntervalTimer = Int32.Parse(ConfigurationManager.AppSettings["Interval"]) * 1000 * 60;
+                timer.Interval = initialTimerInterval;
 #endif
                 timer.Tick += DisplayTicker;
                 worker = new Worker(ConfigurationManager.AppSettings["Maindirectory"]);
                 Helper.UpdateToolTip(tb, timer.Interval);
                 //tb.DataContext = new TaskBarIconVM(new TaskBarIconModel( "Initializing" ,timer.Interval));
+
+
                 timer.Start();
             }
             catch (Exception ex)
@@ -58,13 +67,11 @@ namespace mNemonic
             try
             {
                 timer.Enabled = false;
-                //We read from the config file to ensure that it's always up to date as this could be changed 
-                //while the app is running.
 #if !DEBUG
-                if (timer.Interval != Int32.Parse(ConfigurationManager.AppSettings["Interval"]) * 1000 * 60)
+                if (timer.Interval != currentState.IntervalTimer)
                 {
-                    timer.Interval = Int32.Parse(ConfigurationManager.AppSettings["Interval"]) * 1000 * 60;
-                } 
+                    timer.Interval = currentState.IntervalTimer;
+                }
 #endif
 
                 mNeme next = await worker.GetNextItemAsync();

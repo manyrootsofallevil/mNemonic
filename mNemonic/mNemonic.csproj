@@ -74,6 +74,7 @@
     <Compile Include="Model\PopUpModel.cs" />
     <Compile Include="Model\TaskBarIconModel.cs" />
     <Compile Include="NotifyPropertyChangedBase.cs" />
+    <Compile Include="State.cs" />
     <Compile Include="StoredmNeme.cs" />
     <Compile Include="ViewModel\PopUpVM.cs" />
     <Compile Include="ViewModel\TaskBarIconVM.cs" />

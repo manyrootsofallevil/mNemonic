@@ -23,10 +23,13 @@ namespace mNemonic.Forms
     {
         System.Windows.Forms.Timer Timer;
         private TaskbarIcon tb;
+        private State currentState;
 
         public Configuration()
         {
             Timer = (System.Windows.Forms.Timer)App.Current.FindResource("Timer");
+            currentState = (State)App.Current.FindResource("CurrentState");
+
             Timer.Enabled = false;
 
             InitializeComponent();
@@ -40,7 +43,7 @@ namespace mNemonic.Forms
             Timer = (System.Windows.Forms.Timer)App.Current.FindResource("Timer");
             Helper.UpdateToolTip(tb, Timer.Interval);
             Timer.Enabled = true;
-            
+
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
@@ -50,15 +53,15 @@ namespace mNemonic.Forms
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            int interval;
+            int latestinterval;
 
             try
             {
-                if (Int32.TryParse(Interval.Text.Trim(), out interval))
+                if (Int32.TryParse(Interval.Text.Trim(), out latestinterval))
                 {
                     //May as well update the time here.
-                    Timer = (System.Windows.Forms.Timer)App.Current.FindResource("Timer");
-                    Timer.Interval = interval * 60 * 1000;
+                    currentState.IntervalTimer = latestinterval * 60 * 1000;
+                    Timer.Interval = currentState.IntervalTimer;
                 }
                 else
                 {
