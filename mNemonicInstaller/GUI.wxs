@@ -24,12 +24,11 @@
       <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="CustomizeDlg">1</Publish>
       <Publish Dialog="CustomizeDlg" Control="Back" Event="NewDialog" Value="MaintenanceTypeDlg" Order="1">Installed</Publish>
       <Publish Dialog="CustomizeDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg" Order="2">NOT Installed</Publish>
-      <Publish Dialog="CustomizeDlg" Control="Next" Event="NewDialog" Value="VerifyReadyDlg">1</Publish>
-      <!--<Publish Dialog="DirectoryDlg" Control="Next" Event="NewDialog" Value="VerifyReadyDlg">1</Publish>
-      <Publish Dialog="DirectoryDlg" Control="Back" Event="NewDialog" Value="CustomizeDlg"></Publish>
-      <Publish Dialog="DirectoryDlg" Control="mNemonicFolderButton" Property="_BrowseProperty" Value="C:\mNemonic\" Order="1">1</Publish>
-      <Publish Dialog="DirectoryDlg" Control="mNemonicFolderButton" Event="SpawnDialog" Value="BrowseDlg" Order="2" >1</Publish>-->
-      <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="CustomizeDlg" Order="1">NOT Installed OR WixUI_InstallMode = "Change"</Publish>
+      <Publish Dialog="CustomizeDlg" Control="Next" Property="_BrowseProperty" Value="[MNEMONICPATH]" Order="1">1</Publish>
+      <Publish Dialog="CustomizeDlg" Control="Next" Event="NewDialog" Value="mNemonicConfigDlg" Order="2">1</Publish>
+      <Publish Dialog="mNemonicConfigDlg" Control="Browse" Property="_BrowseProperty" Value="[MNEMONICPATH]" Order="1"> </Publish>
+      <Publish Dialog="mNemonicConfigDlg" Control="Browse" Event="SpawnDialog" Value="BrowseDlg" Order="2"> </Publish>
+      <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="mNemonicConfigDlg" Order="1">NOT Installed OR WixUI_InstallMode = "Change"</Publish>
       <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="MaintenanceTypeDlg" Order="2">Installed</Publish>
       <Publish Dialog="MaintenanceWelcomeDlg" Control="Next" Event="NewDialog" Value="MaintenanceTypeDlg">1</Publish>
       <Publish Dialog="MaintenanceTypeDlg" Control="ChangeButton" Event="NewDialog" Value="CustomizeDlg">1</Publish>
@@ -37,22 +36,23 @@
       <Publish Dialog="MaintenanceTypeDlg" Control="RemoveButton" Event="NewDialog" Value="VerifyReadyDlg">1</Publish>
       <Publish Dialog="MaintenanceTypeDlg" Control="Back" Event="NewDialog" Value="MaintenanceWelcomeDlg">1</Publish>
       <Property Id="ARPNOMODIFY" Value="1" />
-      
-      <!--<Dialog Id="DirectoryDlg"  Width="370" Height="270" Title="[ProductName] Setup">
-        <Control Id="Title" Type="Text" X="15" Y="6" Width="200" Height="15" Transparent="yes" NoPrefix="yes" Text="{\WixUI_Font_Title}mNemonic Settings" />
-        <Control Id="Description" Type="Text" X="25" Y="23" Width="280" Height="15" Transparent="yes" NoPrefix="yes" Text="Enter Details" />
-        <Control Id="BannerBitmap" Type="Bitmap" X="0" Y="0" Width="370" Height="44" TabSkip="no" Text="!(loc.InstallDirDlgBannerBitmap)" />
-        <Control Id="BannerLine" Type="Line" X="0" Y="44" Width="370" Height="0" />
 
-        <Control Id="lmNemonicFolder" Type="Text"   X="20" Y="50" Width="135" Height="13" Text="mNemes Folder" ToolTip="Leave to default if unsure" />
-        <Control Id="mNemonicFolder" Type="PathEdit"    X="161" Y="50" Width="180" Height="15" Property="MNEMONICPATH"  Indirect="yes"/>
-        <Control Id="mNemonicFolderButton" Type="PushButton"  X="20" Y="70" Width="135" Height="13" Text="Push Me" /> 
-        
-        <Control Id="Back" Type="PushButton" X="180" Y="243" Width="56" Height="17" Text="Back" />
-        <Control Id="Cancel" Type="PushButton" X="304" Y="243" Width="56" Height="17" Cancel="yes" Text="Cancel">
+      <Dialog Id="mNemonicConfigDlg" Width="370" Height="270" Title="mNemonic Installer - mNemeCollections">
+        <Control Type="Text" Id="lblInstructions" Width="348" Height="13" X="10" Y="10">
+          <Text>Please select the directory where you are going to store your collections</Text>
+        </Control>
+        <Control Type="Text" Id="lblmNemeCollectionsDirectory" Width="129" Height="9" X="10" Y="40" Text="mNeme Collections directory:">
+        </Control>
+        <Control Type="PathEdit" Id="Folder" Width="119" Height="15" X="182" Y="38" Property="_BrowseProperty" Indirect="yes" />
+        <Control Type="PushButton" Id="Browse" Width="56" Height="17" X="304" Y="37" Text="Browse.." />
+        <Control Type="Line" Id="line" Width="362" Height="2" X="4" Y="229" />
+        <Control Id="Cancel" Type="PushButton" X="14" Y="240" Width="56" Height="17" Cancel="yes" Text="Cancel">
           <Publish Event="SpawnDialog" Value="CancelDlg">1</Publish>
         </Control>
-      </Dialog>-->
+        <Control Type="PushButton" Id="Install" Width="56" Height="17" X="300" Y="240" Text="Install">
+          <Publish Event="EndDialog" Value="Return" />
+        </Control>
+      </Dialog>
     </UI>
     <UIRef Id="WixUI_Common" />
   </Fragment>

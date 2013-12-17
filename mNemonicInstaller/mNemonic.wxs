@@ -17,8 +17,14 @@
                  Value="[mNemonicAppFolder]DB.xml" Permanent="yes"  />
         <util:XmlFile Id="Stats"  File="[dir99DE416F55C8960850D5A4FCA3758AD4]mNemonic.exe.config" Action="setValue" ElementPath="/configuration/appSettings/add[\[]@key='StatsFile'[\]]/@value"
                  Value="[mNemonicAppFolder]Stats.xml" Permanent="yes"  />
+        <util:XmlFile Id="MainDirectory"  File="[dir99DE416F55C8960850D5A4FCA3758AD4]mNemonic.exe.config" Action="setValue" ElementPath="/configuration/appSettings/add[\[]@key='MainDirectory'[\]]/@value"
+                 Value="[MNEMONIC]" Permanent="yes"  />
+        <util:XmlFile Id="collectionsPath"  File="[dir99DE416F55C8960850D5A4FCA3758AD4]mNemonic.exe.config" Action="setValue" ElementPath="/configuration/appSettings/add[\[]@key='CollectionsFile'[\]]/@value"
+                 Value="[mNemonicAppFolder]collections.xml" Permanent="yes"  />
       </Component>
-      <Component Id="cmpE444652993AD164EBBE4DD561F21DEEB" Guid="{E2FA6EA4-8B2B-4714-A67F-AE3DADD6C1F6}" Directory="dir99DE416F55C8960850D5A4FCA3758AD4">
+
+    
+      <Component Id="cmpF444652993AD164EBBE4DD561F21DEEB" Guid="{E2FA6EA4-8B2B-4714-A67F-AE3DADD6C1F6}" Directory="dir99DE416F55C8960850D5A4FCA3758AD4">
         <File Id="fil2F10B7D2D9C6B8587A818B9A818AF1C6" KeyPath="yes" Source="$(var.mNemonic.TargetDir)\Hardcodet.Wpf.TaskbarNotification.dll" />
       </Component>
       <Component Id="cmpF457035487C74E6DB50DB8F633A25D4C" Guid="{FA2C503B-7FA9-474B-84B5-E4E37720434D}" Directory="dir99DE416F55C8960850D5A4FCA3758AD4">
@@ -34,9 +40,7 @@
 
         <RemoveFolder Id="ICE64" Directory="ProgramMenuDir" On="uninstall"/>
       </Component>
-      <Component Id="cmpFC5E0C6FCB05AF936D940F5943AC5E75" Guid="{4444811B-A10A-4956-B6E3-51F6981FEB93}" Directory="dir99DE416F55C8960850D5A4FCA3758AD4">
-        <File Id="fil5351C029054DE574D5D7F23F3FE868A3" KeyPath="yes" Source="Sample\Unusual Words.zip" />
-      </Component>
+
     </ComponentGroup>
 
 

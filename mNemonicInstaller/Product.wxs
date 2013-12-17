@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <Product Id="*" Name="mNemonic" Language="1033" Version="1.0.0.0" Manufacturer="ManyRootsOfAllEvil Inc." UpgradeCode="0dbe4cf3-abb9-46b2-9cf7-75f4a2f85d4e">
+  <Product Id="DEAF1AAA-BEEF-BEAD-BEAD-D1D2D3D4D5D6" Name="mNemonic" Language="1033" Version="1.0.0.0" Manufacturer="ManyRootsOfAllEvil Inc." UpgradeCode="0dbe4cf3-abb9-46b2-9cf7-75f4a2f85d4e">
     <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
     <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
@@ -11,9 +11,9 @@
     
     <!--This is the add/remove product icon-->
     <Property Id="ARPPRODUCTICON" Value="mNemonic.exe" />
-    <Property Id ="MNEMONICPATH" Value="C:\mNemonic" />
-
-    <Directory Id="TARGETDIR" Name="SourceDir">
+    <Property Id ="MNEMONICPATH" Value="MNEMONIC" />
+    
+       <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="ProgramFilesFolder">
         <Directory Id="INSTALLFOLDER" Name="mNemonic" />
       </Directory>
@@ -32,6 +32,7 @@
           </Component>
         </Directory>
       </Directory>
+      <Directory Id="MNEMONIC"></Directory>     
     </Directory>
 
     <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">

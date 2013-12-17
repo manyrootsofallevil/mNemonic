@@ -21,6 +21,8 @@
                 Value="[dir99DE416F55C8960850D5A4FCA3758AD4]" Permanent="yes"  />
       <util:XmlFile Id="mNemonicConfig2"  File="[dir99DE416F55C8960850D5A4FCC3355BE5]mNemonic Manager.exe.config" Action="setValue" ElementPath="/configuration/appSettings/add[\[]@key='CollectionsFile'[\]]/@value"
                 Value="[mNemonicAppFolder]collections.xml" Permanent="yes"  />
+      <util:XmlFile Id="mNemonicConfig3"  File="[dir99DE416F55C8960850D5A4FCC3355BE5]mNemonic Manager.exe.config" Action="setValue" ElementPath="/configuration/appSettings/add[\[]@key='RootDirectory'[\]]/@value"
+                Value="[MNEMONIC]" Permanent="yes"  />
     </Component>
     </ComponentGroup>
   </Fragment>
