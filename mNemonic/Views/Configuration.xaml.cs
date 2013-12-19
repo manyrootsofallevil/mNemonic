@@ -29,11 +29,11 @@ namespace mNemonic.Forms
         {
             Timer = (System.Windows.Forms.Timer)App.Current.FindResource("Timer");
             currentState = (State)App.Current.FindResource("CurrentState");
-
+int intervalMinutes = currentState.IntervalTimer/(60*1000);
             Timer.Enabled = false;
 
             InitializeComponent();
-            Interval.Text = ConfigurationManager.AppSettings["Interval"];
+            Interval.Text =  intervalMinutes.ToString();
             CloseOpenPopUp();
         }
 
