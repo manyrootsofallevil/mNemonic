@@ -22,6 +22,7 @@ namespace mNemonic.ViewModel
         public ICommand VaguelyRememberCommand { get; set; }
         public ICommand DoRememberCommand { get; set; }
         public ICommand NextCommand { get; set; }
+        public ICommand ShowAnswerCommand { get; set; }
         public EventHandler RequestClose { get; set; }
         private Action<mNeme> DisplayAnswer;
 
@@ -124,7 +125,6 @@ namespace mNemonic.ViewModel
             this.DontRememberCommand = new DelegateCommand((obj) => true, (obj) =>
             {
                 RememberCommand(model, Constants.dontRemember);
-                
             });
 
             this.VaguelyRememberCommand = new DelegateCommand((obj) => true, (obj) =>
@@ -141,14 +141,19 @@ namespace mNemonic.ViewModel
                 {
                     this.RequestClose(obj, new EventArgs());
                 });
+            this.ShowAnswerCommand = new DelegateCommand((o) => true, (o) =>
+                {
+                    DisplayAnswer.Invoke(this.model.currentmNeme);
+                });
+
 
             this.ShowItem();
         }
 
-        private void RememberCommand(PopUpModel model, int level)
+        async private void RememberCommand(PopUpModel model, int level)
         {
             DisplayAnswer.Invoke(this.model.currentmNeme);
-            model.DoTheRemembering(level);
+            await model.DoTheRemembering(level);
             this.RankedmNeme = true;
         }
 

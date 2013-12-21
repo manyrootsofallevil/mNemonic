@@ -41,6 +41,7 @@
         </ScrollViewer>
         <Button Content="Next" Grid.Column="5" HorizontalAlignment="Stretch" Margin="41,5,0,0" Grid.Row="9" VerticalAlignment="Top" Width="75" Command="{Binding NextCommand}" IsEnabled="{Binding Path=RankedmNeme}"/>
         <Button Content="Previous" Grid.Column="1" HorizontalAlignment="Stretch" Margin="10,5,0,0" Grid.Row="9" VerticalAlignment="Top" Width="75" Command="{Binding PreviousCommand}" IsEnabled="{Binding Path=IsFirstItem}" Visibility="Hidden"/>
+        <Button Content="Show Answer" Grid.Column="3" HorizontalAlignment="Stretch" Margin="10,5,10,0" Grid.Row="9" VerticalAlignment="Top" Command="{Binding ShowAnswerCommand}"  RenderTransformOrigin="-1.693,0.773"/>
     </Grid>
 
 </Window>
