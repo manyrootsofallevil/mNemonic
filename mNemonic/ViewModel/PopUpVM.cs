@@ -21,7 +21,6 @@ namespace mNemonic.ViewModel
         public ICommand DontRememberCommand { get; set; }
         public ICommand VaguelyRememberCommand { get; set; }
         public ICommand DoRememberCommand { get; set; }
-        public ICommand NextCommand { get; set; }
         public ICommand ShowAnswerCommand { get; set; }
         public EventHandler RequestClose { get; set; }
         private Action<mNeme> DisplayAnswer;
@@ -68,12 +67,16 @@ namespace mNemonic.ViewModel
             get { return questionheight; }
             set { SetField(ref questionheight, value, "QuestionHeight"); }
         }
-        private bool rankedmNeme;
-        public bool RankedmNeme
+
+        private bool hasAnswerDisplayed;
+        public bool HasAnswerDisplayed
         {
-            get { return rankedmNeme; }
-            set { SetField(ref rankedmNeme, value, "RankedmNeme"); }
+            get { return hasAnswerDisplayed; }
+            set { SetField(ref hasAnswerDisplayed, value, "HasAnswerDisplayed"); }
         }
+
+
+
         #endregion
 
         #region movetoabstractclass
@@ -118,32 +121,32 @@ namespace mNemonic.ViewModel
                 }
             };
 
-            AnswerHeight = (int)(System.Windows.SystemParameters.PrimaryScreenHeight *0.7); //Why 70%, why not?
+            AnswerHeight = (int)(System.Windows.SystemParameters.PrimaryScreenHeight * 0.7); //Why 70%, why not?
 
             this.model = model;
 
             this.DontRememberCommand = new DelegateCommand((obj) => true, (obj) =>
             {
                 RememberCommand(model, Constants.dontRemember);
+                this.RequestClose(obj, new EventArgs());
             });
 
             this.VaguelyRememberCommand = new DelegateCommand((obj) => true, (obj) =>
             {
                 RememberCommand(model, Constants.vaguelyRemember);
+                this.RequestClose(obj, new EventArgs());
             });
 
             this.DoRememberCommand = new DelegateCommand((obj) => true, (obj) =>
             {
                 RememberCommand(model, Constants.doRemember);
+                this.RequestClose(obj, new EventArgs());
             });
 
-            this.NextCommand = new DelegateCommand((obj) => true, (obj) =>
-                {
-                    this.RequestClose(obj, new EventArgs());
-                });
             this.ShowAnswerCommand = new DelegateCommand((o) => true, (o) =>
                 {
                     DisplayAnswer.Invoke(this.model.currentmNeme);
+                    this.HasAnswerDisplayed = true;
                 });
 
 
@@ -154,7 +157,6 @@ namespace mNemonic.ViewModel
         {
             DisplayAnswer.Invoke(this.model.currentmNeme);
             await model.DoTheRemembering(level);
-            this.RankedmNeme = true;
         }
 
         private void ShowItem()
@@ -178,7 +180,7 @@ namespace mNemonic.ViewModel
             var question = this.model.currentmNeme.Items.
                 Where(x => x.Item2 == FileType.Text && x.Item1.ToLower().Contains("question"));
 
-            if (question.Count() >0)
+            if (question.Count() > 0)
             {
                 using (StreamReader sw = new StreamReader(question.First().Item1))
                 {
@@ -186,7 +188,7 @@ namespace mNemonic.ViewModel
                 }
             }
 
-            QuestionHeight = (int)(System.Windows.SystemParameters.PrimaryScreenHeight * factor); 
+            QuestionHeight = (int)(System.Windows.SystemParameters.PrimaryScreenHeight * factor);
         }
 
         private void DisplayImageAnswer(mNeme mNeme)

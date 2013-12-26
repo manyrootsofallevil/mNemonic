@@ -29,17 +29,16 @@
         </Grid.RowDefinitions>
 
         <!--<Rectangle Fill="#FFF4F4F5"  Height="4" Margin="-4,2,-4,0" Stroke="Black" VerticalAlignment="Top" HorizontalAlignment="Stretch"  Grid.Row="2" Grid.ColumnSpan="7"/>-->
-        <Button Name="Dont" Content="Don't Remember" HorizontalAlignment="Center" Margin="8,3,7,2" VerticalAlignment="Center" Width="110" Grid.Row="2" Height="22" Grid.Column="3" Command="{Binding DontRememberCommand}" CommandParameter="{Binding ElementName=mNemonic}"/>
-        <Button Name="Vaguely" Content="Vaguely Remember" Grid.Column="3" HorizontalAlignment="Center" Margin="8,4,7,4" Grid.Row="4" VerticalAlignment="Center" Width="110" Height="22" Command="{Binding VaguelyRememberCommand}"/>
-        <Button Name="Remember" Content="Remember" Grid.Column="3" HorizontalAlignment="Center" Margin="8,3,7,3.667" Grid.Row="6" VerticalAlignment="Center" Width="110" Height="22" Command="{Binding DoRememberCommand}" />
+        <Button Name="Dont" Content="Don't Remember" HorizontalAlignment="Center" Margin="8,3,7,2" VerticalAlignment="Center" Width="110" Grid.Row="2" Height="22" Grid.Column="3" Command="{Binding DontRememberCommand}" CommandParameter="{Binding ElementName=mNemonic}" IsEnabled="{Binding Path=HasAnswerDisplayed}"/>
+        <Button Name="Vaguely" Content="Vaguely Remember" Grid.Column="3" HorizontalAlignment="Center" Margin="8,4,7,4" Grid.Row="4" VerticalAlignment="Center" Width="110" Height="22" Command="{Binding VaguelyRememberCommand}" IsEnabled="{Binding Path=HasAnswerDisplayed}"/>
+        <Button Name="Remember" Content="Remember" Grid.Column="3" HorizontalAlignment="Center" Margin="8,3,7,3.667" Grid.Row="6" VerticalAlignment="Center" Width="110" Height="22" Command="{Binding DoRememberCommand}" IsEnabled="{Binding Path=HasAnswerDisplayed}"/>
         <Image Name="ImageToBeDisplayed" Grid.Row="3" Grid.RowSpan="6" HorizontalAlignment="Stretch"  VerticalAlignment="Top" Grid.Column="0" Grid.ColumnSpan="3" Source="{Binding Path=ImageSource}"/>
         <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1" HorizontalAlignment="Stretch" Grid.Column="1" Height="{Binding Path=QuestionHeight}" Grid.RowSpan="2" Grid.ColumnSpan="2">
-            <TextBlock Name="Question" TextWrapping="Wrap"  Grid.IsSharedSizeScope="True" Text="{Binding Path=Question}"/>
+            <TextBlock Name="Question" TextWrapping="Wrap"  Grid.IsSharedSizeScope="True" Text="{Binding Path=Question}" />
         </ScrollViewer>
         <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1" HorizontalAlignment="Stretch" Grid.Column="4" Height="{Binding Path=AnswerHeight}" Margin="0,0,11,0" Grid.RowSpan="7" Grid.ColumnSpan="4">
             <TextBlock Name="Answer" TextWrapping="Wrap"    Grid.IsSharedSizeScope="True" Text="{Binding Path=Answer}" Visibility="{Binding Path=ShowAnswer, Converter={StaticResource visibilityConverter}}" />
         </ScrollViewer>
-        <Button Content="Next" Grid.Column="5" HorizontalAlignment="Stretch" Margin="41,5,0,0" Grid.Row="9" VerticalAlignment="Top" Width="75" Command="{Binding NextCommand}" IsEnabled="{Binding Path=RankedmNeme}"/>
         <Button Content="Previous" Grid.Column="1" HorizontalAlignment="Stretch" Margin="10,5,0,0" Grid.Row="9" VerticalAlignment="Top" Width="75" Command="{Binding PreviousCommand}" IsEnabled="{Binding Path=IsFirstItem}" Visibility="Hidden"/>
         <Button Content="Show Answer" Grid.Column="3" HorizontalAlignment="Stretch" Margin="10,5,10,0" Grid.Row="9" VerticalAlignment="Top" Command="{Binding ShowAnswerCommand}"  RenderTransformOrigin="-1.693,0.773"/>
     </Grid>
