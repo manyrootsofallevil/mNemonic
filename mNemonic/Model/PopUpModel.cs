@@ -67,7 +67,7 @@ namespace mNemonic.Model
                     else
                     {
                         //If the item has not been fully remembered then the interval is simply the ticking interval times 5
-                        //This means that some might show up again on the same day.
+                        //This means that some might show up again on the same day assuming 60 minutes interval.
                         alreadyStored.FirstOrDefault().Attribute("Time").Value =
                             DateTime.Now.AddSeconds(double.Parse(ConfigurationManager.AppSettings["Interval"]) * 1000 * 60 * 5).Ticks.ToString();
                         //Reset the interval if the mNeme is forgotten. Not sure if this is correct.

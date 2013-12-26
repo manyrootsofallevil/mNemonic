@@ -12,6 +12,9 @@ namespace mNemonic
     {
         public mNemeType Type { get; set; }
         public string Location { get; set; }
+        //These are really for sanity checking. To ensure that it's behaving as it should.
+        public bool CompletelyRandomlySelected { get; set; }
+        public bool PartiallyRandomlySelected { get; set; }
        
         public List<Tuple<string, FileType>> Items { get; set; }
 

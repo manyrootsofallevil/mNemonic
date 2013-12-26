@@ -155,9 +155,7 @@
     <Resource Include="Resources\exit.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="collections.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="collections.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

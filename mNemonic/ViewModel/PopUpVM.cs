@@ -75,6 +75,12 @@ namespace mNemonic.ViewModel
             set { SetField(ref hasAnswerDisplayed, value, "HasAnswerDisplayed"); }
         }
 
+        private Brush selectionType;
+        public Brush SelectionType
+        {
+            get { return selectionType; }
+            set { SetField(ref selectionType, value, "SelectionType"); }
+        }
 
 
         #endregion
@@ -109,6 +115,8 @@ namespace mNemonic.ViewModel
 
         public PopUpVM(PopUpModel model)
         {
+            SelectBrushColour(model.currentmNeme);
+
             DisplayAnswer = (x) =>
             {
                 if (x.Type == mNemeType.Image)
@@ -152,6 +160,7 @@ namespace mNemonic.ViewModel
 
             this.ShowItem();
         }
+
 
         async private void RememberCommand(PopUpModel model, int level)
         {
@@ -209,6 +218,23 @@ namespace mNemonic.ViewModel
                 this.Answer = sr.ReadToEnd();
                 this.ShowAnswer = true;
             }
+        }
+
+        private void SelectBrushColour(mNeme current)
+        {
+
+            SelectionType = Brushes.Black;
+
+            if (current.CompletelyRandomlySelected)
+            {
+                SelectionType = Brushes.Red;
+            }
+
+            if (current.PartiallyRandomlySelected)
+            {
+                SelectionType = Brushes.Green;
+            }
+
         }
 
     }
