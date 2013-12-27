@@ -30,9 +30,9 @@
         <TextBox Grid.Column="2" HorizontalAlignment="Left" Height="26" Margin="0,13,0,0" Grid.Row="5" TextWrapping="Wrap" Text="{Binding Path=RootDirectory,ValidatesOnDataErrors=True}" VerticalAlignment="Top" Width="330"/>
         <Button Name="Save" Content="Save" HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top" Width="75" Grid.Row="7" Grid.Column="1" Height="22" Command="{Binding SaveCommand}" IsEnabled="{Binding Path=SaveMeNow}"/>
         <Button Name="Cancel" Content="Cancel" HorizontalAlignment="Left" Margin="5,30,0,0" VerticalAlignment="Top" Width="75" Grid.Row="7" Grid.Column="3" Height="22" Command="{Binding CancelCommand}"/>
-        <Button Name="Insert" Content="Insert Image" Grid.Column="2" HorizontalAlignment="Left" Margin="71,10,0,0" Grid.Row="6" VerticalAlignment="Top" Width="216" Height="22" Command="{Binding InsertCommand}"/>
-        <Button Content="Save and New" Grid.Column="2" HorizontalAlignment="Left" Margin="118,24,0,0" Grid.Row="7" VerticalAlignment="Top" Width="97" Height="34" Command="{Binding SaveAndNewCommand}" IsEnabled="{Binding Path=SaveMeNow}"/>
-        <Button Content="..." Grid.Column="3" HorizontalAlignment="Left" Margin="5,15,0,0" Grid.Row="5" VerticalAlignment="Top" Width="19" RenderTransformOrigin="-1.053,0.545"/>
+        <Button Name="Insert" Content="Insert Image" Grid.Column="2" HorizontalAlignment="Left" Margin="57,10,0,0" Grid.Row="6" VerticalAlignment="Top" Width="216" Height="22" Command="{Binding InsertCommand}"/>
+        <Button Content="Save and New" Grid.Column="2" HorizontalAlignment="Left" Margin="118,30,0,0" Grid.Row="7" VerticalAlignment="Top" Width="97" Height="22" Command="{Binding SaveAndNewCommand}" IsEnabled="{Binding Path=SaveMeNow}"/>
+        <Button Content="..." Grid.Column="3" HorizontalAlignment="Left" Margin="5,15,0,0" Grid.Row="5" VerticalAlignment="Top" Width="19" RenderTransformOrigin="-1.053,0.545" Command="{Binding SelectDirectoryCommand}"/>
 
     </Grid>
 </Window>

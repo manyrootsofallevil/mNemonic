@@ -22,27 +22,6 @@ namespace Import
     {
         AddmNemeViewModel vm;
 
-        public ImportView()
-        {
-            InitializeComponent();
-            //The title is no longer used, leaving it here in case i change my mind
-            vm = new AddmNemeViewModel(new AddmNemeModel());
-
-            vm.RequestClose += (s, e) =>
-            {
-                this.Close();
-            };
-
-            vm.SaveAndNew += (s, e) =>
-            {
-                this.Close();
-                ImportView iv = new ImportView(((AddmNemeEventArgs)e).CurrentRootDirectory);
-                iv.Show();
-            };
-
-            this.DataContext = vm;
-        }
-
         public ImportView(string rootDirectory)
         {
             InitializeComponent();

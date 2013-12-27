@@ -17,12 +17,17 @@ namespace Import
 
         AddmNemeModel model;
 
+        #region Commands
+
         public ICommand SaveCommand { get; set; }
         public ICommand SaveAndNewCommand { get; set; }
         public ICommand CancelCommand { get; set; }
         public ICommand InsertCommand { get; set; }
+        public ICommand SelectDirectoryCommand { get; set; }
         public EventHandler RequestClose { get; set; }
         public EventHandler SaveAndNew { get; set; }
+
+        #endregion
 
         #region Validation
 
@@ -108,7 +113,7 @@ namespace Import
             get { return rootdirectory; }
             set
             {
-                SetField(ref rootdirectory, value, "Directory");
+                SetField(ref rootdirectory, value, "RootDirectory");
                 model.RootDirectory = RootDirectory;
             }
         }
@@ -159,6 +164,18 @@ namespace Import
             this.model = model;
             WindowTitle = model.WindowTitle;
             RootDirectory = model.RootDirectory;
+
+            this.SelectDirectoryCommand = new DelegateCommand((o) => true, (o) =>
+            {
+                System.Windows.Forms.FolderBrowserDialog dialog = new System.Windows.Forms.FolderBrowserDialog();
+                dialog.RootFolder = Environment.SpecialFolder.Desktop;
+
+                if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    RootDirectory = dialog.SelectedPath;
+                }
+
+            });
 
             this.SaveCommand = new DelegateCommand((obj) => true, (obj) =>
                 {

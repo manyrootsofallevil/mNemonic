@@ -29,9 +29,16 @@ namespace Import
 
         public AddmNemeModel(string rootDirectory)
         {
-            RootDirectory = rootDirectory;
+            if (string.IsNullOrEmpty(rootDirectory))
+            {
+                RootDirectory = ConfigurationManager.AppSettings["RootDirectory"];
+            }
+            else
+            {
+                RootDirectory = rootDirectory;
+            }
         }
-        
+
         public bool WriteToFile()
         {
             bool result = false;
@@ -49,7 +56,7 @@ namespace Import
             return result;
         }
 
-        private bool WriteToFile(string input, bool isQuestion=false)
+        private bool WriteToFile(string input, bool isQuestion = false)
         {
             bool result = false;
 
@@ -76,7 +83,7 @@ namespace Import
             }
             catch (Exception ex)
             {
-                
+
             }
 
             return result;

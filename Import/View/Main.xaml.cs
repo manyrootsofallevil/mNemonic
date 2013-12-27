@@ -37,7 +37,7 @@ namespace Import
         //However, this time i will get everything working as i think it should and then start looking at prettifying it.
         private void Import_Click(object sender, RoutedEventArgs e)
         {
-            ImportView iv = new ImportView();
+            ImportView iv = new ImportView(string.Empty);
             iv.Show();
         }
 
