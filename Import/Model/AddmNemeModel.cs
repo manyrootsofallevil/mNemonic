@@ -39,21 +39,36 @@ namespace Import
             }
         }
 
-        public bool WriteToFile()
+        public Tuple<bool,string> WriteToFile()
         {
             bool result = false;
+            string message = string.Empty;
+            string filepath = Path.Combine(RootDirectory, Title);
 
-            result = WriteToFile(Question, true);
-            result &= WriteToFile(Answer);
-
-            if (!string.IsNullOrEmpty(Image))
+            try
             {
-                string filepath = Path.Combine(RootDirectory, Title);
-                //Since we are selecting from somewhere it seems reasonable to assume that the file exists
-                File.Copy(Image, Path.Combine(filepath, Path.GetFileName(Image)));
+                if (!Directory.Exists(filepath))
+                {
+                    result = WriteToFile(Question, true);
+                    result &= WriteToFile(Answer);
+
+                    if (!string.IsNullOrEmpty(Image))
+                    {
+                        //Since we are selecting from somewhere it seems reasonable to assume that the file exists
+                        File.Copy(Image, Path.Combine(filepath, Path.GetFileName(Image)));
+                    }
+                }
+                else
+                {
+                    message = string.Format("Directory {0} already exists. Try a different title for your mNeme or a different collection", filepath);
+                }
+            }
+            catch (Exception ex)
+            {
+                message = string.Format("An error occurred saving {0}. Exception: {1}.", filepath,ex);
             }
 
-            return result;
+            return new Tuple<bool, string>(result, message);
         }
 
         private bool WriteToFile(string input, bool isQuestion = false)
@@ -83,7 +98,8 @@ namespace Import
             }
             catch (Exception ex)
             {
-
+                //If this had some logging it wouldn't be as pointless as it looks, just a little bit pointless.
+                throw;
             }
 
             return result;
