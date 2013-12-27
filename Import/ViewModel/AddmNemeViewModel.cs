@@ -179,26 +179,30 @@ namespace Import
 
             this.SaveCommand = new DelegateCommand((obj) => true, (obj) =>
                 {
-                    if (model.WriteToFile())
+                    var saved = model.WriteToFile();
+
+                    if (saved.Item1)
                     {
                         this.RequestClose(obj, new EventArgs());
                     }
                     else
                     {
-                        MessageBox.Show("An error occurred while saving files.");
+                        MessageBox.Show(saved.Item2);
                     }
                 });
 
 
             this.SaveAndNewCommand = new DelegateCommand((obj) => true, (obj) =>
             {
-                if (model.WriteToFile())
+                var saved = model.WriteToFile();
+
+                if (saved.Item1)
                 {
                     this.SaveAndNew(obj, new AddmNemeEventArgs(RootDirectory));
                 }
                 else
                 {
-                    MessageBox.Show("An error occurred while saving files.");
+                    MessageBox.Show(saved.Item2);
                 }
             });
 
