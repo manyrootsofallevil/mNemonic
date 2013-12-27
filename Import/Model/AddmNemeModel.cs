@@ -22,12 +22,16 @@ namespace Import
         public string RootDirectory { get; set; }
         public string Image { get; set; }
 
-        public AddmNemeModel(string title)
+        public AddmNemeModel()
         {
-            WindowTitle = title;
             RootDirectory = ConfigurationManager.AppSettings["RootDirectory"];
         }
 
+        public AddmNemeModel(string rootDirectory)
+        {
+            RootDirectory = rootDirectory;
+        }
+        
         public bool WriteToFile()
         {
             bool result = false;

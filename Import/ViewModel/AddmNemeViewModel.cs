@@ -18,9 +18,11 @@ namespace Import
         AddmNemeModel model;
 
         public ICommand SaveCommand { get; set; }
+        public ICommand SaveAndNewCommand { get; set; }
         public ICommand CancelCommand { get; set; }
         public ICommand InsertCommand { get; set; }
         public EventHandler RequestClose { get; set; }
+        public EventHandler SaveAndNew { get; set; }
 
         #region Validation
 
@@ -170,6 +172,20 @@ namespace Import
                     }
                 });
 
+
+            this.SaveAndNewCommand = new DelegateCommand((obj) => true, (obj) =>
+            {
+                if (model.WriteToFile())
+                {
+                    this.SaveAndNew(obj, new AddmNemeEventArgs(RootDirectory));
+                }
+                else
+                {
+                    MessageBox.Show("An error occurred while saving files.");
+                }
+            });
+
+
             this.CancelCommand = new DelegateCommand((obj) => true, (o) =>
             {
                 this.RequestClose(o, new EventArgs());
@@ -193,4 +209,16 @@ namespace Import
                 });
         }
     }
+
+    public class AddmNemeEventArgs : EventArgs
+    {
+        public AddmNemeEventArgs(string currentRootDirectory)
+        {
+            this.CurrentRootDirectory = currentRootDirectory;
+        }
+
+        public string CurrentRootDirectory { get; private set; }
+    }
+
+
 }
