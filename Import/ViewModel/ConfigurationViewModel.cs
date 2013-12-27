@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -66,7 +67,7 @@ namespace Import.ViewModel
             this.AddNewCollectionCommand = new DelegateCommand((o) => true, (o) =>
                 {
                     FolderBrowserDialog dialog = new FolderBrowserDialog();
-                    dialog.RootFolder = Environment.SpecialFolder.Desktop;
+                    dialog.SelectedPath = ConfigurationManager.AppSettings["RootDirectory"];
 
                     if (dialog.ShowDialog() == DialogResult.OK)
                     {
