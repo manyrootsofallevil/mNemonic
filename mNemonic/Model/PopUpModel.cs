@@ -109,7 +109,7 @@ namespace mNemonic.Model
 
                 if (alreadyStored.Count() > 0)
                 {
-                    interval = (DateTime.Now - Convert.ToDateTime(alreadyStored.First().Attribute("Time").Value)).Minutes;
+                    interval = (int)(DateTime.Now - Convert.ToDateTime(alreadyStored.First().Attribute("Time").Value)).TotalMinutes;
                 }
             }
             else
@@ -121,7 +121,8 @@ namespace mNemonic.Model
             doc.Root.Add(new XElement("mNeme", new XAttribute("Location", this.currentmNeme.Location),
             new XAttribute("mNemeCoefficient", mNemeCoefficient), new XAttribute("Time", DateTime.Now.ToString("o")),
             new XAttribute("NumberoftimesDisplayed", ++count),
-            new XAttribute("IntervalSinceLastDisplayinMinutes", interval)));
+            new XAttribute("IntervalSinceLastDisplayinMinutes", interval),
+            new XAttribute("RandomlySelected",this.currentmNeme.PartiallyRandomlySelected)));
 
             doc.Save(storeFile);
         }
