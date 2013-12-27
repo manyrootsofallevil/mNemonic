@@ -168,7 +168,7 @@ namespace Import
             this.SelectDirectoryCommand = new DelegateCommand((o) => true, (o) =>
             {
                 System.Windows.Forms.FolderBrowserDialog dialog = new System.Windows.Forms.FolderBrowserDialog();
-                dialog.RootFolder = Environment.SpecialFolder.Desktop;
+                dialog.SelectedPath = model.RootDirectory;
 
                 if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
