@@ -26,6 +26,7 @@ namespace mNemonic.ViewModel
         private Action<mNeme> DisplayAnswer;
 
         #region Properties
+
         private ImageSource imageSource;
         public ImageSource ImageSource
         {
@@ -75,13 +76,19 @@ namespace mNemonic.ViewModel
             set { SetField(ref hasAnswerDisplayed, value, "HasAnswerDisplayed"); }
         }
 
+        private string collection;
+        public string Collection
+        {
+            get { return collection; }
+            set { SetField(ref collection, value, "Collection"); }
+        }
+
         private Brush selectionType;
         public Brush SelectionType
         {
             get { return selectionType; }
             set { SetField(ref selectionType, value, "SelectionType"); }
         }
-
 
         #endregion
 
@@ -115,6 +122,12 @@ namespace mNemonic.ViewModel
 
         public PopUpVM(PopUpModel model)
         {
+            this.model = model;
+
+            AnswerHeight = (int)(System.Windows.SystemParameters.PrimaryScreenHeight * 0.7); //Why 70%, why not?
+
+            this.Collection = getCollectionName(model.currentmNeme);
+            
             SelectBrushColour(model.currentmNeme);
 
             DisplayAnswer = (x) =>
@@ -128,10 +141,6 @@ namespace mNemonic.ViewModel
                     DisplayTextAnswer(x);
                 }
             };
-
-            AnswerHeight = (int)(System.Windows.SystemParameters.PrimaryScreenHeight * 0.7); //Why 70%, why not?
-
-            this.model = model;
 
             this.DontRememberCommand = new DelegateCommand((obj) => true, (obj) =>
             {
@@ -160,7 +169,6 @@ namespace mNemonic.ViewModel
 
             this.ShowItem();
         }
-
 
         async private void RememberCommand(PopUpModel model, int level)
         {
@@ -235,6 +243,16 @@ namespace mNemonic.ViewModel
                 SelectionType = Brushes.Green;
             }
 
+        }
+
+        //This assumes that the collection name is the parent directory of the current mNeme
+        private string getCollectionName(mNeme current)
+        {
+            string result = string.Empty;
+
+            result = string.Format("Collection: {0}",new DirectoryInfo(current.Location).Parent.Name);
+
+            return result;
         }
 
     }
