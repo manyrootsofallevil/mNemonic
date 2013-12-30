@@ -51,8 +51,10 @@
         </tb:TaskbarIcon.TrayToolTip>
         <tb:TaskbarIcon.ContextMenu>
             <ContextMenu>
-                <MenuItem Header="Set mNeme Interval" Command="{StaticResource Configure}" >
+                <MenuItem Header="Set mNeme Interval" Command="{StaticResource Configure}" CommandParameter="Interval">
                 </MenuItem>
+                <!--<MenuItem Header="Configure Collections" Command="{StaticResource Configure}" CommandParameter="Collections">
+                </MenuItem>-->
                 <Separator />
                 <MenuItem Header="Play" Command="{StaticResource Play}" >
                 </MenuItem>

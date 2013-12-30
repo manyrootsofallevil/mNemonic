@@ -11,15 +11,31 @@ namespace mNemonic.Commands
     public class Configure : ICommand
     {
         System.Windows.Forms.Timer Timer;
+        private State currentState;
 
         public void Execute(object parameter)
         {
-            Configuration config = new Configuration();
-            config.Show();
+          
+            switch (parameter.ToString().ToLowerInvariant())
+            {
+                case "interval":
+                    StopTimer();
+                    ConfigurationInterval config = new ConfigurationInterval();
+                    config.Show();                    
+                    break;
+                case "Collections":
+                    StopTimer();
+                    break;
 
+            }
+        }
+
+        private void StopTimer()
+        {
             Timer = (System.Windows.Forms.Timer)App.Current.FindResource("Timer");
+            currentState = (State)App.Current.FindResource("CurrentState");
+            currentState.Paused = true;
             Timer.Enabled = false;
-
         }
 
         public bool CanExecute(object parameter)

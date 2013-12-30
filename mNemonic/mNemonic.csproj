@@ -79,7 +79,7 @@
     <Compile Include="ViewModel\PopUpVM.cs" />
     <Compile Include="ViewModel\TaskBarIconVM.cs" />
     <Compile Include="Worker.cs" />
-    <Page Include="Views\Configuration.xaml">
+    <Page Include="Views\ConfigurationInterval.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -102,8 +102,8 @@
     <Compile Include="Commands\Configure.cs" />
     <Compile Include="Commands\Exit.cs" />
     <Compile Include="Controls\Feedback.cs" />
-    <Compile Include="Views\Configuration.xaml.cs">
-      <DependentUpon>Configuration.xaml</DependentUpon>
+    <Compile Include="Views\ConfigurationInterval.xaml.cs">
+      <DependentUpon>ConfigurationInterval.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
