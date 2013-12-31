@@ -62,7 +62,14 @@ namespace Import.ViewModel
 
                 model.mNemes = mNemes.Where(x => x.IsChecked).ToList();
 
-                model.ExportmNemes();
+                if (model.ExportmNemes())
+                {
+                    System.Windows.Forms.MessageBox.Show("Successfully Exported");
+                }
+                else
+                {
+                    System.Windows.Forms.MessageBox.Show("An Error Ocurred. Try Again.");
+                }
             });
         }
 
