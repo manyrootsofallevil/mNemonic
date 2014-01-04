@@ -60,7 +60,7 @@ namespace mNemonic.Model
                     if (mNemeCoefficient == Constants.doRemember)
                     {
                         int remembered = Convert.ToInt32(alreadyStored.FirstOrDefault().Attribute("Remembered").Value);
-                        alreadyStored.FirstOrDefault().Attribute("Time").Value = DateTime.Now.AddDays(++remembered * Constants.intervalForRememberedmNemes).Ticks.ToString();
+                        alreadyStored.FirstOrDefault().Attribute("Time").Value = SetNextTime(mNemeCoefficient, remembered);
                         alreadyStored.FirstOrDefault().Attribute("Remembered").Value = (++remembered).ToString();
 
                     }
@@ -70,7 +70,7 @@ namespace mNemonic.Model
                         //NofIntervalForNotRemembered (set to 5).
                         //This means that some might show up again on the same day assuming 60 minutes interval.
                         //They might show up anyway, as if there isn't anything that should be shown a mNeme will be shown up at random
-                        alreadyStored.FirstOrDefault().Attribute("Time").Value = SetNextTime();
+                        alreadyStored.FirstOrDefault().Attribute("Time").Value = SetNextTime(mNemeCoefficient);
                         //Reset the interval if the mNeme is forgotten. Not sure if this is correct.
                         alreadyStored.FirstOrDefault().Attribute("Remembered").Value = "0";
                     }
@@ -78,7 +78,7 @@ namespace mNemonic.Model
                 else
                 {
                     doc.Root.Add(new XElement("mNeme", new XAttribute("Location", this.currentmNeme.Location),
-                    new XAttribute("mNemeCoefficient", mNemeCoefficient), new XAttribute("Time", SetNextTime()),
+                    new XAttribute("mNemeCoefficient", mNemeCoefficient), new XAttribute("Time", SetNextTime(mNemeCoefficient)),
                     new XAttribute("Remembered", mNemeCoefficient == Constants.doRemember ? 1 : 0)));
                 }
             }
@@ -88,16 +88,26 @@ namespace mNemonic.Model
                 doc.Add(new XElement("mNemes"));
 
                 doc.Root.Add(new XElement("mNeme", new XAttribute("Location", this.currentmNeme.Location),
-                   new XAttribute("mNemeCoefficient", mNemeCoefficient), new XAttribute("Time", SetNextTime()),
+                   new XAttribute("mNemeCoefficient", mNemeCoefficient), new XAttribute("Time", SetNextTime(mNemeCoefficient)),
                    new XAttribute("Remembered", mNemeCoefficient == Constants.doRemember ? 1 : 0)));
             }
             doc.Save(storeFile);
         }
 
-        private string SetNextTime()
+        private string SetNextTime(int coefficient, int remembered=0)
         {
-            return DateTime.Now.AddMinutes(double.Parse(ConfigurationManager.AppSettings["Interval"])
-                                        * double.Parse(ConfigurationManager.AppSettings["NofIntervalForNotRemembered"])).Ticks.ToString();
+            string result = string.Empty;
+
+            if (coefficient == Constants.doRemember)
+            {
+                result = DateTime.Now.AddDays(++remembered * Constants.intervalForRememberedmNemes).Ticks.ToString();
+            }
+            else
+            {
+                result = DateTime.Now.AddMinutes(double.Parse(ConfigurationManager.AppSettings["Interval"])
+                                            * double.Parse(ConfigurationManager.AppSettings["NofIntervalForNotRemembered"])).Ticks.ToString();
+            }
+            return result;
         }
 
         private void CollectStats(int mNemeCoefficient, string storeFile)
