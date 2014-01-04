@@ -70,9 +70,7 @@ namespace mNemonic.Model
                         //NofIntervalForNotRemembered (set to 5).
                         //This means that some might show up again on the same day assuming 60 minutes interval.
                         //They might show up anyway, as if there isn't anything that should be shown a mNeme will be shown up at random
-                        alreadyStored.FirstOrDefault().Attribute("Time").Value =
-                            DateTime.Now.AddMinutes(double.Parse(ConfigurationManager.AppSettings["Interval"])
-                            * double.Parse(ConfigurationManager.AppSettings["NofIntervalForNotRemembered"])).Ticks.ToString();
+                        alreadyStored.FirstOrDefault().Attribute("Time").Value = SetNextTime();
                         //Reset the interval if the mNeme is forgotten. Not sure if this is correct.
                         alreadyStored.FirstOrDefault().Attribute("Remembered").Value = "0";
                     }
@@ -80,7 +78,7 @@ namespace mNemonic.Model
                 else
                 {
                     doc.Root.Add(new XElement("mNeme", new XAttribute("Location", this.currentmNeme.Location),
-                    new XAttribute("mNemeCoefficient", mNemeCoefficient), new XAttribute("Time", DateTime.Now.AddSeconds(double.Parse(ConfigurationManager.AppSettings["Interval"]) * 1000 * 60 * 5).Ticks),
+                    new XAttribute("mNemeCoefficient", mNemeCoefficient), new XAttribute("Time", SetNextTime()),
                     new XAttribute("Remembered", mNemeCoefficient == Constants.doRemember ? 1 : 0)));
                 }
             }
@@ -90,10 +88,16 @@ namespace mNemonic.Model
                 doc.Add(new XElement("mNemes"));
 
                 doc.Root.Add(new XElement("mNeme", new XAttribute("Location", this.currentmNeme.Location),
-                   new XAttribute("mNemeCoefficient", mNemeCoefficient), new XAttribute("Time", DateTime.Now.AddSeconds(double.Parse(ConfigurationManager.AppSettings["Interval"]) * 1000 * 60 * 5).Ticks),
+                   new XAttribute("mNemeCoefficient", mNemeCoefficient), new XAttribute("Time", SetNextTime()),
                    new XAttribute("Remembered", mNemeCoefficient == Constants.doRemember ? 1 : 0)));
             }
             doc.Save(storeFile);
+        }
+
+        private string SetNextTime()
+        {
+            return DateTime.Now.AddMinutes(double.Parse(ConfigurationManager.AppSettings["Interval"])
+                                        * double.Parse(ConfigurationManager.AppSettings["NofIntervalForNotRemembered"])).Ticks.ToString();
         }
 
         private void CollectStats(int mNemeCoefficient, string storeFile)
