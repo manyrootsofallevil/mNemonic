@@ -66,10 +66,13 @@ namespace mNemonic.Model
                     }
                     else
                     {
-                        //If the item has not been fully remembered then the interval is simply the ticking interval times 5
+                        //If the item has not been fully remembered then the interval is simply the ticking interval times
+                        //NofIntervalForNotRemembered (set to 5).
                         //This means that some might show up again on the same day assuming 60 minutes interval.
+                        //They might show up anyway, as if there isn't anything that should be shown a mNeme will be shown up at random
                         alreadyStored.FirstOrDefault().Attribute("Time").Value =
-                            DateTime.Now.AddSeconds(double.Parse(ConfigurationManager.AppSettings["Interval"]) * 1000 * 60 * 5).Ticks.ToString();
+                            DateTime.Now.AddMinutes(double.Parse(ConfigurationManager.AppSettings["Interval"])
+                            * double.Parse(ConfigurationManager.AppSettings["NofIntervalForNotRemembered"])).Ticks.ToString();
                         //Reset the interval if the mNeme is forgotten. Not sure if this is correct.
                         alreadyStored.FirstOrDefault().Attribute("Remembered").Value = "0";
                     }
@@ -122,7 +125,7 @@ namespace mNemonic.Model
             new XAttribute("mNemeCoefficient", mNemeCoefficient), new XAttribute("Time", DateTime.Now.ToString("o")),
             new XAttribute("NumberoftimesDisplayed", ++count),
             new XAttribute("IntervalSinceLastDisplayinMinutes", interval),
-            new XAttribute("RandomlySelected",this.currentmNeme.PartiallyRandomlySelected)));
+            new XAttribute("RandomlySelected", this.currentmNeme.PartiallyRandomlySelected)));
 
             doc.Save(storeFile);
         }

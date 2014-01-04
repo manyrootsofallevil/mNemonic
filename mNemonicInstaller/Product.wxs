@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <Product Id="DEAF1AAA-BEEF-BEAD-BEAD-D1D2D3D4D5D6" Name="mNemonic" Language="1033" Version="0.0.0.9" Manufacturer="ManyRootsOfAllEvil Inc." UpgradeCode="0dbe4cf3-abb9-46b2-9cf7-75f4a2f85d4e">
+  <Product Id="DEAF1AAA-BEEF-BEAD-BEAD-D1D2D3D4D5D6" Name="mNemonic" Language="1033" Version="0.0.0.11" Manufacturer="ManyRootsOfAllEvil Inc." UpgradeCode="0dbe4cf3-abb9-46b2-9cf7-75f4a2f85d4e">
     <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
     <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
