@@ -16,6 +16,9 @@ namespace mNemonic.ViewModel
 {
     public class PopUpVM : INotifyPropertyChanged
     {
+        const string show= "Show Answer";
+        const string hide= "Hide Answer";
+
         PopUpModel model;
 
         public ICommand DontRememberCommand { get; set; }
@@ -73,7 +76,9 @@ namespace mNemonic.ViewModel
         public bool HasAnswerDisplayed
         {
             get { return hasAnswerDisplayed; }
-            set { SetField(ref hasAnswerDisplayed, value, "HasAnswerDisplayed"); }
+            set { SetField(ref hasAnswerDisplayed, value, "HasAnswerDisplayed");
+            if (hasAnswerDisplayed) { ShowHideAnswer = hide; } else { ShowHideAnswer = show; }
+            }
         }
 
         private string collection;
@@ -88,6 +93,13 @@ namespace mNemonic.ViewModel
         {
             get { return selectionType; }
             set { SetField(ref selectionType, value, "SelectionType"); }
+        }
+
+        private string showHideAnswer;
+        public string ShowHideAnswer
+        {
+            get { return showHideAnswer; }
+            set { SetField(ref showHideAnswer, value, "ShowHideAnswer"); }
         }
 
         #endregion
@@ -124,10 +136,12 @@ namespace mNemonic.ViewModel
         {
             this.model = model;
 
+            this.ShowHideAnswer = show;
+
             AnswerHeight = (int)(System.Windows.SystemParameters.PrimaryScreenHeight * 0.7); //Why 70%, why not?
 
             this.Collection = getCollectionName(model.currentmNeme);
-            
+
             SelectBrushColour(model.currentmNeme);
 
             DisplayAnswer = (x) =>
@@ -163,7 +177,15 @@ namespace mNemonic.ViewModel
             this.ShowAnswerCommand = new DelegateCommand((o) => true, (o) =>
                 {
                     DisplayAnswer.Invoke(this.model.currentmNeme);
-                    this.HasAnswerDisplayed = true;
+                    
+                    if (this.HasAnswerDisplayed)
+                    {
+                        this.HasAnswerDisplayed = false;
+                    }
+                    else
+                    {
+                        this.HasAnswerDisplayed = true;
+                    }
                 });
 
 
@@ -214,7 +236,14 @@ namespace mNemonic.ViewModel
                 = new StreamReader(mNeme.Items.Where(x => x.Item2 == FileType.Text).FirstOrDefault().Item1))
             {
                 this.Answer = sr.ReadToEnd();
-                this.ShowAnswer = true;
+                if (this.ShowAnswer)
+                {
+                    this.ShowAnswer = false;
+                }
+                else
+                {
+                    this.ShowAnswer = true;
+                }
             }
         }
 
@@ -224,7 +253,15 @@ namespace mNemonic.ViewModel
                 && !x.Item1.ToLower().Contains("question")).FirstOrDefault().Item1))
             {
                 this.Answer = sr.ReadToEnd();
-                this.ShowAnswer = true;
+
+                if (this.ShowAnswer)
+                {
+                    this.ShowAnswer = false;
+                }
+                else
+                {
+                    this.ShowAnswer = true;
+                }
             }
         }
 
@@ -250,7 +287,7 @@ namespace mNemonic.ViewModel
         {
             string result = string.Empty;
 
-            result = string.Format("Collection: {0}",new DirectoryInfo(current.Location).Parent.Name);
+            result = string.Format("Collection: {0}", new DirectoryInfo(current.Location).Parent.Name);
 
             return result;
         }

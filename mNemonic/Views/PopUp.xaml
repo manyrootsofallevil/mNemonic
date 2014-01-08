@@ -40,7 +40,7 @@
             <TextBlock Name="Answer" TextWrapping="Wrap"    Grid.IsSharedSizeScope="True" Text="{Binding Path=Answer}" Visibility="{Binding Path=ShowAnswer, Converter={StaticResource visibilityConverter}}" />
         </ScrollViewer>
         <Button Content="Previous" Grid.Column="1" HorizontalAlignment="Stretch" Margin="10,5,0,0" Grid.Row="9" VerticalAlignment="Top" Width="75" Command="{Binding PreviousCommand}" IsEnabled="{Binding Path=IsFirstItem}" Visibility="Hidden"/>
-        <Button Content="Show Answer" Grid.Column="3" HorizontalAlignment="Stretch" Margin="10,5,10,0" Grid.Row="9" VerticalAlignment="Top" Command="{Binding ShowAnswerCommand}"  RenderTransformOrigin="-1.693,0.773"/>
+        <Button Content="{Binding Path=ShowHideAnswer}" Grid.Column="3" HorizontalAlignment="Stretch" Margin="10,5,10,0" Grid.Row="9" VerticalAlignment="Top" Command="{Binding ShowAnswerCommand}"  RenderTransformOrigin="-1.693,0.773"/>
         <Label Grid.Column="1" HorizontalAlignment="Stretch" Margin="0,5,0,0" Grid.Row="9" VerticalAlignment="Top" Height="29"  Grid.ColumnSpan="2" Content="{Binding Path=Collection}" FontWeight="ExtraBlack"/>
     </Grid>
 
