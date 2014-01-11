@@ -236,14 +236,8 @@ namespace mNemonic.ViewModel
                 = new StreamReader(mNeme.Items.Where(x => x.Item2 == FileType.Text).FirstOrDefault().Item1))
             {
                 this.Answer = sr.ReadToEnd();
-                if (this.ShowAnswer)
-                {
-                    this.ShowAnswer = false;
-                }
-                else
-                {
-                    this.ShowAnswer = true;
-                }
+
+                this.ShowAnswer = this.ShowAnswer == true ? false : true;
             }
         }
 
@@ -254,14 +248,7 @@ namespace mNemonic.ViewModel
             {
                 this.Answer = sr.ReadToEnd();
 
-                if (this.ShowAnswer)
-                {
-                    this.ShowAnswer = false;
-                }
-                else
-                {
-                    this.ShowAnswer = true;
-                }
+                this.ShowAnswer = this.ShowAnswer == true ? false : true;
             }
         }
 
