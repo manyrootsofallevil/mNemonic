@@ -217,7 +217,7 @@ namespace mNemonic.ViewModel
         private void DisplayQuestion(double factor)
         {
             var question = this.model.currentmNeme.Items.
-                Where(x => x.Item2 == FileType.Text && x.Item1.ToLower().Contains("question"));
+                Where(x => x.Item2 == FileType.Text && x.Item1.ToLower().Contains("question.txt"));
 
             if (question.Count() > 0)
             {
@@ -244,7 +244,7 @@ namespace mNemonic.ViewModel
         private void DisplayTextAnswer(mNeme mNeme)
         {
             using (StreamReader sr = new StreamReader(mNeme.Items.Where(x => x.Item2 == FileType.Text
-                && !x.Item1.ToLower().Contains("question")).FirstOrDefault().Item1))
+                && !x.Item1.ToLower().Contains("question.txt")).FirstOrDefault().Item1))
             {
                 this.Answer = sr.ReadToEnd();
 
