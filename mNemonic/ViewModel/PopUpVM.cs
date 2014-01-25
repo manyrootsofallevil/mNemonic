@@ -274,7 +274,7 @@ namespace mNemonic.ViewModel
         {
             string result = string.Empty;
 
-            result = string.Format("Collection: {0}", new DirectoryInfo(current.Location).Parent.Name);
+            result = string.Format("Collection: {0}", current.Collection);
 
             return result;
         }

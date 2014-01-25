@@ -90,13 +90,16 @@ namespace mNemonic
 
                     //2. Create a collection of the stored mNemes (This is unlikely to be terribly efficient) 
                     var storedmNemes = xdoc.Root.Elements()
-                        .Select(x => new StoredmNeme(x.Attribute("Location").Value.ToLowerInvariant(), Int32.Parse(x.Attribute("mNemeCoefficient").Value)
+                        .Select(x => new StoredmNeme(
+                            Path.Combine(ConfigurationManager.AppSettings["MainDirectory"],x.Attribute("Collection").Value.ToLowerInvariant(),x.Attribute("Name").Value.ToLowerInvariant()), 
+                            Int32.Parse(x.Attribute("mNemeCoefficient").Value)
                         , ((DateTime.Now.Ticks - Int64.Parse(x.Attribute("Time").Value)) / TimeSpan.TicksPerSecond),
                          Int32.Parse(x.Attribute("Remembered").Value)));
 
                     //3. Join with the selected mNemes
                     var availablemNemes = allmNemes.Join(storedmNemes,
                         x => x.Location.ToLowerInvariant(), y => y.Location.ToLowerInvariant(), (x, y) => y).Distinct();
+
 
                     //3.5 if the sequences are different in length then, get a random mNeme of those that are not currently stored
                     if (availablemNemes.Count() != allmNemes.Count())

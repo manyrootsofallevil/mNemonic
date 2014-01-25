@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -10,8 +11,11 @@ namespace mNemonic
 {
     public class mNeme: IEquatable<mNeme>
     {
+        private TextInfo ti = CultureInfo.CurrentCulture.TextInfo;
         public mNemeType Type { get; set; }
         public string Location { get; set; }
+        public string Collection { get; set; }
+        public string Name { get; set; }
         //These are really for sanity checking. To ensure that it's behaving as it should.
         public bool CompletelyRandomlySelected { get; set; }
         public bool PartiallyRandomlySelected { get; set; }
@@ -22,6 +26,7 @@ namespace mNemonic
         {
             Type = type;
             Location = location;
+            getNames();
             Items = new List<Tuple<string, FileType>>();
             getItems();
         }
@@ -30,6 +35,8 @@ namespace mNemonic
         {
             Location = location;
             Items = new List<Tuple<string, FileType>>();
+            getNames();
+
             try
             {
                 getItems();
@@ -93,6 +100,13 @@ namespace mNemonic
 
         }
 
+        private void getNames()
+        {
+            DirectoryInfo locationInfo = new DirectoryInfo(this.Location);
+
+            this.Name = ti.ToTitleCase(locationInfo.Name);
+            this.Collection = ti.ToTitleCase(locationInfo.Parent.Name);
+        }
 
 
     }

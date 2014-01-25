@@ -11,6 +11,7 @@ namespace mNemonic.Model
 {
     public class PopUpModel
     {
+        const string zero = "0";
         public mNeme currentmNeme { get; private set; }
         private string DBFile;
         private string StatsFile;
@@ -48,7 +49,8 @@ namespace mNemonic.Model
                 doc = XDocument.Load(storeFile);
 
                 var alreadyStored = doc.Root.Elements()
-                .Where(x => x.Attribute("Location").Value.Equals(this.currentmNeme.Location, StringComparison.InvariantCultureIgnoreCase));
+                .Where(x => x.Attribute("Collection").Value.Equals(this.currentmNeme.Collection, StringComparison.InvariantCultureIgnoreCase)
+                && x.Attribute("Name").Value.Equals(this.currentmNeme.Name, StringComparison.InvariantCultureIgnoreCase));
 
                 if (alreadyStored.Count() == 1)
                 {
@@ -60,8 +62,11 @@ namespace mNemonic.Model
                     if (mNemeCoefficient == Constants.doRemember)
                     {
                         int remembered = Convert.ToInt32(alreadyStored.FirstOrDefault().Attribute("Remembered").Value);
+                        int forgotten = Convert.ToInt32(alreadyStored.FirstOrDefault().Attribute("Forgotten").Value);
+
                         alreadyStored.FirstOrDefault().Attribute("Time").Value = SetNextTime(mNemeCoefficient, remembered);
                         alreadyStored.FirstOrDefault().Attribute("Remembered").Value = (++remembered).ToString();
+                        alreadyStored.FirstOrDefault().Attribute("Forgotten").Value = forgotten == 0 ? zero : (--forgotten).ToString();
 
                     }
                     else
@@ -71,15 +76,23 @@ namespace mNemonic.Model
                         //This means that some might show up again on the same day assuming 60 minutes interval.
                         //They might show up anyway, as if there isn't anything that should be shown a mNeme will be shown up at random
                         alreadyStored.FirstOrDefault().Attribute("Time").Value = SetNextTime(mNemeCoefficient);
-                        //Reset the interval if the mNeme is forgotten. Not sure if this is correct.
-                        alreadyStored.FirstOrDefault().Attribute("Remembered").Value = "0";
+
+                        //Rather than fully resetting the interval if the mNeme is forgot
+                        int remembered = Convert.ToInt32(alreadyStored.FirstOrDefault().Attribute("Remembered").Value);
+                        int forgotten = Convert.ToInt32(alreadyStored.FirstOrDefault().Attribute("Forgotten").Value);
+
+                        alreadyStored.FirstOrDefault().Attribute("Forgotten").Value = remembered > 0 ? (++forgotten).ToString() : zero;
+
+                        if (remembered > 0)
+                        {
+                            remembered -= forgotten;
+                            alreadyStored.FirstOrDefault().Attribute("Remembered").Value = remembered.ToString();
+                        }
                     }
                 }
                 else
                 {
-                    doc.Root.Add(new XElement("mNeme", new XAttribute("Location", this.currentmNeme.Location),
-                    new XAttribute("mNemeCoefficient", mNemeCoefficient), new XAttribute("Time", SetNextTime(mNemeCoefficient)),
-                    new XAttribute("Remembered", mNemeCoefficient == Constants.doRemember ? 1 : 0)));
+                    AddNewmNemeToFile(mNemeCoefficient, doc);
                 }
             }
             else
@@ -87,14 +100,24 @@ namespace mNemonic.Model
                 doc = new XDocument();
                 doc.Add(new XElement("mNemes"));
 
-                doc.Root.Add(new XElement("mNeme", new XAttribute("Location", this.currentmNeme.Location),
-                   new XAttribute("mNemeCoefficient", mNemeCoefficient), new XAttribute("Time", SetNextTime(mNemeCoefficient)),
-                   new XAttribute("Remembered", mNemeCoefficient == Constants.doRemember ? 1 : 0)));
+                AddNewmNemeToFile(mNemeCoefficient, doc);
             }
+
             doc.Save(storeFile);
         }
 
-        private string SetNextTime(int coefficient, int remembered=0)
+        private void AddNewmNemeToFile(int mNemeCoefficient, XDocument doc)
+        {
+            doc.Root.Add(new XElement("mNeme", new XAttribute("Collection", this.currentmNeme.Collection),
+                new XAttribute("Name", this.currentmNeme.Name),
+                new XAttribute("mNemeCoefficient", mNemeCoefficient),
+                new XAttribute("Time", SetNextTime(mNemeCoefficient)),
+                new XAttribute("Remembered", mNemeCoefficient == Constants.doRemember ? 1 : 0),
+                new XAttribute("Forgotten", zero)) //A new one can't have been forgotten ;)
+               );
+        }
+
+        private string SetNextTime(int coefficient, int remembered = 0)
         {
             string result = string.Empty;
 
@@ -119,7 +142,8 @@ namespace mNemonic.Model
             {
                 doc = XDocument.Load(storeFile);
                 var alreadyStored = doc.Root.Elements()
-               .Where(x => x.Attribute("Location").Value.Equals(this.currentmNeme.Location, StringComparison.InvariantCultureIgnoreCase))
+               .Where(x => x.Attribute("Collection").Value.Equals(this.currentmNeme.Collection, StringComparison.InvariantCultureIgnoreCase)
+                && x.Attribute("Name").Value.Equals(this.currentmNeme.Name, StringComparison.InvariantCultureIgnoreCase))
                .OrderByDescending(x => x.Attribute("Time").Value);
 
                 count = alreadyStored.Count();
@@ -135,7 +159,8 @@ namespace mNemonic.Model
                 doc.Add(new XElement("mNemes"));
             }
 
-            doc.Root.Add(new XElement("mNeme", new XAttribute("Location", this.currentmNeme.Location),
+            doc.Root.Add(new XElement("mNeme", new XAttribute("Collection", this.currentmNeme.Collection),
+            new XAttribute("Name", this.currentmNeme.Name),
             new XAttribute("mNemeCoefficient", mNemeCoefficient), new XAttribute("Time", DateTime.Now.ToString("o")),
             new XAttribute("NumberoftimesDisplayed", ++count),
             new XAttribute("IntervalSinceLastDisplayinMinutes", interval),
