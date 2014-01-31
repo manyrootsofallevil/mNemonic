@@ -31,6 +31,15 @@ namespace mNemonic
             populatemNemeCollection(ConfigurationManager.AppSettings["CollectionsFile"]);
         }
 
+        public Worker(string storagePath, int interval)
+        {
+            StoragePath = storagePath;
+            DBFile = ConfigurationManager.AppSettings["DBFile"];
+            TimerInterval = interval;
+
+            populatemNemeCollection(ConfigurationManager.AppSettings["CollectionsFile"]);
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -102,7 +111,7 @@ namespace mNemonic
 
 
                     //3.5 if the sequences are different in length then, get a random mNeme of those that are not currently stored
-                    if (availablemNemes.Count() != allmNemes.Count())
+                    if (availablemNemes.Count() < allmNemes.Count())
                     {
                         var notShownmNemes = allmNemes.Except(storedmNemes.Select(x => new mNeme(x.Location)));
                         result = notShownmNemes.ElementAt(new Random().Next(notShownmNemes.Count()));

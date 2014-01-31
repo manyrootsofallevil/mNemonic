@@ -5,13 +5,14 @@ using System.Configuration;
 using mNemonic.Model;
 using System.Linq;
 using System.Xml.Linq;
+using System.Threading.Tasks;
 
 namespace mNemonicTests
 {
     [TestClass]
     public class mNemonicTests
     {
-        
+
         const string mNemeLocation = @"C:\mNemonic\Unusual Words\Acersecomic";
 
         //This will only work if mNemeLocation exits and contains a mNeme
@@ -47,5 +48,25 @@ namespace mNemonicTests
             PopUpModel secondmodel = new PopUpModel(first);
             firstmodel.DoTheRemembering(1);
         }
+
+        [TestMethod]
+        public void GetmNemes()
+        {
+            Worker worker = new Worker(ConfigurationManager.AppSettings["Maindirectory"],100);
+            
+            Task<mNeme> next;
+
+            do
+            {
+                next = worker.GetNextItemAsync();
+                PopUpModel model = new PopUpModel(next.Result);
+                System.Diagnostics.Debug.WriteLine("{0} {1}",next.Result.Name, next.Result.PartiallyRandomlySelected);
+                var x =model.DoTheRemembering(1);
+                x.Wait();
+
+            } while (next.Result.PartiallyRandomlySelected != true);
+
+        }
+
     }
 }

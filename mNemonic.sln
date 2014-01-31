@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImportExportTool", "Import\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mNemonicTests", "mNemonicTests\mNemonicTests.csproj", "{EC331BF2-0C9B-47B6-9C54-91AABD592DA5}"
 EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "mNemonicBootStrapper", "mNemonicBootStrapper\mNemonicBootStrapper.wixproj", "{87AF774E-702A-4AEB-9645-C62A3885434B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +61,16 @@ Global
 		{EC331BF2-0C9B-47B6-9C54-91AABD592DA5}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{EC331BF2-0C9B-47B6-9C54-91AABD592DA5}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{EC331BF2-0C9B-47B6-9C54-91AABD592DA5}.Release|x86.ActiveCfg = Release|Any CPU
+		{87AF774E-702A-4AEB-9645-C62A3885434B}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{87AF774E-702A-4AEB-9645-C62A3885434B}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{87AF774E-702A-4AEB-9645-C62A3885434B}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{87AF774E-702A-4AEB-9645-C62A3885434B}.Debug|x86.ActiveCfg = Debug|x86
+		{87AF774E-702A-4AEB-9645-C62A3885434B}.Debug|x86.Build.0 = Debug|x86
+		{87AF774E-702A-4AEB-9645-C62A3885434B}.Release|Any CPU.ActiveCfg = Release|x86
+		{87AF774E-702A-4AEB-9645-C62A3885434B}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{87AF774E-702A-4AEB-9645-C62A3885434B}.Release|Mixed Platforms.Build.0 = Release|x86
+		{87AF774E-702A-4AEB-9645-C62A3885434B}.Release|x86.ActiveCfg = Release|x86
+		{87AF774E-702A-4AEB-9645-C62A3885434B}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

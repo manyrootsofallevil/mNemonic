@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Bundle Name="mNemonicBootStrapper" Version="0.0.0.14" Manufacturer="ManyRootsOfAllEvil Inc" UpgradeCode="87af774e-702a-4aeb-9645-c62a3885434b">
+		<BootstrapperApplicationRef Id="WixStandardBootstrapperApplication.RtfLicense" />
+
+		<Chain>
+      <MsiPackage  SourceFile="$(var.mNemonicInstaller.TargetDir)$(var.mNemonicInstaller.TargetFileName)"/>
+		</Chain>
+	</Bundle>
+</Wix>
