@@ -22,6 +22,8 @@ namespace mNemonic
 
         IEnumerable<mNeme> allmNemes = new List<mNeme>();
 
+        Random rng;
+
         public Worker(string storagePath)
         {
             StoragePath = storagePath;
@@ -29,6 +31,8 @@ namespace mNemonic
             TimerInterval = (((Timer)App.Current.FindResource("Timer")).Interval + 1337) / 1000;
 
             populatemNemeCollection(ConfigurationManager.AppSettings["CollectionsFile"]);
+
+            rng = new Random();
         }
 
         public Worker(string storagePath, int interval)
@@ -38,6 +42,8 @@ namespace mNemonic
             TimerInterval = interval;
 
             populatemNemeCollection(ConfigurationManager.AppSettings["CollectionsFile"]);
+
+            rng = new Random();
         }
 
         /// <summary>
@@ -113,8 +119,24 @@ namespace mNemonic
                     //3.5 if the sequences are different in length then, get a random mNeme of those that are not currently stored
                     if (availablemNemes.Count() < allmNemes.Count())
                     {
-                        var notShownmNemes = allmNemes.Except(storedmNemes.Select(x => new mNeme(x.Location)));
-                        result = notShownmNemes.ElementAt(new Random().Next(notShownmNemes.Count()));
+                        var alreadyShown = storedmNemes.Select(x => new mNeme(x.Location));
+
+                        List<mNeme> toBeShown = new List<mNeme>();
+
+                        foreach (var item in allmNemes)
+                        {
+                            if (!alreadyShown.Contains(item))
+                            {
+                                toBeShown.Add(item);
+                            }
+                        }
+                        //no idea what i'm missing here
+                        //var notShownmNemes = allmNemes.Except(alreadyShown);
+
+                        //result = notShownmNemes.ElementAt(rng.Next(notShownmNemes.Count()));
+
+                        result = toBeShown.ElementAt(rng.Next(toBeShown.Count()));
+
                     }
                     else
                     {

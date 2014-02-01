@@ -67,8 +67,12 @@ namespace mNemonic
             //Get hash code for the Code field. 
             int hashmNemeLocation = Location.GetHashCode();
 
+            int hashName = Name.GetHashCode();
+
+            int hashCollection = Collection.GetHashCode();
+
             //Calculate the hash code for the product. 
-            return hashmNemeType ^ hashmNemeLocation;
+            return hashmNemeType ^ hashmNemeLocation ^ hashCollection ^ hashName;
         }
 
         private void getItems()
